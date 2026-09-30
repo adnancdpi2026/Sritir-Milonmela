@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>স্মৃতির মিলনমেলা ২০২৬</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --navy:#0c2d6b;
+    --navy-deep:#061a42;
+    --navy-light:#1e3a8a;
+    --gold:#d4af37;
+    --gold-light:#f4d47a;
+    --gold-deep:#b8860b;
+    --cream:#fdf9f0;
+    --text:#f5f7ff;
+    --muted:#9ca3c4;
+    --border:rgba(212,175,55,0.22);
+  }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Hind Siliguri','Poppins',sans-serif;
+    background:var(--navy-deep);
+    color:var(--text);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+
+  /* Premium background */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(30,58,138,0.45), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(212,175,55,0.10), transparent 55%),
+      radial-gradient(ellipse at center, rgba(12,45,107,0.4), transparent 60%);
+    z-index:-1;
+    pointer-events:none;
+  }
+  body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(244,212,122,0.25), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(244,212,122,0.15), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(244,212,122,0.2), transparent),
+      radial-gradient(1px 1px at 40% 90%, rgba(244,212,122,0.12), transparent);
+    background-size:600px 600px;
+    z-index:-1;
+    pointer-events:none;
+    opacity:0.7;
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    padding:14px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:all 0.4s;
+  }
+  nav.scrolled{
+    background:rgba(6,26,66,0.9);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    padding:10px 6%;
+    border-bottom:1px solid var(--border);
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:inherit;
+  }
+  .logo-img{
+    height:64px;
+    width:auto;
+    border-radius:14px;                /* ✅ কোণা রেডিয়াস */
+    filter:drop-shadow(0 4px 14px rgba(212,175,55,0.35));
+    transition:transform 0.4s;
+  }
+  .logo:hover .logo-img{ transform:scale(1.05); }
+  .logo-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1.15;
+  }
+  .logo-main{
+    font-family:'Playfair Display','Hind Siliguri',serif;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:0.3px;
+    color:var(--gold-light);
+  }
+  .logo-sub{
+    font-size:0.65rem;
+    color:var(--muted);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    font-family:'Poppins',sans-serif;
+  }
+
+  .nav-list{
+    display:flex;
+    gap:32px;
+    list-style:none;
+    align-items:center;
+  }
+  .nav-list a{
+    color:#d1d5db;
+    text-decoration:none;
+    font-size:0.9rem;
+    font-weight:400;
+    letter-spacing:0.3px;
+    position:relative;
+    transition:color 0.3s;
+  }
+  .nav-list a:hover{ color:var(--gold-light); }
+  .nav-list a::after{
+    content:'';
+    position:absolute;
+    bottom:-6px; left:50%;
+    width:0; height:1px;
+    background:var(--gold);
+    transition:all 0.3s;
+    transform:translateX(-50%);
+  }
+  .nav-list a:hover::after{ width:100%; }
+
+  .btn-register{
+    padding:10px 24px;
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    border:none;
+    color:var(--navy-deep);
+    border-radius:50px;
+    font-family:inherit;
+    font-size:0.85rem;
+    font-weight:600;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    transition:all 0.35s;
+    box-shadow:0 8px 22px rgba(212,175,55,0.3);
+  }
+  .btn-register:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 32px rgba(212,175,55,0.5);
+  }
+
+  .menu-btn{
+    display:none;
+    color:var(--gold);
+    font-size:1.4rem;
+    cursor:pointer;
+    background:none;
+    border:none;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:160px 6% 80px;
+    position:relative;
+  }
+  .hero-inner{ max-width:900px; }
+
+  .hero-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Poppins',sans-serif;
+    font-size:0.72rem;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:28px;
+    animation:fadeUp 0.8s ease backwards;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after{
+    content:'';
+    width:36px; height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold));
+  }
+  .hero-eyebrow::after{
+    background:linear-gradient(90deg,var(--gold),transparent);
+  }
+
+  .hero h1{
+    font-family:'Playfair Display','Hind Siliguri',serif;
+    font-size:clamp(2.2rem,6.5vw,5rem);
+    font-weight:700;
+    line-height:1.08;
+    letter-spacing:-0.5px;
+    margin-bottom:24px;
+    animation:fadeUp 0.8s ease 0.1s backwards;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:baseline;
+    gap:clamp(8px,1.5vw,18px);
+  }
+  .hero h1 .accent{
+    font-style:italic;
+    background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-deep));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    position:relative;
+  }
+  .hero h1 .year{
+    font-family:'Poppins','Hind Siliguri',sans-serif;
+    font-size:clamp(1.8rem,5vw,3.8rem);
+    font-weight:800;
+    color:var(--gold-light);
+    padding:0 16px;
+    border:2px solid rgba(212,175,55,0.5);
+    border-radius:16px;
+    position:relative;
+    background:rgba(212,175,55,0.06);
+    box-shadow:
+      0 0 30px rgba(212,175,55,0.2),
+      inset 0 0 20px rgba(212,175,55,0.08);
+    line-height:1.2;
+  }
+  .hero h1 .year::before,
+  .hero h1 .year::after{
+    content:'✦';
+    position:absolute;
+    font-size:0.5em;
+    color:var(--gold);
+    top:50%;
+    transform:translateY(-50%);
+  }
+  .hero h1 .year::before{ left:-6px; }
+  .hero h1 .year::after{ right:-6px; }
+
+  .hero-tagline{
+    font-family:'Hind Siliguri',sans-serif;
+    font-size:1.15rem;
+    color:var(--gold-light);
+    margin-bottom:16px;
+    letter-spacing:1px;
+    animation:fadeUp 0.8s ease 0.15s backwards;
+  }
+  .hero-tagline .star{ color:var(--gold); margin:0 8px; }
+
+  .hero-desc{
+    font-size:1rem;
+    color:#c7cee3;
+    max-width:620px;
+    margin:0 auto 40px;
+    line-height:1.85;
+    animation:fadeUp 0.8s ease 0.2s backwards;
+  }
+
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    flex-wrap:wrap;
+    animation:fadeUp 0.8s ease 0.3s backwards;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 34px;
+    border-radius:50px;
+    font-family:inherit;
+    font-size:0.95rem;
+    font-weight:500;
+    letter-spacing:0.3px;
+    cursor:pointer;
+    border:none;
+    text-decoration:none;
+    transition:all 0.35s;
+    position:relative;
+    overflow:hidden;
+  }
+  .btn-gold{
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    color:var(--navy-deep);
+    box-shadow:0 12px 34px rgba(212,175,55,0.32);
+    font-weight:600;
+  }
+  .btn-gold:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 44px rgba(212,175,55,0.5);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--text);
+    border:1px solid rgba(212,175,55,0.35);
+  }
+  .btn-ghost:hover{
+    border-color:var(--gold);
+    color:var(--gold-light);
+    transform:translateY(-3px);
+    background:rgba(212,175,55,0.06);
+  }
+
+  /* ===== COUNTDOWN ===== */
+  .countdown-wrap{
+    padding:100px 6%;
+    text-align:center;
+    position:relative;
+  }
+  .cd-head{
+    font-family:'Poppins',sans-serif;
+    font-size:0.75rem;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  .cd-title{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.5rem,4vw,2.4rem);
+    font-weight:700;
+    margin-bottom:60px;
+    color:var(--text);
+  }
+  .cd-title em{
+    font-style:italic;
+    color:var(--gold-light);
+  }
+
+  .cd-grid{
+    display:flex;
+    justify-content:center;
+    gap:clamp(14px,3vw,40px);
+    flex-wrap:wrap;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .cd-item{
+    position:relative;
+    width:clamp(110px,18vw,160px);
+    height:clamp(110px,18vw,160px);
+  }
+  .cd-item svg{
+    width:100%; height:100%;
+    transform:rotate(-90deg);
+  }
+  .cd-item circle{
+    fill:none;
+    stroke-width:3;
+  }
+  .cd-track{ stroke:rgba(212,175,55,0.14); }
+  .cd-progress{
+    stroke:url(#goldGradient);
+    stroke-linecap:round;
+    transition:stroke-dashoffset 0.6s ease;
+  }
+  .cd-value{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .cd-num{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,4.5vw,3rem);
+    font-weight:700;
+    color:var(--gold-light);
+    line-height:1;
+    letter-spacing:1px;
+  }
+  .cd-label{
+    font-family:'Poppins',sans-serif;
+    font-size:0.65rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:8px;
+  }
+  .cd-item:nth-child(2) .cd-num{ color:#e8b4b8; }
+  .cd-item:nth-child(3) .cd-num{ color:#c4b5fd; }
+  .cd-item:nth-child(4) .cd-num{ color:var(--gold-light); }
+
+  /* ===== DIVIDER ===== */
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    padding:0 6%;
+    margin:20px auto;
+    max-width:400px;
+  }
+  .divider::before,
+  .divider::after{
+    content:'';
+    flex:1; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(212,175,55,0.5),transparent);
+  }
+  .divider i{
+    color:var(--gold);
+    font-size:0.9rem;
+  }
+
+  /* ===== GUESTS ===== */
+  .guests{
+    padding:80px 6% 100px;
+  }
+  .section-head{
+    text-align:center;
+    margin-bottom:56px;
+  }
+  .section-head .eyebrow{
+    font-family:'Poppins',sans-serif;
+    font-size:0.7rem;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:block;
+    margin-bottom:14px;
+  }
+  .section-head h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.6rem,4vw,2.5rem);
+    font-weight:700;
+    letter-spacing:-0.3px;
+  }
+  .section-head h2 em{
+    font-style:italic;
+    color:var(--gold-light);
+  }
+
+  .guests-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:28px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .guest{
+    background:linear-gradient(180deg,rgba(30,58,138,0.15),rgba(255,255,255,0.01));
+    border:1px solid rgba(212,175,55,0.12);
+    border-radius:20px;
+    padding:36px 20px 28px;
+    text-align:center;
+    transition:all 0.45s cubic-bezier(0.4,0,0.2,1);
+    position:relative;
+    overflow:hidden;
+  }
+  .guest::before{
+    content:'';
+    position:absolute;
+    top:0; left:50%;
+    transform:translateX(-50%);
+    width:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    transition:width 0.5s;
+  }
+  .guest:hover{
+    border-color:rgba(212,175,55,0.4);
+    transform:translateY(-8px);
+    background:linear-gradient(180deg,rgba(212,175,55,0.08),rgba(30,58,138,0.1));
+    box-shadow:0 24px 50px rgba(0,0,0,0.5);
+  }
+  .guest:hover::before{ width:70%; }
+
+  .guest-avatar{
+    width:90px; height:90px;
+    border-radius:50%;
+    margin:0 auto 22px;
+    display:grid;
+    place-items:center;
+    font-size:2rem;
+    color:var(--gold-light);
+    background:radial-gradient(circle at 30% 30%, rgba(212,175,55,0.28), rgba(12,45,107,0.6));
+    border:1px solid rgba(212,175,55,0.4);
+    position:relative;
+    transition:transform 0.4s;
+  }
+  .guest:hover .guest-avatar{ transform:scale(1.08); }
+  .guest-avatar::after{
+    content:'';
+    position:absolute;
+    inset:-6px;
+    border-radius:50%;
+    border:1px dashed rgba(212,175,55,0.3);
+    animation:spin 25s linear infinite;
+  }
+  .guest-name{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .guest-role{
+    font-family:'Poppins',sans-serif;
+    font-size:0.7rem;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  /* ===== FEATURES ===== */
+  .features{
+    padding:100px 6%;
+    position:relative;
+  }
+  .features-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:1px;
+    max-width:1100px;
+    margin:0 auto;
+    background:rgba(212,175,55,0.15);
+    border:1px solid rgba(212,175,55,0.15);
+    border-radius:24px;
+    overflow:hidden;
+  }
+  .feature{
+    background:linear-gradient(180deg,#081f4e,#061a42);
+    padding:44px 30px;
+    transition:background 0.4s;
+    position:relative;
+    cursor:pointer;
+  }
+  .feature:hover{
+    background:linear-gradient(180deg,rgba(212,175,55,0.08),rgba(30,58,138,0.15));
+  }
+  .feature-num{
+    font-family:'Playfair Display',serif;
+    font-size:0.85rem;
+    color:var(--gold);
+    letter-spacing:3px;
+    margin-bottom:20px;
+    display:block;
+  }
+  .feature i{
+    font-size:1.5rem;
+    color:var(--gold-light);
+    margin-bottom:20px;
+    display:inline-block;
+    transition:transform 0.4s;
+  }
+  .feature:hover i{
+    transform:translateY(-4px) scale(1.1);
+  }
+  .feature h3{
+    font-family:'Playfair Display',serif;
+    font-size:1.2rem;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .feature p{
+    font-size:0.88rem;
+    color:#a1a1b5;
+    line-height:1.7;
+  }
+
+  /* ===== CTA ===== */
+  .cta{
+    padding:100px 6%;
+    text-align:center;
+  }
+  .cta-inner{
+    max-width:720px;
+    margin:0 auto;
+    padding:70px 40px;
+    border-radius:32px;
+    background:
+      linear-gradient(135deg,rgba(30,58,138,0.35),rgba(12,45,107,0.5));
+    border:1px solid rgba(212,175,55,0.25);
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-inner::before{
+    content:'';
+    position:absolute;
+    top:-2px; left:50%;
+    transform:translateX(-50%);
+    width:120px; height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .cta h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.6rem,4vw,2.4rem);
+    font-weight:700;
+    margin-bottom:16px;
+  }
+  .cta h2 em{
+    font-style:italic;
+    color:var(--gold-light);
+  }
+  .cta p{
+    color:#b8b5c7;
+    margin-bottom:34px;
+    font-size:1rem;
+  }
+  .cta p strong{ color:var(--gold-light); font-weight:600; }
+
+  /* ===== FOOTER ===== */
+  footer{
+    padding:60px 6% 32px;
+    border-top:1px solid rgba(212,175,55,0.15);
+    text-align:center;
+    background:rgba(6,26,66,0.5);
+  }
+  .footer-logo{
+    height:80px;
+    margin:0 auto 22px;
+    display:block;
+    border-radius:16px;                /* ✅ ফুটার লোগো কোণা রেডিয়াস */
+    filter:drop-shadow(0 6px 18px rgba(212,175,55,0.25));
+  }
+  .socials{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    margin-bottom:26px;
+  }
+  .social{
+    width:42px; height:42px;
+    border-radius:50%;
+    border:1px solid rgba(212,175,55,0.3);
+    display:grid;
+    place-items:center;
+    color:var(--gold-light);
+    font-size:0.9rem;
+    text-decoration:none;
+    transition:all 0.35s;
+  }
+  .social:hover{
+    background:var(--gold);
+    color:var(--navy-deep);
+    border-color:var(--gold);
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(212,175,55,0.4);
+  }
+  .footer-info{
+    color:#8b9bc2;
+    font-size:0.88rem;
+    line-height:1.9;
+  }
+  .footer-info strong{ color:var(--gold-light); }
+  .footer-copy{
+    margin-top:18px;
+    font-size:0.78rem;
+    color:#5f6d8e;
+    letter-spacing:1px;
+  }
+
+  /* ===== POPUP ===== */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(3,10,26,0.88);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    z-index:2000;
+    display:grid;
+    place-items:center;
+    padding:20px;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 0.4s, visibility 0.4s;
+  }
+  .overlay.show{ opacity:1; visibility:visible; }
+
+  .popup{
+    max-width:440px;
+    width:100%;
+    background:linear-gradient(160deg,#0a2050,#061a42);
+    border:1px solid rgba(212,175,55,0.35);
+    border-radius:26px;
+    padding:48px 36px 36px;
+    text-align:center;
+    position:relative;
+    transform:translateY(30px) scale(0.95);
+    transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow:0 40px 100px rgba(0,0,0,0.7), 0 0 60px rgba(212,175,55,0.15);
+  }
+  .overlay.show .popup{
+    transform:translateY(0) scale(1);
+  }
+  .popup::before{
+    content:'';
+    position:absolute;
+    top:0; left:50%;
+    transform:translateX(-50%);
+    width:100px; height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .popup-close{
+    position:absolute;
+    top:16px; right:16px;
+    width:34px; height:34px;
+    border-radius:50%;
+    background:transparent;
+    border:1px solid rgba(212,175,55,0.25);
+    color:#9ca3af;
+    font-size:0.9rem;
+    cursor:pointer;
+    transition:all 0.3s;
+  }
+  .popup-close:hover{
+    color:var(--gold);
+    border-color:var(--gold);
+    transform:rotate(90deg);
+  }
+  .popup-icon{
+    width:64px; height:64px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:1.4rem;
+    color:var(--navy-deep);
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    box-shadow:0 14px 34px rgba(212,175,55,0.4);
+    position:relative;
+  }
+  .popup-icon::before{
+    content:'';
+    position:absolute;
+    inset:-8px;
+    border-radius:50%;
+    border:1px dashed rgba(212,175,55,0.4);
+    animation:spin 12s linear infinite;
+  }
+  .popup .eyebrow{
+    font-family:'Poppins',sans-serif;
+    font-size:0.68rem;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .popup h2{
+    font-family:'Playfair Display',serif;
+    font-size:1.7rem;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .popup h2 em{
+    font-style:italic;
+    color:var(--gold-light);
+  }
+  .popup p{
+    color:#b8c2d9;
+    font-size:0.92rem;
+    line-height:1.75;
+    margin-bottom:28px;
+  }
+  .popup .btn{
+    width:100%;
+    justify-content:center;
+    margin-bottom:12px;
+  }
+  .popup-skip{
+    background:none;
+    border:none;
+    color:#7a7888;
+    font-family:inherit;
+    font-size:0.83rem;
+    cursor:pointer;
+    padding:8px;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    transition:color 0.3s;
+  }
+  .popup-skip:hover{ color:var(--gold-light); }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(20px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:900px){
+    .nav-list{
+      position:fixed;
+      top:0; right:-100%;
+      width:280px;
+      height:100vh;
+      background:rgba(6,26,66,0.98);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      flex-direction:column;
+      justify-content:flex-start;
+      padding:100px 30px 40px;
+      gap:28px;
+      transition:right 0.45s cubic-bezier(0.4,0,0.2,1);
+      border-left:1px solid var(--border);
+      align-items:flex-start;
+      z-index:1001;
+    }
+    .nav-list.open{ right:0; }
+    .nav-list a{ font-size:1rem; }
+    .menu-btn{ display:block; position:relative; z-index:1002; }
+    .nav-list .btn-register{ width:100%; }
+    .cd-grid{ gap:16px; }
+    .cd-item{ width:clamp(90px,22vw,130px); height:clamp(90px,22vw,130px); }
+    .cta-inner{ padding:50px 26px; }
+    .popup{ padding:40px 26px 30px; }
+    .logo-img{ height:52px; }
+    .footer-logo{ height:60px; }
+  }
+  @media (max-width:480px){
+    nav{ padding:12px 5%; }
+    nav.scrolled{ padding:8px 5%; }
+    .hero{ padding:130px 5% 60px; }
+    .cd-item{ width:70px; height:70px; }
+    .cd-num{ font-size:1.5rem; }
+    .cd-label{ font-size:0.55rem; letter-spacing:2px; }
+    .logo-img{ height:44px; }
+    .logo-main{ font-size:0.85rem; }
+    .logo-sub{ font-size:0.55rem; }
+    .hero h1 .year{ padding:0 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG Gradient Defs -->
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f4d47a"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <a href="#home" class="logo">
+    <img src="logo.png" alt="স্মৃতির মিলনমেলা ২০২৬" class="logo-img">
+    <div class="logo-text">
+      <span class="logo-main">স্মৃতির মিলনমেলা</span>
+      <span class="logo-sub">_</span>
+    </div>
+  </a>
+
+  <ul class="nav-list" id="navList">
+    <li><a href="#home" onclick="closeNav()">হোম</a></li>
+    <li><a href="#guests" onclick="closeNav()">অতিথি</a></li>
+    <li><a href="#features" onclick="closeNav()">ফিচার</a></li>
+    <li><a href="#contact" onclick="closeNav()">যোগাযোগ</a></li>
+    <li><button class="btn-register" onclick="goRegister()">রেজিস্ট্রেশন</button></li>
+  </ul>
+
+  <button class="menu-btn" id="menuBtn" onclick="toggleNav()">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">সবচেয়ে বড় পুনর্মিলনী</div>
+
+    <h1>
+      <span>স্মৃতির</span>
+      <span class="accent">মিলনমেলা</span>
+      <span class="year">২০২৬</span>
+    </h1>
+
+    <div class="hero-tagline">
+      <span class="star">★</span>
+      আবারও একসাথে, পুরোনো স্মৃতির টানে
+      <span class="star">★</span>
+    </div>
+
+    <p class="hero-desc">
+      পুরোনো বন্ধু, নতুন স্মৃতি — জীবনের সবচেয়ে সুন্দর মুহূর্তগুলো একসাথে উদযাপন করুন।
+      সীমিত আসন, আজই নিশ্চিত করুন আপনার উপস্থিতি।
+    </p>
+
+    <div class="hero-actions">
+      <a href="register.html" class="btn btn-gold">
+        <i class="fa-solid fa-pen-nib"></i> রেজিস্ট্রেশন করুন
+      </a>
+      <a href="#features" class="btn btn-ghost">
+        <i class="fa-solid fa-arrow-down"></i> বিস্তারিত
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COUNTDOWN ===== -->
+<section class="countdown-wrap">
+  <div class="cd-head">Countdown To The Event</div>
+  <h2 class="cd-title">অনুষ্ঠান শুরু <em>হতে বাকি</em></h2>
+
+  <div class="cd-grid">
+    <!-- DAYS -->
+    <div class="cd-item">
+      <svg viewBox="0 0 120 120">
+        <circle class="cd-track" cx="60" cy="60" r="54"/>
+        <circle class="cd-progress" id="ringDays" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="0"/>
+      </svg>
+      <div class="cd-value">
+        <div class="cd-num" id="days">00</div>
+        <div class="cd-label">Days</div>
+      </div>
+    </div>
+
+    <!-- HOURS -->
+    <div class="cd-item">
+      <svg viewBox="0 0 120 120">
+        <circle class="cd-track" cx="60" cy="60" r="54"/>
+        <circle class="cd-progress" id="ringHours" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="0"/>
+      </svg>
+      <div class="cd-value">
+        <div class="cd-num" id="hours">00</div>
+        <div class="cd-label">Hours</div>
+      </div>
+    </div>
+
+    <!-- MINUTES -->
+    <div class="cd-item">
+      <svg viewBox="0 0 120 120">
+        <circle class="cd-track" cx="60" cy="60" r="54"/>
+        <circle class="cd-progress" id="ringMinutes" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="0"/>
+      </svg>
+      <div class="cd-value">
+        <div class="cd-num" id="minutes">00</div>
+        <div class="cd-label">Minutes</div>
+      </div>
+    </div>
+
+    <!-- SECONDS -->
+    <div class="cd-item">
+      <svg viewBox="0 0 120 120">
+        <circle class="cd-track" cx="60" cy="60" r="54"/>
+        <circle class="cd-progress" id="ringSeconds" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="0"/>
+      </svg>
+      <div class="cd-value">
+        <div class="cd-num" id="seconds">00</div>
+        <div class="cd-label">Seconds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><i class="fa-solid fa-diamond"></i></div>
+
+<!-- ===== GUESTS ===== -->
+<section class="guests" id="guests">
+  <div class="section-head">
+    <span class="eyebrow">Guest of Honor</span>
+    <h2>আমন্ত্রিত <em>অতিথিবৃন্দ</em></h2>
+  </div>
+
+  <div class="guests-grid">
+    <div class="guest">
+      <div class="guest-avatar"><i class="fa-solid fa-user-tie"></i></div>
+      <div class="guest-name">🙂</div>
+      <div class="guest-role">Chief Guest</div>
+    </div>
+
+    <div class="guest">
+      <div class="guest-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+      <div class="guest-name">🙂</div>
+      <div class="guest-role">Special Guest</div>
+    </div>
+
+    <div class="guest">
+      <div class="guest-avatar"><i class="fa-solid fa-microphone"></i></div>
+      <div class="guest-name">🙂</div>
+      <div class="guest-role">Cultural Host</div>
+    </div>
+
+    <div class="guest">
+      <div class="guest-avatar"><i class="fa-solid fa-award"></i></div>
+      <div class="guest-name">🙂</div>
+      <div class="guest-role">Honored Guest</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="features">
+  <div class="section-head">
+    <span class="eyebrow">What's Inside</span>
+    <h2>ওয়েবসাইটে যা <em>পাবেন</em></h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature">
+      <span class="feature-num">01</span>
+      <i class="fa-solid fa-file-signature"></i>
+      <h3>রেজিস্ট্রেশন</h3>
+      <p>সহজ ২ ধাপের ফর্মে নাম, ছবি, স্পন্সর অপশন সহ সব তথ্য দিন।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">02</span>
+      <i class="fa-solid fa-hands-helping"></i>
+      <h3>ভলান্টিয়ার</h3>
+      <p>স্বেচ্ছাসেবক হিসেবে যোগ দিন এবং আয়োজনের অংশ হয়ে উঠুন।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">03</span>
+      <i class="fa-solid fa-id-card"></i>
+      <h3>ফটোকার্ড</h3>
+      <p>নিজের ছবি দিয়ে তৈরি করুন বিশেষ স্মৃতির ফটোকার্ড।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">04</span>
+      <i class="fa-solid fa-images"></i>
+      <h3>গ্যালারি</h3>
+      <p>পুরোনো স্মৃতির ছবিগুলো স্লাইড শো আকারে উপভোগ করুন।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">05</span>
+      <i class="fa-solid fa-credit-card"></i>
+      <h3>পেমেন্ট</h3>
+      <p>bKash, Nagad, কার্ড — সব পেমেন্ট মেথড সাপোর্টেড।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">06</span>
+      <i class="fa-solid fa-phone"></i>
+      <h3>যোগাযোগ</h3>
+      <p>যেকোনো প্রশ্নে সরাসরি যোগাযোগ করুন আমাদের টিমের সাথে।</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <h2>আজই <em>রেজিস্ট্রেশন</em> করুন</h2>
+    <p>সীমিত আসন — মাত্র <strong>৫০০ জন</strong> অংশগ্রহণ করতে পারবেন। মিস করবেন না এই ঐতিহাসিক মুহূর্ত।</p>
+    <a href="register.html" class="btn btn-gold">
+      <i class="fa-solid fa-arrow-right"></i> এখনই শুরু করুন
+    </a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <img src="logo.png" alt="Logo" class="footer-logo">
+  <div class="socials">
+    <a href="#" class="social"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-youtube"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+  <div class="footer-info">
+    যোগাযোগ: <strong>+880 1319-443480</strong> &nbsp;•&nbsp; arafat2041311@gmail.com
+  </div>
+  <div class="footer-copy">© ২০২৬ স্মৃতির মিলনমেলা — All Rights Reserved</div>
+</footer>
+
+<!-- ===== POPUP ===== -->
+<div class="overlay" id="overlay">
+  <div class="popup">
+    <button class="popup-close" onclick="closePopup()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="popup-icon"><i class="fa-solid fa-star"></i></div>
+
+    <div class="eyebrow">Special Invitation</div>
+    <h2>স্বাগতম <em>মিলনমেলায়</em></h2>
+    <p>স্মৃতির মিলনমেলা ২০২৬-এ অংশ নিতে চান? আজই রেজিস্ট্রেশন করুন এবং নিশ্চিত করুন আপনার আসন।</p>
+
+    <a href="register.html" class="btn btn-gold">
+      <i class="fa-solid fa-pen-nib"></i> রেজিস্ট্রেশন করুন
+    </a>
+    <button class="popup-skip" onclick="closePopup()">পরে করব</button>
+  </div>
+</div>
+
+<script>
+  /* ====== POPUP ====== */
+  function openPopup(){
+    document.getElementById('overlay').classList.add('show');
+  }
+  function closePopup(){
+    document.getElementById('overlay').classList.remove('show');
+  }
+  document.getElementById('overlay').addEventListener('click', (e) => {
+    if(e.target.id === 'overlay') closePopup();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closePopup();
+  });
+
+  // Auto open once per session
+  window.addEventListener('load', () => {
+    if(!sessionStorage.getItem('popupShown')){
+      setTimeout(() => {
+        openPopup();
+        sessionStorage.setItem('popupShown','true');
+      }, 1600);
+    }
+  });
+
+  /* ====== NAV ====== */
+  function toggleNav(){
+    document.getElementById('navList').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navList').classList.remove('open');
+  }
+  function goRegister(){
+    closeNav();
+    window.location.href = 'register.html';
+  }
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if(window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  /* ✅ Slider বাইরে যেকোনো জায়গায় ক্লিক করলে বন্ধ হয়ে যাবে */
+  document.addEventListener('click', (e) => {
+    const navList = document.getElementById('navList');
+    const menuBtn = document.getElementById('menuBtn');
+    if(!navList.classList.contains('open')) return;
+    if(navList.contains(e.target) || menuBtn.contains(e.target)) return;
+    navList.classList.remove('open');
+  });
+
+  // ESC চাপলেও slider বন্ধ
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeNav();
+  });
+
+  /* ====== COUNTDOWN ====== */
+  // 🎯 ইভেন্ট ডেট: ১১ অক্টোবর ২০২৬, সন্ধ্যা ৬টা
+  const EVENT_DATE = new Date('2026-10-11T18:00:00').getTime();
+
+  const CIRCUMFERENCE = 2 * Math.PI * 54;
+  const els = {
+    days:    document.getElementById('days'),
+    hours:   document.getElementById('hours'),
+    minutes: document.getElementById('minutes'),
+    seconds: document.getElementById('seconds'),
+    rDays:    document.getElementById('ringDays'),
+    rHours:   document.getElementById('ringHours'),
+    rMinutes: document.getElementById('ringMinutes'),
+    rSeconds: document.getElementById('ringSeconds')
+  };
+
+  function setRing(el, value, max){
+    const ratio = Math.max(0, Math.min(1, value / max));
+    el.style.strokeDashoffset = CIRCUMFERENCE * (1 - ratio);
+  }
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const now = Date.now();
+    let diff = EVENT_DATE - now;
+
+    if(diff <= 0){
+      els.days.textContent = '00';
+      els.hours.textContent = '00';
+      els.minutes.textContent = '00';
+      els.seconds.textContent = '00';
+      setRing(els.rDays,0,100); setRing(els.rHours,0,24);
+      setRing(els.rMinutes,0,60); setRing(els.rSeconds,0,60);
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    els.days.textContent    = pad(d);
+    els.hours.textContent   = pad(h);
+    els.minutes.textContent = pad(m);
+    els.seconds.textContent = pad(s);
+
+    setRing(els.rDays,    d % 100, 100);
+    setRing(els.rHours,   h, 24);
+    setRing(els.rMinutes, m, 60);
+    setRing(els.rSeconds, s, 60);
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
