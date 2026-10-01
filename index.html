@@ -85,7 +85,7 @@
   .logo-img{
     height:64px;
     width:auto;
-    border-radius:14px;                /* ✅ কোণা রেডিয়াস */
+    border-radius:14px;
     filter:drop-shadow(0 4px 14px rgba(212,175,55,0.35));
     transition:transform 0.4s;
   }
@@ -621,7 +621,7 @@
     height:80px;
     margin:0 auto 22px;
     display:block;
-    border-radius:16px;                /* ✅ ফুটার লোগো কোণা রেডিয়াস */
+    border-radius:16px;
     filter:drop-shadow(0 6px 18px rgba(212,175,55,0.25));
   }
   .socials{
@@ -806,6 +806,7 @@
       border-left:1px solid var(--border);
       align-items:flex-start;
       z-index:1001;
+      overflow-y: auto; /* মেনু স্ক্রল করার জন্য */
     }
     .nav-list.open{ right:0; }
     .nav-list a{ font-size:1rem; }
@@ -855,11 +856,17 @@
     </div>
   </a>
 
+  <!-- আপডেট করা মেনু লিস্ট -->
   <ul class="nav-list" id="navList">
-    <li><a href="#home" onclick="closeNav()">হোম</a></li>
-    <li><a href="#guests" onclick="closeNav()">অতিথি</a></li>
-    <li><a href="#features" onclick="closeNav()">ফিচার</a></li>
+    <li><a href="index.html" onclick="closeNav()">হোম</a></li>
+    <li><a href="sponsor.html" onclick="closeNav()">স্পনসর</a></li>
+
+    <li><a href="#" onclick="closeNav()">ভলান্টিয়ার</a></li>
+    <li><a href="#" onclick="closeNav()">ফটোকার্ড</a></li>
+    <li><a href="#" onclick="closeNav()">প্রোফাইল ছবি</a></li>
+    <li><a href="#" onclick="closeNav()">গ্যালারি</a></li>
     <li><a href="#contact" onclick="closeNav()">যোগাযোগ</a></li>
+
     <li><button class="btn-register" onclick="goRegister()">রেজিস্ট্রেশন</button></li>
   </ul>
 
