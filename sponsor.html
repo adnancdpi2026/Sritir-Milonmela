@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>স্পনসর হিসেবে রেজিস্ট্রেশন — স্মৃতির মিলনমেলা ২০২৬</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --navy:#0c2d6b;
+    --navy-deep:#061a42;
+    --navy-light:#1e3a8a;
+    --gold:#d4af37;
+    --gold-light:#f4d47a;
+    --gold-deep:#b8860b;
+    --cream:#fdf9f0;
+    --text:#f5f7ff;
+    --muted:#9ca3c4;
+    --border:rgba(212,175,55,0.22);
+  }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Hind Siliguri','Poppins',sans-serif;
+    background:var(--navy-deep);
+    color:var(--text);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+
+  /* ============ RICH BACKGROUND ============ */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(30,58,138,0.55), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(212,175,55,0.14), transparent 50%),
+      radial-gradient(ellipse at center, rgba(12,45,107,0.5), transparent 60%),
+      radial-gradient(ellipse at top right, rgba(184,134,11,0.08), transparent 40%);
+    z-index:-1;
+    pointer-events:none;
+  }
+  body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 20% 30%, rgba(244,212,122,0.35), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(244,212,122,0.22), transparent),
+      radial-gradient(1.5px 1.5px at 80% 20%, rgba(244,212,122,0.28), transparent),
+      radial-gradient(1px 1px at 40% 90%, rgba(244,212,122,0.18), transparent),
+      radial-gradient(1px 1px at 10% 60%, rgba(244,212,122,0.15), transparent),
+      radial-gradient(1.5px 1.5px at 90% 50%, rgba(244,212,122,0.22), transparent);
+    background-size:700px 700px;
+    z-index:-1;
+    pointer-events:none;
+    opacity:0.9;
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    padding:14px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:all 0.4s;
+  }
+  nav.scrolled{
+    background:rgba(6,26,66,0.9);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    padding:10px 6%;
+    border-bottom:1px solid var(--border);
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:inherit;
+  }
+  .logo-img{
+    height:64px;
+    width:auto;
+    border-radius:14px;
+    filter:drop-shadow(0 4px 14px rgba(212,175,55,0.35));
+    transition:transform 0.4s;
+  }
+  .logo:hover .logo-img{ transform:scale(1.05); }
+  .logo-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1.15;
+  }
+  .logo-main{
+    font-family:'Playfair Display','Hind Siliguri',serif;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:0.3px;
+    color:var(--gold-light);
+  }
+  .logo-sub{
+    font-size:0.65rem;
+    color:var(--muted);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    font-family:'Poppins',sans-serif;
+  }
+
+  .nav-list{
+    display:flex;
+    gap:32px;
+    list-style:none;
+    align-items:center;
+  }
+  .nav-list a{
+    color:#d1d5db;
+    text-decoration:none;
+    font-size:0.9rem;
+    font-weight:400;
+    letter-spacing:0.3px;
+    position:relative;
+    transition:color 0.3s;
+  }
+  .nav-list a:hover{ color:var(--gold-light); }
+  .nav-list a::after{
+    content:'';
+    position:absolute;
+    bottom:-6px; left:50%;
+    width:0; height:1px;
+    background:var(--gold);
+    transition:all 0.3s;
+    transform:translateX(-50%);
+  }
+  .nav-list a:hover::after{ width:100%; }
+
+  .btn-register{
+    padding:10px 24px;
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    border:none;
+    color:var(--navy-deep);
+    border-radius:50px;
+    font-family:inherit;
+    font-size:0.85rem;
+    font-weight:600;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    transition:all 0.35s;
+    box-shadow:0 8px 22px rgba(212,175,55,0.3);
+  }
+  .btn-register:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 32px rgba(212,175,55,0.5);
+  }
+
+  .menu-btn{
+    display:none;
+    color:var(--gold);
+    font-size:1.4rem;
+    cursor:pointer;
+    background:none;
+    border:none;
+  }
+
+  /* ============================================
+     HERO — WITH ORNATE FRAME
+  ============================================ */
+  .hero{
+    padding:150px 6% 30px;
+    text-align:center;
+    position:relative;
+  }
+  .hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 22px;
+    border-radius:50px;
+    background:linear-gradient(180deg,rgba(212,175,55,0.18),rgba(212,175,55,0.05));
+    border:1px solid rgba(212,175,55,0.4);
+    font-family:'Poppins',sans-serif;
+    font-size:0.68rem;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--gold-light);
+    margin-bottom:26px;
+    box-shadow:
+      0 0 30px rgba(212,175,55,0.15),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    animation:fadeUp 0.7s ease backwards;
+  }
+  .hero-badge i{
+    color:var(--gold);
+    font-size:0.8rem;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+
+  .hero h1{
+    font-family:'Playfair Display','Hind Siliguri',serif;
+    font-size:clamp(1.9rem,5.5vw,3.4rem);
+    font-weight:700;
+    line-height:1.14;
+    letter-spacing:-0.5px;
+    margin-bottom:18px;
+    animation:fadeUp 0.8s ease 0.05s backwards;
+  }
+  .hero h1 .line{
+    display:block;
+  }
+  .hero h1 em{
+    font-style:italic;
+    background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 45%,var(--gold-deep) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    position:relative;
+    display:inline-block;
+  }
+  .hero h1 em::after{
+    content:'';
+    position:absolute;
+    left:10%; right:10%;
+    bottom:-6px;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    border-radius:2px;
+  }
+
+  /* Ornamental divider under hero title */
+  .ornament{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin:0 auto 22px;
+    max-width:340px;
+    animation:fadeUp 0.8s ease 0.1s backwards;
+  }
+  .ornament::before,
+  .ornament::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(212,175,55,0.7),transparent);
+  }
+  .ornament .dot{
+    width:5px; height:5px;
+    background:var(--gold);
+    border-radius:50%;
+    box-shadow:0 0 10px rgba(212,175,55,0.9);
+  }
+  .ornament i{
+    color:var(--gold);
+    font-size:0.75rem;
+    margin:0 4px;
+  }
+
+  .hero p{
+    color:#c7cee3;
+    font-size:0.98rem;
+    max-width:560px;
+    margin:0 auto 30px;
+    line-height:1.9;
+    animation:fadeUp 0.8s ease 0.15s backwards;
+  }
+  .hero p strong{
+    color:var(--gold-light);
+    font-weight:600;
+  }
+
+  /* Mini stat strip */
+  .hero-stats{
+    display:inline-flex;
+    align-items:center;
+    gap:28px;
+    padding:14px 30px;
+    border-radius:50px;
+    background:rgba(6,26,66,0.55);
+    border:1px solid rgba(212,175,55,0.2);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    box-shadow:0 12px 40px rgba(0,0,0,0.4);
+    animation:fadeUp 0.8s ease 0.2s backwards;
+  }
+  .hero-stat{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:0 4px;
+    position:relative;
+  }
+  .hero-stat + .hero-stat::before{
+    content:'';
+    position:absolute;
+    left:-14px;
+    top:20%;
+    bottom:20%;
+    width:1px;
+    background:linear-gradient(180deg,transparent,rgba(212,175,55,0.35),transparent);
+  }
+  .hero-stat .n{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;
+    font-weight:700;
+    color:var(--gold-light);
+    line-height:1;
+  }
+  .hero-stat .l{
+    font-family:'Poppins',sans-serif;
+    font-size:0.58rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:5px;
+  }
+
+  /* ============================================
+     MAIN WRAPPER
+  ============================================ */
+  .wrap{
+    max-width:800px;
+    margin:0 auto;
+    padding:50px 6% 100px;
+    position:relative;
+  }
+
+  /* Corner ornaments on the wrapper */
+  .wrap::before,
+  .wrap::after{
+    content:'';
+    position:absolute;
+    width:70px; height:70px;
+    pointer-events:none;
+    opacity:0.55;
+  }
+  .wrap::before{
+    top:20px; left:20px;
+    border-top:1px solid var(--gold);
+    border-left:1px solid var(--gold);
+    border-top-left-radius:20px;
+  }
+  .wrap::after{
+    bottom:20px; right:20px;
+    border-bottom:1px solid var(--gold);
+    border-right:1px solid var(--gold);
+    border-bottom-right-radius:20px;
+  }
+
+  /* ============================================
+     PREMIUM CARD
+  ============================================ */
+  .card{
+    position:relative;
+    border-radius:28px;
+    padding:2px; /* for gradient border */
+    background:linear-gradient(160deg,
+      rgba(212,175,55,0.55) 0%,
+      rgba(212,175,55,0.08) 30%,
+      rgba(212,175,55,0.08) 70%,
+      rgba(212,175,55,0.4) 100%);
+    box-shadow:
+      0 40px 100px rgba(0,0,0,0.55),
+      0 0 80px rgba(212,175,55,0.08);
+    animation:fadeUp 0.9s ease 0.25s backwards;
+  }
+  .card-inner{
+    border-radius:26px;
+    background:
+      linear-gradient(180deg,rgba(11,32,74,0.98),rgba(6,26,66,0.98)),
+      radial-gradient(circle at top right,rgba(212,175,55,0.08),transparent 50%);
+    padding:44px 40px 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  /* soft top light */
+  .card-inner::before{
+    content:'';
+    position:absolute;
+    top:-60px; left:50%;
+    transform:translateX(-50%);
+    width:340px; height:120px;
+    background:radial-gradient(ellipse,rgba(212,175,55,0.22),transparent 65%);
+    pointer-events:none;
+  }
+
+  /* Floating crest badge at top of card */
+  .crest{
+    position:absolute;
+    top:-30px; left:50%;
+    transform:translateX(-50%);
+    width:60px; height:60px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-deep));
+    color:var(--navy-deep);
+    font-size:1.4rem;
+    box-shadow:
+      0 12px 34px rgba(212,175,55,0.55),
+      0 0 0 6px rgba(6,26,66,1),
+      0 0 0 7px rgba(212,175,55,0.35);
+    z-index:3;
+  }
+  .crest::after{
+    content:'';
+    position:absolute;
+    inset:-14px;
+    border-radius:50%;
+    border:1px dashed rgba(212,175,55,0.4);
+    animation:spinSlow 22s linear infinite;
+  }
+
+  /* ============================================
+     STEP INDICATOR — with glowing dots
+  ============================================ */
+  .steps{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:0;
+    margin:20px 0 40px;
+    padding:0 4px;
+  }
+  .step{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Poppins',sans-serif;
+    font-size:0.75rem;
+    letter-spacing:0.5px;
+  }
+  .step .dot{
+    width:34px; height:34px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:0.78rem;
+    font-weight:700;
+    background:rgba(6,26,66,0.9);
+    border:1.5px solid rgba(212,175,55,0.28);
+    color:var(--gold);
+    position:relative;
+    flex-shrink:0;
+  }
+  .step.active .dot{
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    color:var(--navy-deep);
+    border-color:var(--gold);
+    box-shadow:
+      0 0 0 4px rgba(212,175,55,0.14),
+      0 0 22px rgba(212,175,55,0.5);
+  }
+  .step .lbl{
+    color:var(--muted);
+    font-weight:500;
+  }
+  .step.active .lbl{
+    color:var(--gold-light);
+    font-weight:600;
+  }
+  .step-line{
+    flex:1;
+    height:1.5px;
+    margin:0 14px;
+    background:linear-gradient(90deg,
+      rgba(212,175,55,0.5) 0%,
+      rgba(212,175,55,0.15) 50%,
+      rgba(212,175,55,0.5) 100%);
+    position:relative;
+    border-radius:2px;
+  }
+  .step-line::after{
+    content:'';
+    position:absolute;
+    top:50%; left:50%;
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--gold);
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 10px rgba(212,175,55,0.9);
+  }
+
+  /* ============================================
+     FORM SECTION
+  ============================================ */
+  .sec-title{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin:34px 0 20px;
+    padding-bottom:12px;
+    position:relative;
+  }
+  .sec-title::after{
+    content:'';
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:1px;
+    background:linear-gradient(90deg,
+      rgba(212,175,55,0.55) 0%,
+      rgba(212,175,55,0.1) 40%,
+      transparent 100%);
+  }
+  .sec-title .dot{
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 12px rgba(212,175,55,0.9);
+    flex-shrink:0;
+  }
+  .sec-title h3{
+    font-family:'Playfair Display','Hind Siliguri',serif;
+    font-size:1.05rem;
+    font-weight:600;
+    color:var(--gold-light);
+    letter-spacing:0.3px;
+  }
+  .sec-title .num{
+    margin-left:auto;
+    font-family:'Poppins',sans-serif;
+    font-size:0.65rem;
+    letter-spacing:3px;
+    color:var(--muted);
+  }
+
+  .field{
+    margin-bottom:20px;
+  }
+  .field > label{
+    display:block;
+    font-family:'Poppins',sans-serif;
+    font-size:0.72rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#a3accb;
+    margin-bottom:10px;
+    font-weight:500;
+  }
+  .field > label .optional{
+    color:#5f6d8e;
+    letter-spacing:0.5px;
+    text-transform:none;
+    font-style:italic;
+    font-weight:400;
+  }
+
+  /* Input wrapper with icon */
+  .input-wrap{
+    position:relative;
+  }
+  .input-wrap > i{
+    position:absolute;
+    left:18px; top:50%;
+    transform:translateY(-50%);
+    color:var(--gold);
+    font-size:0.85rem;
+    opacity:0.75;
+    pointer-events:none;
+  }
+  .input-wrap input,
+  .input-wrap select{
+    width:100%;
+    padding:14px 18px 14px 46px;
+    background:linear-gradient(180deg,rgba(6,26,66,0.85),rgba(6,26,66,0.6));
+    border:1px solid rgba(212,175,55,0.18);
+    border-radius:14px;
+    color:var(--text);
+    font-family:'Hind Siliguri','Poppins',sans-serif;
+    font-size:0.92rem;
+    transition:all 0.35s;
+    outline:none;
+    appearance:none;
+    background-repeat:no-repeat;
+  }
+  .input-wrap input::placeholder{ color:#4b5563; }
+  .input-wrap input:focus,
+  .input-wrap select:focus{
+    border-color:var(--gold);
+    background:linear-gradient(180deg,rgba(6,26,66,1),rgba(6,26,66,0.85));
+    box-shadow:
+      0 0 0 4px rgba(212,175,55,0.12),
+      0 8px 24px rgba(212,175,55,0.12);
+  }
+  .input-wrap.select > i{
+    left:auto; right:18px;
+    top:50%;
+  }
+  .input-wrap select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4af37' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+    background-position:right 18px center;
+    padding-right:44px;
+    cursor:pointer;
+  }
+  .input-wrap select option{
+    background:var(--navy-deep);
+    color:var(--text);
+  }
+  /* when select has custom arrow, hide FA chevron when we use select--clean */
+  .input-wrap.select > i.fa-chevron-down{ display:none; }
+
+  .form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+
+  /* ============================================
+     PACKAGE CARDS — glossy
+  ============================================ */
+  .pkg-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .pkg{
+    position:relative;
+    display:grid;
+    grid-template-columns:56px 1fr auto;
+    align-items:center;
+    gap:16px;
+    padding:18px 20px;
+    border-radius:18px;
+    background:linear-gradient(180deg,rgba(6,26,66,0.7),rgba(6,26,66,0.4));
+    border:1px solid rgba(212,175,55,0.15);
+    cursor:pointer;
+    transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+    overflow:hidden;
+  }
+  /* moving shine */
+  .pkg::before{
+    content:'';
+    position:absolute;
+    top:0; left:-100%;
+    width:60%; height:100%;
+    background:linear-gradient(120deg,transparent,rgba(212,175,55,0.14),transparent);
+    transition:left 0.7s;
+  }
+  .pkg:hover::before{ left:120%; }
+  .pkg:hover{
+    border-color:rgba(212,175,55,0.5);
+    transform:translateY(-2px);
+    box-shadow:0 14px 40px rgba(0,0,0,0.4);
+  }
+  .pkg.selected{
+    border-color:var(--gold);
+    background:linear-gradient(180deg,rgba(212,175,55,0.14),rgba(6,26,66,0.7));
+    box-shadow:
+      0 0 0 1px rgba(212,175,55,0.4),
+      0 20px 50px rgba(212,175,55,0.18),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .pkg.selected::after{
+    content:'✓';
+    position:absolute;
+    top:14px; right:14px;
+    width:22px; height:22px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    color:var(--navy-deep);
+    font-size:0.7rem;
+    font-weight:800;
+    display:grid;
+    place-items:center;
+    box-shadow:0 4px 12px rgba(212,175,55,0.5);
+  }
+
+  .pkg-icon{
+    width:56px; height:56px;
+    border-radius:16px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(160deg,rgba(212,175,55,0.18),rgba(212,175,55,0.02));
+    border:1px solid rgba(212,175,55,0.35);
+    color:var(--gold-light);
+    font-size:1.4rem;
+    transition:all 0.4s;
+    flex-shrink:0;
+  }
+  .pkg.selected .pkg-icon{
+    background:linear-gradient(160deg,var(--gold-light),var(--gold));
+    color:var(--navy-deep);
+    border-color:var(--gold);
+    box-shadow:0 10px 26px rgba(212,175,55,0.45);
+  }
+
+  .pkg-body{ min-width:0; }
+  .pkg-name{
+    font-family:'Playfair Display','Hind Siliguri',serif;
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--text);
+    margin-bottom:4px;
+    letter-spacing:0.2px;
+  }
+  .pkg.selected .pkg-name{ color:var(--gold-light); }
+  .pkg-desc{
+    font-size:0.75rem;
+    color:var(--muted);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    line-height:1.5;
+  }
+
+  .pkg-btn{
+    flex-shrink:0;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 14px;
+    border-radius:50px;
+    background:transparent;
+    border:1px solid rgba(212,175,55,0.35);
+    color:var(--gold);
+    font-family:'Poppins',sans-serif;
+    font-size:0.68rem;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:all 0.3s;
+  }
+  .pkg-btn:hover{
+    background:var(--gold);
+    color:var(--navy-deep);
+    border-color:var(--gold);
+    box-shadow:0 6px 18px rgba(212,175,55,0.4);
+  }
+
+  /* Benefits panel */
+  .benefits{
+    display:none;
+    margin:-4px 0 10px;
+    padding:20px 24px;
+    border-radius:16px;
+    background:
+      linear-gradient(180deg,rgba(212,175,55,0.06),rgba(6,26,66,0.5));
+    border:1px solid rgba(212,175,55,0.2);
+    border-left:3px solid var(--gold);
+    font-size:0.85rem;
+    color:#b8c2d9;
+    line-height:1.9;
+    position:relative;
+  }
+  .benefits::before{
+    content:'✦ BENEFITS';
+    position:absolute;
+    top:-9px; left:16px;
+    font-family:'Poppins',sans-serif;
+    font-size:0.6rem;
+    letter-spacing:3px;
+    color:var(--gold);
+    background:var(--navy-deep);
+    padding:0 8px;
+    font-weight:600;
+  }
+  .benefits.show{ display:block; animation:fadeIn 0.4s ease; }
+  .benefits ul{ list-style:none; padding:0; }
+  .benefits ul li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:4px 0;
+  }
+  .benefits ul li::before{
+    content:'✦';
+    color:var(--gold);
+    font-size:0.7rem;
+    flex-shrink:0;
+    margin-top:6px;
+  }
+
+  /* ============================================
+     JERSEY — pill buttons
+  ============================================ */
+  .jersey{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .jersey button{
+    min-width:60px;
+    padding:12px 18px;
+    border-radius:12px;
+    background:linear-gradient(180deg,rgba(6,26,66,0.85),rgba(6,26,66,0.55));
+    border:1px solid rgba(212,175,55,0.2);
+    color:#b8c2d9;
+    font-family:'Poppins',sans-serif;
+    font-size:0.88rem;
+    font-weight:600;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:all 0.35s cubic-bezier(0.4,0,0.2,1);
+    position:relative;
+    overflow:hidden;
+  }
+  .jersey button::before{
+    content:'';
+    position:absolute;
+    top:0; left:-100%;
+    width:100%; height:100%;
+    background:linear-gradient(90deg,transparent,rgba(212,175,55,0.25),transparent);
+    transition:left 0.6s;
+  }
+  .jersey button:hover::before{ left:100%; }
+  .jersey button:hover{
+    border-color:rgba(212,175,55,0.6);
+    color:var(--gold-light);
+    transform:translateY(-2px);
+  }
+  .jersey button.selected{
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    color:var(--navy-deep);
+    border-color:var(--gold);
+    box-shadow:
+      0 10px 26px rgba(212,175,55,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.35);
+    transform:translateY(-2px);
+  }
+
+  /* ============================================
+     GUEST COUNTER — premium
+  ============================================ */
+  .counter{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:14px 20px;
+    border-radius:16px;
+    background:
+      linear-gradient(180deg,rgba(6,26,66,0.85),rgba(6,26,66,0.5));
+    border:1px solid rgba(212,175,55,0.2);
+    position:relative;
+  }
+  .counter::before{
+    content:'';
+    position:absolute;
+    top:0; left:14px; right:14px;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(212,175,55,0.35),transparent);
+  }
+  .counter-btn{
+    width:44px; height:44px;
+    border-radius:12px;
+    background:linear-gradient(180deg,rgba(212,175,55,0.12),rgba(212,175,55,0.04));
+    border:1px solid rgba(212,175,55,0.3);
+    color:var(--gold-light);
+    font-size:1rem;
+    cursor:pointer;
+    transition:all 0.3s;
+    display:grid;
+    place-items:center;
+  }
+  .counter-btn:hover:not(:disabled){
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    color:var(--navy-deep);
+    border-color:var(--gold);
+    box-shadow:0 8px 22px rgba(212,175,55,0.4);
+    transform:translateY(-2px);
+  }
+  .counter-btn:disabled{
+    opacity:0.3;
+    cursor:not-allowed;
+  }
+  .counter-display{
+    text-align:center;
+    flex:1;
+  }
+  .counter-display .n{
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem;
+    font-weight:700;
+    color:var(--gold-light);
+    line-height:1;
+    letter-spacing:1px;
+    text-shadow:0 0 20px rgba(212,175,55,0.4);
+  }
+  .counter-display .l{
+    font-family:'Poppins',sans-serif;
+    font-size:0.62rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:5px;
+  }
+
+  /* ============================================
+     PHOTO UPLOAD
+  ============================================ */
+  .photo{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:18px 20px;
+    border-radius:16px;
+    background:linear-gradient(180deg,rgba(6,26,66,0.7),rgba(6,26,66,0.4));
+    border:1px dashed rgba(212,175,55,0.35);
+    transition:border-color 0.3s;
+  }
+  .photo:hover{ border-color:rgba(212,175,55,0.6); }
+  .photo-thumb{
+    width:64px; height:64px;
+    border-radius:14px;
+    background:rgba(6,26,66,0.8);
+    border:1px solid rgba(212,175,55,0.3);
+    display:grid;
+    place-items:center;
+    color:var(--gold);
+    font-size:1.3rem;
+    flex-shrink:0;
+    overflow:hidden;
+  }
+  .photo-thumb img{
+    width:100%; height:100%;
+    object-fit:cover;
+    border-radius:14px;
+  }
+  .photo label{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 22px;
+    border-radius:50px;
+    background:transparent;
+    border:1px solid rgba(212,175,55,0.4);
+    color:var(--gold-light);
+    font-family:'Poppins',sans-serif;
+    font-size:0.78rem;
+    font-weight:500;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    transition:all 0.3s;
+  }
+  .photo label:hover{
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    color:var(--navy-deep);
+    border-color:var(--gold);
+    box-shadow:0 8px 22px rgba(212,175,55,0.4);
+  }
+  .photo input[type="file"]{ display:none; }
+
+  /* ============================================
+     CHECKBOX
+  ============================================ */
+  .agree{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    padding:18px 20px;
+    border-radius:16px;
+    background:linear-gradient(180deg,rgba(6,26,66,0.7),rgba(6,26,66,0.4));
+    border:1px solid rgba(212,175,55,0.15);
+  }
+  .agree input[type="checkbox"]{
+    appearance:none;
+    width:22px; height:22px;
+    border-radius:6px;
+    border:1.5px solid rgba(212,175,55,0.5);
+    background:rgba(6,26,66,0.8);
+    cursor:pointer;
+    position:relative;
+    flex-shrink:0;
+    margin-top:2px;
+    transition:all 0.3s;
+  }
+  .agree input[type="checkbox"]:checked{
+    background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    border-color:var(--gold);
+    box-shadow:0 6px 18px rgba(212,175,55,0.4);
+  }
+  .agree input[type="checkbox"]:checked::after{
+    content:'✓';
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    color:var(--navy-deep);
+    font-size:0.85rem;
+    font-weight:800;
+  }
+  .agree label{
+    font-size:0.83rem;
+    color:#b8c2d9;
+    line-height:1.7;
+    cursor:pointer;
+  }
+
+  /* ============================================
+     SUBMIT — big royal button
+  ============================================ */
+  .submit{
+    width:100%;
+    margin-top:26px;
+    padding:19px 24px;
+    border:none;
+    border-radius:16px;
+    background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-deep) 100%);
+    color:var(--navy-deep);
+    font-family:'Playfair Display','Hind Siliguri',serif;
+    font-size:1.05rem;
+    font-weight:700;
+    letter-spacing:0.6px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:all 0.35s;
+    box-shadow:
+      0 18px 44px rgba(212,175,55,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.5);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+  }
+  .submit::before{
+    content:'';
+    position:absolute;
+    top:0; left:-100%;
+    width:60%; height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.4),transparent);
+    transition:left 0.8s;
+  }
+  .submit:hover::before{ left:120%; }
+  .submit:hover{
+    transform:translateY(-3px);
+    box-shadow:
+      0 24px 60px rgba(212,175,55,0.55),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+    letter-spacing:1px;
+  }
+
+  /* ============================================
+     NOTICE BOX — premium alert
+  ============================================ */
+  .notice{
+    margin-top:40px;
+    padding:0;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    background:linear-gradient(160deg,rgba(245,158,11,0.1),rgba(6,26,66,0.6));
+    border:1px solid rgba(245,158,11,0.3);
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+  }
+  /* diagonal warning stripes on top */
+  .notice::before{
+    content:'';
+    display:block;
+    height:5px;
+    background:repeating-linear-gradient(
+      45deg,
+      #f59e0b 0px, #f59e0b 8px,
+      transparent 8px, transparent 16px
+    );
+    opacity:0.75;
+  }
+  .notice-inner{
+    padding:26px 26px 24px;
+  }
+  .notice-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+  }
+  .notice-icon{
+    width:42px; height:42px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:rgba(245,158,11,0.18);
+    border:1px solid rgba(245,158,11,0.4);
+    color:#f59e0b;
+    font-size:1rem;
+    flex-shrink:0;
+    animation:pulse 2s ease-in-out infinite;
+  }
+  .notice-head .lbl{
+    display:block;
+    font-family:'Poppins',sans-serif;
+    font-size:0.62rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#f59e0b;
+    font-weight:600;
+    margin-bottom:2px;
+  }
+  .notice-head h3{
+    font-family:'Playfair Display','Hind Siliguri',serif;
+    font-size:1.1rem;
+    font-weight:700;
+    color:var(--gold-light);
+  }
+  .notice p{
+    font-size:0.86rem;
+    color:#c2c9dd;
+    line-height:1.85;
+    margin-bottom:18px;
+  }
+  .notice-btn{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    background:transparent;
+    border:1px solid rgba(245,158,11,0.4);
+    color:#f59e0b;
+    font-family:'Poppins',sans-serif;
+    font-size:0.75rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s;
+  }
+  .notice-btn:hover{
+    background:#f59e0b;
+    color:var(--navy-deep);
+    border-color:#f59e0b;
+    box-shadow:0 10px 26px rgba(245,158,11,0.4);
+  }
+
+  /* ===== DIVIDER ===== */
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    padding:0 6%;
+    margin:20px auto;
+    max-width:400px;
+  }
+  .divider::before,
+  .divider::after{
+    content:'';
+    flex:1; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(212,175,55,0.5),transparent);
+  }
+  .divider i{ color:var(--gold); font-size:0.9rem; }
+
+  /* ===== FOOTER ===== */
+  footer{
+    padding:60px 6% 32px;
+    border-top:1px solid rgba(212,175,55,0.15);
+    text-align:center;
+    background:rgba(6,26,66,0.5);
+  }
+  .footer-logo{
+    height:80px;
+    margin:0 auto 22px;
+    display:block;
+    border-radius:16px;
+    filter:drop-shadow(0 6px 18px rgba(212,175,55,0.25));
+  }
+  .socials{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    margin-bottom:26px;
+  }
+  .social{
+    width:42px; height:42px;
+    border-radius:50%;
+    border:1px solid rgba(212,175,55,0.3);
+    display:grid;
+    place-items:center;
+    color:var(--gold-light);
+    font-size:0.9rem;
+    text-decoration:none;
+    transition:all 0.35s;
+  }
+  .social:hover{
+    background:var(--gold);
+    color:var(--navy-deep);
+    border-color:var(--gold);
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(212,175,55,0.4);
+  }
+  .footer-info{
+    color:#8b9bc2;
+    font-size:0.88rem;
+    line-height:1.9;
+  }
+  .footer-info strong{ color:var(--gold-light); }
+  .footer-copy{
+    margin-top:18px;
+    font-size:0.78rem;
+    color:#5f6d8e;
+    letter-spacing:1px;
+  }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(24px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes fadeIn{
+    from{ opacity:0; transform:translateY(-6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes spinSlow{
+    to{ transform:rotate(360deg); }
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.45; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:900px){
+    .nav-list{
+      position:fixed;
+      top:0; right:-100%;
+      width:280px;
+      height:100vh;
+      background:rgba(6,26,66,0.98);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      flex-direction:column;
+      justify-content:flex-start;
+      padding:100px 30px 40px;
+      gap:28px;
+      transition:right 0.45s cubic-bezier(0.4,0,0.2,1);
+      border-left:1px solid var(--border);
+      align-items:flex-start;
+      z-index:1001;
+      overflow-y: auto; /* মেনু স্ক্রল করার জন্য */
+    }
+    .nav-list.open{ right:0; }
+    .nav-list a{ font-size:1rem; }
+    .menu-btn{ display:block; position:relative; z-index:1002; }
+    .nav-list .btn-register{ width:100%; }
+    .logo-img{ height:52px; }
+    .footer-logo{ height:60px; }
+  }
+  @media (max-width:600px){
+    .hero{ padding:130px 5% 20px; }
+    .wrap{ padding:40px 5% 60px; }
+    .card-inner{ padding:38px 22px 30px; }
+    .wrap::before,
+    .wrap::after{ display:none; }
+    .pkg{ grid-template-columns:48px 1fr; gap:12px; padding:16px; }
+    .pkg-icon{ width:48px; height:48px; font-size:1.2rem; }
+    .pkg-btn{ grid-column:1 / -1; justify-self:start; }
+    .form-row{ grid-template-columns:1fr; }
+    .hero-stats{ gap:16px; padding:12px 20px; }
+    .hero-stat .n{ font-size:1rem; }
+    .step .lbl{ display:none; }
+    .step-line{ margin:0 8px; }
+  }
+  @media (max-width:480px){
+    nav{ padding:12px 5%; }
+    nav.scrolled{ padding:8px 5%; }
+    .logo-img{ height:44px; }
+    .logo-main{ font-size:0.85rem; }
+    .logo-sub{ font-size:0.55rem; }
+    .counter{ padding:12px 14px; }
+    .counter-btn{ width:38px; height:38px; }
+    .counter-display .n{ font-size:1.3rem; }
+    .photo{ flex-direction:column; align-items:flex-start; gap:14px; }
+    .jersey button{ min-width:50px; padding:10px 14px; font-size:0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="স্মৃতির মিলনমেলা ২০২৬" class="logo-img">
+    <div class="logo-text">
+      <span class="logo-main">স্মৃতির মিলনমেলা</span>
+      <span class="logo-sub">2026</span>
+    </div>
+  </a>
+
+  <!-- আপডেট করা মেনু লিস্ট -->
+  <ul class="nav-list" id="navList">
+    <li><a href="index.html" onclick="closeNav()">হোম</a></li>
+    <li><a href="sponsor.html" onclick="closeNav()" style="color:var(--gold-light);">স্পনসর</a></li>
+
+    <li><a href="#" onclick="closeNav()">ভলান্টিয়ার</a></li>
+    <li><a href="#" onclick="closeNav()">ফটোকার্ড</a></li>
+    <li><a href="#" onclick="closeNav()">প্রোফাইল ছবি</a></li>
+    <li><a href="#" onclick="closeNav()">গ্যালারি</a></li>
+    <li><a href="index.html#contact" onclick="closeNav()">যোগাযোগ</a></li>
+
+    <li><button class="btn-register" onclick="goRegister()">রেজিস্ট্রেশন</button></li>
+  </ul>
+
+  <button class="menu-btn" id="menuBtn" onclick="toggleNav()">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-badge">
+    <i class="fa-solid fa-crown"></i>
+    <span>Sponsor Registration</span>
+    <i class="fa-solid fa-crown"></i>
+  </div>
+
+  <h1>
+    <span class="line">স্পনসর হিসেবে</span>
+    <span class="line"><em>রেজিস্ট্রেশন</em></span>
+  </h1>
+
+  <div class="ornament">
+    <span class="dot"></span>
+    <i class="fa-solid fa-diamond"></i>
+    <span class="dot"></span>
+  </div>
+
+  <p>একটি স্পনসর প্যাকেজ বেছে নিন — <strong>এখন কোনো পেমেন্ট প্রয়োজন নেই</strong>। আমাদের টিম যোগাযোগ করে বাকিটা সম্পন্ন করবে।</p>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="n">৩</span>
+      <span class="l">প্যাকেজ</span>
+    </div>
+    <div class="hero-stat">
+      <span class="n">১১ অক্টো</span>
+      <span class="l">তারিখ</span>
+    </div>
+    <div class="hero-stat">
+      <span class="n">_____</span>
+      <span class="l">ভেন্যু</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MAIN CARD ===== -->
+<div class="wrap">
+  <div class="card">
+    <div class="crest"><i class="fa-solid fa-star"></i></div>
+    <div class="card-inner">
+
+      <!-- Step indicator -->
+      <div class="steps">
+        <div class="step active">
+          <span class="dot">১</span>
+          <span class="lbl">আপনার তথ্য</span>
+        </div>
+        <span class="step-line"></span>
+        <div class="step">
+          <span class="dot">২</span>
+          <span class="lbl">পেমেন্ট</span>
+        </div>
+      </div>
+
+      <form id="sponsorForm" onsubmit="event.preventDefault(); alert('✓ রেজিস্ট্রেশন সফল হয়েছে!\n\nআমাদের টিম শীঘ্রই যোগাযোগ করবে।');">
+
+        <!-- 01 Personal -->
+        <div class="sec-title">
+          <span class="dot"></span>
+          <h3>ব্যক্তিগত তথ্য</h3>
+          <span class="num">01</span>
+        </div>
+
+        <div class="field">
+          <label for="fullName">পূর্ণ নাম</label>
+          <div class="input-wrap">
+            <i class="fa-regular fa-user"></i>
+            <input type="text" id="fullName" placeholder="যেমন: মো. আব্দুল্লাহ" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="email">ইমেইল</label>
+            <div class="input-wrap">
+              <i class="fa-regular fa-envelope"></i>
+              <input type="email" id="email" placeholder="you@email.com" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="phone">ফোন</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" id="phone" placeholder="01XXXXXXXXX" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 Package -->
+        <div class="sec-title">
+          <span class="dot"></span>
+          <h3>স্পনসর প্যাকেজ</h3>
+          <span class="num">02</span>
+        </div>
+
+        <div class="field">
+          <div class="pkg-list">
+
+            <div class="pkg" data-package="title" onclick="selectPackage(this)">
+              <div class="pkg-icon"><i class="fa-solid fa-crown"></i></div>
+              <div class="pkg-body">
+                <div class="pkg-name">টাইটেল স্পনসর</div>
+                <div class="pkg-desc">1 slot (exclusive) · “Presented by [Your Brand]”</div>
+              </div>
+              <button type="button" class="pkg-btn" onclick="event.stopPropagation(); toggleBenefits('b-title')">
+                <i class="fa-solid fa-circle-info"></i> সুবিধা
+              </button>
+            </div>
+            <div class="benefits" id="b-title">
+              <ul>
+                <li>ইভেন্টের শিরোনামে আপনার ব্র্যান্ডের নাম (“Presented by”)</li>
+                <li>মূল মঞ্চে ব্যানার ও লোগো প্রদর্শন</li>
+                <li>সোশ্যাল মিডিয়া ও মিডিয়া কভারেজে বিশেষ উল্লেখ</li>
+                <li>ইভেন্টের সকল প্রিন্ট ও ডিজিটাল ম্যাটেরিয়ালে লোগো</li>
+                <li>অতিথি ও ভিআইপি পাস (৫ জন)</li>
+                <li>বিশেষ স্পনসর রিকগনিশন প্লাক</li>
+              </ul>
+            </div>
+
+            <div class="pkg" data-package="diamond" onclick="selectPackage(this)">
+              <div class="pkg-icon"><i class="fa-solid fa-gem"></i></div>
+              <div class="pkg-body">
+                <div class="pkg-name">ডায়মন্ড স্পনসর</div>
+                <div class="pkg-desc">3 slots · Official Diamond Sponsor of the Reunion</div>
+              </div>
+              <button type="button" class="pkg-btn" onclick="event.stopPropagation(); toggleBenefits('b-diamond')">
+                <i class="fa-solid fa-circle-info"></i> সুবিধা
+              </button>
+            </div>
+            <div class="benefits" id="b-diamond">
+              <ul>
+                <li>ইভেন্টের অফিসিয়াল ডায়মন্ড স্পনসর হিসেবে স্বীকৃতি</li>
+                <li>মূল মঞ্চের পাশে ব্যানার ও লোগো প্রদর্শন</li>
+                <li>সোশ্যাল মিডিয়া কভারেজে বিশেষ উল্লেখ</li>
+                <li>ইভেন্টের প্রিন্ট ম্যাটেরিয়ালে লোগো</li>
+                <li>অতিথি ও ভিআইপি পাস (৩ জন)</li>
+                <li>স্পনসর রিকগনিশন সার্টিফিকেট</li>
+              </ul>
+            </div>
+
+            <div class="pkg" data-package="gold" onclick="selectPackage(this)">
+              <div class="pkg-icon"><i class="fa-solid fa-award"></i></div>
+              <div class="pkg-body">
+                <div class="pkg-name">গোল্ড স্পনসর</div>
+                <div class="pkg-desc">10 slots · Official Gold Sponsor and Category Partner</div>
+              </div>
+              <button type="button" class="pkg-btn" onclick="event.stopPropagation(); toggleBenefits('b-gold')">
+                <i class="fa-solid fa-circle-info"></i> সুবিধা
+              </button>
+            </div>
+            <div class="benefits" id="b-gold">
+              <ul>
+                <li>অফিসিয়াল গোল্ড স্পনসর হিসেবে স্বীকৃতি</li>
+                <li>ইভেন্ট ভেন্যুতে লোগো প্রদর্শন</li>
+                <li>সোশ্যাল মিডিয়া কভারেজে উল্লেখ</li>
+                <li>ইভেন্টের প্রিন্ট ম্যাটেরিয়ালে লোগো</li>
+                <li>অতিথি পাস (২ জন)</li>
+                <li>স্পনসর রিকগনিশন সার্টিফিকেট</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 03 Academic -->
+        <div class="sec-title">
+          <span class="dot"></span>
+          <h3>একাডেমিক তথ্য</h3>
+          <span class="num">03</span>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="department">ডিপার্টমেন্ট</label>
+            <div class="input-wrap select">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <select id="department">
+                <option value="">ডিপার্টমেন্ট নির্বাচন করুন</option>
+                <option>কম্পিউটার সায়েন্স অ্যান্ড টেকনোলজি</option>
+                <option>কনস্ট্রাকশন টেকনোলজি</option>
+                <option>ইলেকট্রনিক্স টেকনোলজি</option>
+                <option>আরএসি</option>
+                <option>সিভিল টেকনোলজি</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="session">সেশন</label>
+            <div class="input-wrap select">
+              <i class="fa-regular fa-calendar"></i>
+              <select id="session">
+                <option value="">সেশন নির্বাচন করুন</option>
+                <option>2005-06</option><option>2006-07</option><option>2007-08</option>
+                <option>2008-09</option><option>2009-10</option><option>2010-11</option>
+                <option>2011-12</option><option>2012-13</option><option>2013-14</option>
+                <option>2014-15</option><option>2015-16</option><option>2016-17</option>
+                <option>2017-18</option><option>2018-19</option><option>2019-20</option>
+                <option>2020-21</option><option>2021-22</option><option>2022-23</option>
+                <option>2023-24</option><option>2024-25</option><option>2025-26</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="status">বর্তমানে কী করছেন <span class="optional">(ঐচ্ছিক)</span></label>
+            <div class="input-wrap select">
+              <i class="fa-solid fa-briefcase"></i>
+              <select id="status">
+                <option value="">নির্বাচন করুন</option>
+                <option>চাকরি</option>
+                <option>শিক্ষার্থী</option>
+                <option>ব্যবসা</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="bloodGroup">রক্তের গ্রুপ <span class="optional">(ঐচ্ছিক)</span></label>
+            <div class="input-wrap select">
+              <i class="fa-solid fa-droplet"></i>
+              <select id="bloodGroup">
+                <option value="">নির্বাচন করুন</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>AB+</option><option>AB-</option>
+                <option>O+</option><option>O-</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 Extras -->
+        <div class="sec-title">
+          <span class="dot"></span>
+          <h3>অতিরিক্ত তথ্য</h3>
+          <span class="num">04</span>
+        </div>
+
+        <div class="field">
+          <label>জার্সি সাইজ</label>
+          <div class="jersey" id="jerseySizes">
+            <button type="button" onclick="selectJersey(this)">S</button>
+            <button type="button" onclick="selectJersey(this)">M</button>
+            <button type="button" onclick="selectJersey(this)">L</button>
+            <button type="button" onclick="selectJersey(this)">XL</button>
+            <button type="button" onclick="selectJersey(this)">XXL</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>অতিরিক্ত অতিথি</label>
+          <div class="counter">
+            <button type="button" class="counter-btn" id="guestMinus" onclick="changeGuest(-1)" disabled>
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <div class="counter-display">
+              <div class="n" id="guestCount">0</div>
+              <div class="l" id="guestLabel">শুধু আমি</div>
+            </div>
+            <button type="button" class="counter-btn" id="guestPlus" onclick="changeGuest(1)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>আপনার ছবি <span class="optional">(ঐচ্ছিক)</span></label>
+          <div class="photo">
+            <div class="photo-thumb" id="photoPreview">
+              <i class="fa-regular fa-image"></i>
+            </div>
+            <label for="photoInput">
+              <i class="fa-solid fa-upload"></i> ছবি আপলোড করুন
+            </label>
+            <input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(event)">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="agree">
+            <input type="checkbox" id="agree" required>
+            <label for="agree">
+              আমি নিশ্চিত করছি যে উপরের তথ্যগুলো সঠিক এবং আমি স্মৃতির মিলনমেলা ২০২৬-এর স্পনসর হিসেবে অংশ নিতে সম্মত।
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="submit">
+          <i class="fa-solid fa-circle-check"></i> রেজিস্ট্রেশন সম্পন্ন করুন
+        </button>
+
+      </form>
+
+      <!-- Notice -->
+      <div class="notice" id="noticeBox">
+        <div class="notice-inner">
+          <div class="notice-head">
+            <div class="notice-icon"><i class="fa-solid fa-bell"></i></div>
+            <div>
+              <span class="lbl">Notice</span>
+              <h3>🚨 রেজিস্ট্রেশন শেষ!!!</h3>
+            </div>
+          </div>
+          <p>১৫ সেপ্টেম্বর দ্বিতীয় ধাপের রেজিস্ট্রেশনের শেষ দিন ছিলো। আগামী ২৫ সেপ্টেম্বর মজা-মাস্তি আর গল্পে গল্পে বন্ধুদের আড্ডা দিন সারাদিন। দেখা হবে আইডিইবি ভবন, কাকরাইলে।</p>
+          <button class="notice-btn" onclick="document.getElementById('noticeBox').style.display='none'">
+            বুঝেছি
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"><i class="fa-solid fa-diamond"></i></div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <img src="logo.png" alt="Logo" class="footer-logo">
+  <div class="socials">
+    <a href="#" class="social"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-youtube"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+  <div class="footer-info">
+    যোগাযোগ: <strong>+880 1319-443480</strong> &nbsp;•&nbsp; arafat2041311@gmail.com
+  </div>
+  <div class="footer-copy">© ২০২৬ স্মৃতির মিলনমেলা — All Rights Reserved</div>
+</footer>
+
+<script>
+  /* ====== NAV ====== */
+  function toggleNav(){ document.getElementById('navList').classList.toggle('open'); }
+  function closeNav(){ document.getElementById('navList').classList.remove('open'); }
+  function goRegister(){ closeNav(); window.location.href = 'register.html'; }
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if(window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  document.addEventListener('click', (e) => {
+    const navList = document.getElementById('navList');
+    const menuBtn = document.getElementById('menuBtn');
+    if(!navList.classList.contains('open')) return;
+    if(navList.contains(e.target) || menuBtn.contains(e.target)) return;
+    navList.classList.remove('open');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeNav();
+  });
+
+  /* ====== PACKAGE ====== */
+  function selectPackage(el){
+    document.querySelectorAll('.pkg').forEach(item => item.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+  function toggleBenefits(id){
+    const panel = document.getElementById(id);
+    const isVisible = panel.classList.contains('show');
+    document.querySelectorAll('.benefits').forEach(p => p.classList.remove('show'));
+    if(!isVisible) panel.classList.add('show');
+  }
+
+  /* ====== JERSEY ====== */
+  function selectJersey(btn){
+    document.querySelectorAll('#jerseySizes button').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  /* ====== GUEST COUNTER ====== */
+  let guestCount = 0;
+  const MAX_GUESTS = 10;
+  function changeGuest(delta){
+    guestCount = Math.max(0, Math.min(MAX_GUESTS, guestCount + delta));
+    document.getElementById('guestCount').textContent = guestCount;
+    document.getElementById('guestMinus').disabled = guestCount === 0;
+    document.getElementById('guestPlus').disabled = guestCount === MAX_GUESTS;
+    const label = document.getElementById('guestLabel');
+    if(guestCount === 0) label.textContent = 'শুধু আমি';
+    else if(guestCount === 1) label.textContent = '১ জন অতিথি';
+    else label.textContent = guestCount + ' জন অতিথি';
+  }
+
+  /* ====== PHOTO ====== */
+  function previewPhoto(event){
+    const file = event.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e){
+      document.getElementById('photoPreview').innerHTML =
+        `<img src="${e.target.result}" alt="preview">`;
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
+</body>
+</html>
