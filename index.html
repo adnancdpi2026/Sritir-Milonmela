@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">স্মৃতির মিলনমেলা</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --navy:#0c2d6b;
+    --navy-deep:#061a42;
+    --navy-light:#1e3a8a;
+    --gold:#d4af37;
+    --gold-light:#f4d47a;
+    --gold-deep:#b8860b;
+    --cream:#fdf9f0;
+    --text:#f5f7ff;
+    --muted:#9ca3c4;
+    --border:rgba(212,175,55,0.22);
+  }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Hind Siliguri','Poppins',sans-serif;
+    background:var(--navy-deep);
+    color:var(--text);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+
+  /* Premium background */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(30,58,138,0.45), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(212,175,55,0.10), transparent 55%),
+      radial-gradient(ellipse at center, rgba(12,45,107,0.4), transparent 60%);
+    z-index:-1;
+    pointer-events:none;
+  }
+  body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(244,212,122,0.25), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(244,212,122,0.15), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(244,212,122,0.2), transparent),
+      radial-gradient(1px 1px at 40% 90%, rgba(244,212,122,0.12), transparent);
+    background-size:600px 600px;
+    z-index:-1;
+    pointer-events:none;
+    opacity:0.7;
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    padding:14px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:all 0.4s;
+  }
+  nav.scrolled{
+    background:rgba(6,26,66,0.9);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    padding:10px 6%;
+    border-bottom:1px solid var(--border);
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  }
+
+  .logo{ display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit; }
+  .logo-img{ height:64px; width:auto; border-radius:14px; filter:drop-shadow(0 4px 14px rgba(212,175,55,0.35)); transition:transform 0.4s; }
+  .logo:hover .logo-img{ transform:scale(1.05); }
+  .logo-text{ display:flex; flex-direction:column; line-height:1.15; }
+  .logo-main{ font-family:'Playfair Display','Hind Siliguri',serif; font-size:1rem; font-weight:700; letter-spacing:0.3px; color:var(--gold-light); }
+  .logo-sub{ font-size:0.65rem; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; font-family:'Poppins',sans-serif; }
+
+  .nav-overlay {
+    position: fixed; inset: 0; background: rgba(3,10,26,0.75); backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); z-index: 999; opacity: 0; visibility: hidden; transition: all 0.4s;
+  }
+  .nav-overlay.show { opacity: 1; visibility: visible; }
+
+  .nav-list{
+    position:fixed; top:0; right:-100%; width:300px; height:100vh; background:rgba(6,26,66,0.98);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); display: flex; flex-direction:column;
+    justify-content:flex-start; padding:100px 35px 40px; gap:20px; transition:right 0.45s cubic-bezier(0.4,0,0.2,1);
+    border-left:1px solid var(--border); align-items:flex-start; z-index:1001; overflow-y: auto;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5); list-style: none; margin: 0;
+  }
+  .nav-list.open{ right:0; }
+  .nav-list li { width: 100%; }
+  .nav-list a{
+    color:#d1d5db; text-decoration:none; font-size:1.1rem; font-weight:500; letter-spacing:0.5px;
+    position:relative; transition:color 0.3s; display: block; padding: 5px 0;
+  }
+  .nav-list a:hover{ color:var(--gold-light); }
+  .nav-list a::after{ content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:var(--gold); transition:all 0.3s; }
+  .nav-list a:hover::after{ width:100%; }
+
+  .btn-register{
+    padding:12px 24px; background:linear-gradient(135deg,var(--gold-light),var(--gold)); border:none;
+    color:var(--navy-deep); border-radius:50px; font-family:inherit; font-size:1rem; font-weight:600;
+    letter-spacing:0.5px; cursor:pointer; transition:all 0.35s; box-shadow:0 8px 22px rgba(212,175,55,0.3);
+    width: 100%; margin-top: 10px;
+  }
+  .btn-register:hover{ transform:translateY(-2px); box-shadow:0 14px 32px rgba(212,175,55,0.5); }
+
+  .menu-btn{
+    display:block; color:var(--gold); font-size:1.6rem; cursor:pointer; background:none;
+    border:none; position:relative; z-index:1002; transition:transform 0.3s;
+  }
+  .menu-btn:hover { transform: scale(1.1); }
+
+  /* ===== HERO ===== */
+  .hero{
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:130px 6% 40px; /* Fixed top padding to clear navbar */
+    position:relative;
+  }
+  .hero-inner{ max-width:900px; }
+
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:12px; font-family:'Poppins',sans-serif;
+    font-size:0.72rem; letter-spacing:4px; text-transform:uppercase; color:var(--gold);
+    margin-bottom:20px; animation:fadeUp 0.8s ease backwards;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after{
+    content:''; width:36px; height:1px; background:linear-gradient(90deg,transparent,var(--gold));
+  }
+  .hero-eyebrow::after{ background:linear-gradient(90deg,var(--gold),transparent); }
+
+  .hero h1{
+    font-family:'Playfair Display','Hind Siliguri',serif; font-size:clamp(2.2rem,6.5vw,5rem);
+    font-weight:700; line-height:1.08; letter-spacing:-0.5px; margin-bottom:16px;
+    animation:fadeUp 0.8s ease 0.1s backwards; display:flex; flex-wrap:wrap;
+    justify-content:center; align-items:baseline; gap:clamp(8px,1.5vw,18px);
+  }
+  .hero h1 .accent{
+    font-style:italic; background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-deep));
+    -webkit-background-clip:text; background-clip:text; color:transparent; position:relative;
+  }
+  .hero h1 .year{
+    font-family:'Poppins','Hind Siliguri',sans-serif; font-size:clamp(1.8rem,5vw,3.8rem);
+    font-weight:800; color:var(--gold-light); padding:0 16px; border:2px solid rgba(212,175,55,0.5);
+    border-radius:16px; position:relative; background:rgba(212,175,55,0.06);
+    box-shadow: 0 0 30px rgba(212,175,55,0.2), inset 0 0 20px rgba(212,175,55,0.08); line-height:1.2;
+  }
+  .hero h1 .year::before, .hero h1 .year::after{
+    content:'✦'; position:absolute; font-size:0.5em; color:var(--gold); top:50%; transform:translateY(-50%);
+  }
+  .hero h1 .year::before{ left:-6px; }
+  .hero h1 .year::after{ right:-6px; }
+
+  .hero-tagline{
+    font-family:'Hind Siliguri',sans-serif; font-size:1.15rem; color:var(--gold-light);
+    margin-bottom:12px; letter-spacing:1px; animation:fadeUp 0.8s ease 0.15s backwards;
+  }
+  .hero-tagline .star{ color:var(--gold); margin:0 8px; }
+
+  .hero-desc{
+    font-size:1rem; color:#c7cee3; max-width:620px; margin:0 auto 30px;
+    line-height:1.85; animation:fadeUp 0.8s ease 0.2s backwards;
+  }
+
+  .hero-actions{
+    display:flex; gap:16px; justify-content:center; flex-wrap:wrap; animation:fadeUp 0.8s ease 0.3s backwards;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; padding:15px 34px; border-radius:50px;
+    font-family:inherit; font-size:0.95rem; font-weight:500; letter-spacing:0.3px; cursor:pointer;
+    border:none; text-decoration:none; transition:all 0.35s; position:relative; overflow:hidden;
+  }
+  .btn-gold{
+    background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:var(--navy-deep);
+    box-shadow:0 12px 34px rgba(212,175,55,0.32); font-weight:600;
+  }
+  .btn-gold:hover{ transform:translateY(-3px); box-shadow:0 18px 44px rgba(212,175,55,0.5); }
+  .btn-ghost{ background:transparent; color:var(--text); border:1px solid rgba(212,175,55,0.35); }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold-light); transform:translateY(-3px); background:rgba(212,175,55,0.06); }
+
+  /* ===== COUNTDOWN ===== */
+  .countdown-wrap{ padding:50px 6%; text-align:center; position:relative; }
+  .cd-head{ font-family:'Poppins',sans-serif; font-size:0.75rem; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+  .cd-title{ font-family:'Playfair Display',serif; font-size:clamp(1.5rem,4vw,2.4rem); font-weight:700; margin-bottom:40px; color:var(--text); }
+  .cd-title em{ font-style:italic; color:var(--gold-light); }
+
+  .cd-grid{ display:flex; justify-content:center; gap:clamp(14px,3vw,40px); flex-wrap:wrap; max-width:900px; margin:0 auto; }
+  .cd-item{ position:relative; width:clamp(110px,18vw,160px); height:clamp(110px,18vw,160px); }
+  .cd-item svg{ width:100%; height:100%; transform:rotate(-90deg); }
+  .cd-item circle{ fill:none; stroke-width:3; }
+  .cd-track{ stroke:rgba(212,175,55,0.14); }
+  .cd-progress{ stroke:url(#goldGradient); stroke-linecap:round; transition:stroke-dashoffset 0.6s ease; }
+  .cd-value{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .cd-num{ font-family:'Playfair Display',serif; font-size:clamp(2rem,4.5vw,3rem); font-weight:700; color:var(--gold-light); line-height:1; letter-spacing:1px; }
+  .cd-label{ font-family:'Poppins',sans-serif; font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-top:8px; }
+  .cd-item:nth-child(2) .cd-num{ color:#e8b4b8; }
+  .cd-item:nth-child(3) .cd-num{ color:#c4b5fd; }
+  .cd-item:nth-child(4) .cd-num{ color:var(--gold-light); }
+
+  /* ===== DIVIDER ===== */
+  .divider{ display:flex; align-items:center; justify-content:center; gap:16px; padding:0 6%; margin:10px auto; max-width:400px; }
+  .divider::before, .divider::after{ content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(212,175,55,0.5),transparent); }
+  .divider i{ color:var(--gold); font-size:0.9rem; }
+
+  /* ===== SECTION SHARED ===== */
+  .section-head{ text-align:center; margin-bottom:20px; }
+  .section-head .eyebrow{ font-family:'Poppins',sans-serif; font-size:0.7rem; letter-spacing:5px; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:8px; }
+  .section-head h2{ font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.5rem); font-weight:700; letter-spacing:-0.3px; }
+  .section-head h2 em{ font-style:italic; color:var(--gold-light); }
+
+/* ===== GUESTS (Clean & Light Overlay) ===== */
+.guests{ padding: 30px 5%; }
+.guests-grid{ 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); /* মোবাইলে ২ কলাম */
+  gap: 12px; 
+  max-width: 1100px; 
+  margin: 0 auto; 
+}
+
+@media (min-width: 768px) {
+  .guests-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+    gap: 24px;
+  }
+}
+
+.guest-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0a1128;
+  aspect-ratio: 3 / 4; /* কার্ড আর লম্বা হবে না, পারফেক্ট সাইজ */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.guest-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 12px 25px rgba(212, 175, 55, 0.2);
+}
+
+/* ছবির অংশ */
+.guest-img-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.guest-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  transition: transform 0.6s ease;
+}
+
+.guest-card:hover .guest-img-wrap img {
+  transform: scale(1.05);
+}
+
+/* লেখার অংশ (শুধু নিচে হালকা শ্যাডো থাকবে, ব্লার থাকবে না) */
+.guest-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 5px 10px; /* উপরের প্যাডিং কমিয়ে দেওয়া হলো যাতে কম জায়গা নেয় */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+  /* খুব হালকা কালো শ্যাডো, যাতে ছবি ঢাকা না পড়ে */
+  background: linear-gradient(to top, rgba(6, 26, 66, 0.9) 0%, rgba(6, 26, 66, 0.4) 50%, transparent 100%);
+}
+
+/* পার্পল ট্যাগ (ছোট এবং হালকা) */
+.guest-tag {
+  background: rgba(106, 90, 205, 0.8); 
+  color: #ffffff;
+  font-size: 0.55rem; /* সাইজ আরও ছোট */
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* নাম (হালকা ও ছোট) */
+.guest-name {
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.95rem; /* সাইজ ছোট করা হলো */
+  font-weight: 600; /* বোল্ডনেস কমিয়ে হালকা করা হলো */
+  color: #ffffff;
+  margin-bottom: 1px;
+  line-height: 1.2;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+/* পদবি (হালকা কালার) */
+.guest-role {
+  font-size: 0.7rem; 
+  color: #cbd5e1; /* হালকা ধূসর-নীল */
+  line-height: 1.2;
+  font-weight: 400;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+  /* ===== SCHEDULE ===== */
+  .schedule-section { padding: 30px 6%; position: relative; }
+  .schedule-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; padding: 0; }
+  .schedule-card {
+    background: linear-gradient(180deg, rgba(30,58,138,0.15), rgba(255,255,255,0.01));
+    border: 1px solid rgba(212,175,55,0.12); border-radius: 16px; padding: 20px 24px;
+    transition: all 0.4s cubic-bezier(0.4,0,0.2,1); position: relative;
+  }
+  .schedule-card:hover { border-color: rgba(212,175,55,0.4); transform: translateX(8px); background: linear-gradient(180deg, rgba(212,175,55,0.08), rgba(30,58,138,0.1)); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+  .s-time { font-family: 'Poppins', sans-serif; color: var(--gold-light); font-size: 0.95rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px; display: inline-block; background: rgba(212,175,55,0.1); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.2); }
+  .s-title { font-family: 'Hind Siliguri', 'Playfair Display', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .s-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+
+  /* ===== FEATURES ===== */
+  .features{ padding:30px 6%; position:relative; }
+  .features-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px; max-width:1100px; margin:0 auto; background:rgba(212,175,55,0.15); border:1px solid rgba(212,175,55,0.15); border-radius:24px; overflow:hidden; }
+  .feature{ background:linear-gradient(180deg,#081f4e,#061a42); padding:36px 24px; transition:background 0.4s; position:relative; cursor:pointer; }
+  .feature:hover{ background:linear-gradient(180deg,rgba(212,175,55,0.08),rgba(30,58,138,0.15)); }
+  .feature-num{ font-family:'Playfair Display',serif; font-size:0.85rem; color:var(--gold); letter-spacing:3px; margin-bottom:16px; display:block; }
+  .feature i{ font-size:1.5rem; color:var(--gold-light); margin-bottom:16px; display:inline-block; transition:transform 0.4s; }
+  .feature:hover i{ transform:translateY(-4px) scale(1.1); }
+  .feature h3{ font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; margin-bottom:8px; }
+  .feature p{ font-size:0.88rem; color:#a1a1b5; line-height:1.7; }
+
+  /* ===== CTA ===== */
+  .cta{ padding:50px 6%; text-align:center; }
+  .cta-inner{
+    max-width:720px; margin:0 auto; padding:50px 30px; border-radius:32px;
+    background:linear-gradient(135deg,rgba(30,58,138,0.35),rgba(12,45,107,0.5)); border:1px solid rgba(212,175,55,0.25);
+    position:relative; overflow:hidden;
+  }
+  .cta-inner::before{ content:''; position:absolute; top:-2px; left:50%; transform:translateX(-50%); width:120px; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .cta h2{ font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:700; margin-bottom:12px; }
+  .cta h2 em{ font-style:italic; color:var(--gold-light); }
+  .cta p{ color:#b8b5c7; margin-bottom:28px; font-size:1rem; }
+  .cta p strong{ color:var(--gold-light); font-weight:600; }
+
+  /* ===== FOOTER ===== */
+  footer{ padding:40px 6% 24px; border-top:1px solid rgba(212,175,55,0.15); text-align:center; background:rgba(6,26,66,0.5); }
+  .footer-logo{ height:70px; margin:0 auto 18px; display:block; border-radius:16px; filter:drop-shadow(0 6px 18px rgba(212,175,55,0.25)); }
+  .socials{ display:flex; gap:14px; justify-content:center; margin-bottom:20px; }
+  .social{
+    width:40px; height:40px; border-radius:50%; border:1px solid rgba(212,175,55,0.3); display:grid; place-items:center;
+    color:var(--gold-light); font-size:0.9rem; text-decoration:none; transition:all 0.35s;
+  }
+  .social:hover{ background:var(--gold); color:var(--navy-deep); border-color:var(--gold); transform:translateY(-4px); box-shadow:0 10px 25px rgba(212,175,55,0.4); }
+  .footer-info{ color:#8b9bc2; font-size:0.88rem; line-height:1.9; }
+  .footer-info strong{ color:var(--gold-light); }
+  .footer-copy{ margin-top:14px; font-size:0.78rem; color:#5f6d8e; letter-spacing:1px; }
+
+  /* ===== POPUP ===== */
+  .overlay{
+    position:fixed; inset:0; background:rgba(3,10,26,0.88); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    z-index:2000; display:grid; place-items:center; padding:20px; opacity:0; visibility:hidden; transition:opacity 0.4s, visibility 0.4s;
+  }
+  .overlay.show{ opacity:1; visibility:visible; }
+  .popup{
+    max-width:440px; width:100%; background:linear-gradient(160deg,#0a2050,#061a42); border:1px solid rgba(212,175,55,0.35);
+    border-radius:26px; padding:40px 30px 30px; text-align:center; position:relative; transform:translateY(30px) scale(0.95);
+    transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1); box-shadow:0 40px 100px rgba(0,0,0,0.7), 0 0 60px rgba(212,175,55,0.15);
+  }
+  .overlay.show .popup{ transform:translateY(0) scale(1); }
+  .popup::before{ content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:100px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .popup-close{
+    position:absolute; top:16px; right:16px; width:34px; height:34px; border-radius:50%; background:transparent;
+    border:1px solid rgba(212,175,55,0.25); color:#9ca3af; font-size:0.9rem; cursor:pointer; transition:all 0.3s;
+  }
+  .popup-close:hover{ color:var(--gold); border-color:var(--gold); transform:rotate(90deg); }
+  .popup-icon{
+    width:64px; height:64px; margin:0 auto 18px; border-radius:50%; display:grid; place-items:center; font-size:1.4rem;
+    color:var(--navy-deep); background:linear-gradient(135deg,var(--gold-light),var(--gold)); box-shadow:0 14px 34px rgba(212,175,55,0.4); position:relative;
+  }
+  .popup-icon::before{ content:''; position:absolute; inset:-8px; border-radius:50%; border:1px dashed rgba(212,175,55,0.4); animation:spin 12s linear infinite; }
+  .popup .eyebrow{ font-family:'Poppins',sans-serif; font-size:0.68rem; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+  .popup h2{ font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:700; margin-bottom:10px; }
+  .popup h2 em{ font-style:italic; color:var(--gold-light); }
+  .popup p{ color:#b8c2d9; font-size:0.92rem; line-height:1.75; margin-bottom:24px; }
+  .popup .btn{ width:100%; justify-content:center; margin-bottom:10px; }
+  .popup-skip{ background:none; border:none; color:#7a7888; font-family:inherit; font-size:0.83rem; cursor:pointer; padding:6px; text-decoration:underline; text-underline-offset:3px; transition:color 0.3s; }
+  .popup-skip:hover{ color:var(--gold-light); }
+
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(20px); } to{ opacity:1; transform:translateY(0); } }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:900px){
+    .cd-grid{ gap:16px; }
+    .cd-item{ width:clamp(90px,22vw,130px); height:clamp(90px,22vw,130px); }
+    .logo-img{ height:52px; }
+  }
+
+@media (max-width:768px){
+  .hero { padding-top: 110px; padding-bottom: 20px; }
+  
+  /* সব সেকশনের প্যাডিং আরও কমিয়ে ২০px করা হলো */
+  .countdown-wrap, .guests, .schedule-section, .features, .cta { padding: 20px 5%; }
+  
+  .section-head { margin-bottom: 16px; } /* হেডিং এর নিচের গ্যাপ কমানো হলো */
+  .cd-title { margin-bottom: 20px; }
+  .guests-grid { gap: 16px; }
+  .cta-inner{ padding: 30px 20px; }
+  .popup{ padding: 36px 20px 26px; }
+}
+
+  @media (max-width:480px){
+    nav{ padding:12px 5%; }
+    nav.scrolled{ padding:8px 5%; }
+    .nav-list { width: 260px; padding: 90px 25px 40px; }
+    .hero{ padding-top: 100px; }
+    .cd-item{ width:70px; height:70px; }
+    .cd-num{ font-size:1.5rem; }
+    .cd-label{ font-size:0.55rem; letter-spacing:2px; }
+    .logo-img{ height:44px; }
+    .logo-main{ font-size:0.85rem; }
+    .logo-sub{ font-size:0.55rem; }
+    .hero h1 .year{ padding:0 10px; }
+    .footer-logo{ height:60px; }
+  }
+
+  /* সাল লোড হওয়ার আগে লুকিয়ে রাখার জন্য */
+  .year-hide {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .year-show {
+    opacity: 1;
+    visibility: visible;
+  }
+/* ✅ লোগো লোড হওয়ার আগে লুকিয়ে রাখা — ডিফল্ট লোগোর ফ্লিকার বন্ধ */
+.logo-img, .footer-logo {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+body.sm-logos-ready .logo-img,
+body.sm-logos-ready .footer-logo {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+
+<!-- SVG Gradient Defs -->
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f4d47a"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <a href="#home" class="logo">
+    <img src="logo.png" alt="স্মৃতির মিলনমেলা ২০২৬" class="logo-img">
+    <div class="logo-text">
+      <span class="logo-main">স্মৃতির মিলনমেলা</span>
+      <span class="logo-sub">_</span>
+    </div>
+  </a>
+
+  <!-- আপডেট করা মেনু লিস্ট -->
+  <ul class="nav-list" id="navList">
+    <li><a href="index.html" onclick="closeNav()">হোম</a></li>
+    <li><a href="sponsor.html" onclick="closeNav()">স্পনসর</a></li>
+
+    <li><a href="#" onclick="closeNav()">ভলান্টিয়ার</a></li>
+    <li><a href="#" onclick="closeNav()">ফটোকার্ড</a></li>
+
+    <li><a href="gallery.html" onclick="closeNav()">গ্যালারি</a></li>
+    <li><a href="contact.html" onclick="closeNav()">যোগাযোগ</a></li>
+
+    <li><button class="btn-register" id="navAuthBtn" onclick="goRegister()">রেজিস্ট্রেশন</button></li>
+  </ul>
+
+  <button class="menu-btn" id="menuBtn" onclick="toggleNav(event)">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</nav>
+<!-- ✅ Navbar Overlay -->
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">সবচেয়ে বড় পুনর্মিলনী</div>
+
+    <h1>
+      <span>স্মৃতির</span>
+      <span class="accent">মিলনমেলা</span>
+      <span class="year year-hide" id="heroYear">২০২৬</span>
+    </h1>
+
+    <div class="hero-tagline">
+      <span class="star">★</span>
+      আবারও একসাথে, পুরোনো স্মৃতির টানে
+      <span class="star">★</span>
+    </div>
+
+    <p class="hero-desc">
+      পুরোনো বন্ধু, নতুন স্মৃতি — জীবনের সবচেয়ে সুন্দর মুহূর্তগুলো একসাথে উদযাপন করুন।
+      সীমিত আসন, আজই নিশ্চিত করুন আপনার উপস্থিতি।
+    </p>
+
+    <div class="hero-actions">
+      <a href="register.html" class="btn btn-gold">
+        <i class="fa-solid fa-pen-nib"></i> রেজিস্ট্রেশন করুন
+      </a>
+      <a href="#features" class="btn btn-ghost">
+        <i class="fa-solid fa-arrow-down"></i> বিস্তারিত
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COUNTDOWN ===== -->
+<section class="countdown-wrap">
+  <div class="cd-head">Countdown To The Event</div>
+  <h2 class="cd-title">অনুষ্ঠান শুরু <em>হতে বাকি</em></h2>
+
+  <div class="cd-grid">
+    <!-- DAYS -->
+    <div class="cd-item">
+      <svg viewBox="0 0 120 120">
+        <circle class="cd-track" cx="60" cy="60" r="54"/>
+        <circle class="cd-progress" id="ringDays" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="0"/>
+      </svg>
+      <div class="cd-value">
+        <div class="cd-num" id="days">00</div>
+        <div class="cd-label">Days</div>
+      </div>
+    </div>
+
+    <!-- HOURS -->
+    <div class="cd-item">
+      <svg viewBox="0 0 120 120">
+        <circle class="cd-track" cx="60" cy="60" r="54"/>
+        <circle class="cd-progress" id="ringHours" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="0"/>
+      </svg>
+      <div class="cd-value">
+        <div class="cd-num" id="hours">00</div>
+        <div class="cd-label">Hours</div>
+      </div>
+    </div>
+
+    <!-- MINUTES -->
+    <div class="cd-item">
+      <svg viewBox="0 0 120 120">
+        <circle class="cd-track" cx="60" cy="60" r="54"/>
+        <circle class="cd-progress" id="ringMinutes" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="0"/>
+      </svg>
+      <div class="cd-value">
+        <div class="cd-num" id="minutes">00</div>
+        <div class="cd-label">Minutes</div>
+      </div>
+    </div>
+
+    <!-- SECONDS -->
+    <div class="cd-item">
+      <svg viewBox="0 0 120 120">
+        <circle class="cd-track" cx="60" cy="60" r="54"/>
+        <circle class="cd-progress" id="ringSeconds" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="0"/>
+      </svg>
+      <div class="cd-value">
+        <div class="cd-num" id="seconds">00</div>
+        <div class="cd-label">Seconds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><i class="fa-solid fa-diamond"></i></div>
+
+<!-- ===== GUESTS ===== -->
+<section class="guests" id="guests">
+  <div class="section-head">
+    <span class="eyebrow">Guest of Honor</span>
+    <h2>আমন্ত্রিত <em>অতিথিবৃন্দ</em></h2>
+  </div>
+
+  <!-- এই ডিভের ভেতরে অ্যাডমিন প্যানেল থেকে ডাটা লোড হবে -->
+  <div class="guests-grid" id="dynamicGuestsGrid">
+    <div style="text-align:center; grid-column:1/-1; padding:20px; color:var(--muted);">
+      <i class="fa-solid fa-spinner fa-spin" style="font-size:2rem; color:var(--gold); margin-bottom:10px;"></i>
+      <p>অতিথিদের তালিকা লোড হচ্ছে...</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SCHEDULE ===== -->
+<section class="schedule-section" id="schedule">
+  <div class="section-head">
+    <span class="eyebrow">Event Schedule</span>
+    <h2>অনুষ্ঠানের <em>সময়সূচি</em></h2>
+  </div>
+  <div class="schedule-container" id="dynamicScheduleContainer">
+    <!-- Loading State -->
+    <div style="text-align:center; padding:40px; color:var(--muted);">
+      <i class="fa-solid fa-spinner fa-spin" style="font-size:2rem; color:var(--gold); margin-bottom:12px;"></i>
+      <p>সময়সূচি লোড হচ্ছে...</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="features">
+  <div class="section-head">
+    <span class="eyebrow">What's Inside</span>
+    <h2>ওয়েবসাইটে যা <em>পাবেন</em></h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature">
+      <span class="feature-num">01</span>
+      <i class="fa-solid fa-file-signature"></i>
+      <h3>রেজিস্ট্রেশন</h3>
+      <p>সহজ ২ ধাপের ফর্মে নাম, ছবি, স্পন্সর অপশন সহ সব তথ্য দিন।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">02</span>
+      <i class="fa-solid fa-hands-helping"></i>
+      <h3>ভলান্টিয়ার</h3>
+      <p>স্বেচ্ছাসেবক হিসেবে যোগ দিন এবং আয়োজনের অংশ হয়ে উঠুন।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">03</span>
+      <i class="fa-solid fa-id-card"></i>
+      <h3>ফটোকার্ড</h3>
+      <p>নিজের ছবি দিয়ে তৈরি করুন বিশেষ স্মৃতির ফটোকার্ড।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">04</span>
+      <i class="fa-solid fa-images"></i>
+      <h3>গ্যালারি</h3>
+      <p>পুরোনো স্মৃতির ছবিগুলো স্লাইড শো আকারে উপভোগ করুন।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">05</span>
+      <i class="fa-solid fa-credit-card"></i>
+      <h3>পেমেন্ট</h3>
+      <p>bKash, Nagad, কার্ড — সব পেমেন্ট মেথড সাপোর্টেড।</p>
+    </div>
+
+    <div class="feature">
+      <span class="feature-num">06</span>
+      <i class="fa-solid fa-phone"></i>
+      <h3>যোগাযোগ</h3>
+      <p>যেকোনো প্রশ্নে সরাসরি যোগাযোগ করুন আমাদের টিমের সাথে।</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <h2>আজই <em>রেজিস্ট্রেশন</em> করুন</h2>
+    <p>সীমিত আসন — মাত্র <strong>৫০০ জন</strong> অংশগ্রহণ করতে পারবেন। মিস করবেন না এই ঐতিহাসিক মুহূর্ত।</p>
+    <a href="register.html" class="btn btn-gold">
+      <i class="fa-solid fa-arrow-right"></i> এখনই শুরু করুন
+    </a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <img src="logo.png" alt="Logo" class="footer-logo">
+
+  <div class="socials">
+    <a href="#" class="social"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-youtube"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" class="social"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+
+<!-- ✅ নতুন ডায়নামিক footer-info (loading placeholder + fade in) -->
+<div class="footer-info" id="footerInfoBlock" style="opacity:0; transition:opacity 0.5s ease;">
+  <p><strong>ফোন:</strong> <span id="footerPhone">লোড হচ্ছে...</span></p>
+  <p><strong>ইমেইল:</strong> <span id="footerEmail">লোড হচ্ছে...</span></p>
+  <p><strong>ঠিকানা:</strong> <span id="footerAddress">—</span></p>
+</div>
+
+  <div class="footer-copy">© <span id="footerYear" class="year-hide">২০২৬</span> স্মৃতির মিলনমেলা — All Rights Reserved</div>
+</footer>
+
+<!-- ===== POPUP ===== -->
+<div class="overlay" id="overlay">
+  <div class="popup">
+    <button class="popup-close" onclick="closePopup()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="popup-icon"><i class="fa-solid fa-star"></i></div>
+
+    <div class="eyebrow">Special Invitation</div>
+    <h2>স্বাগতম <em>মিলনমেলায়</em></h2>
+    <p>স্মৃতির মিলনমেলা <span id="popupYear">২০২৬</span>-এ অংশ নিতে চান? আজই রেজিস্ট্রেশন করুন এবং নিশ্চিত করুন আপনার আসন।</p>
+
+    <a href="register.html" class="btn btn-gold">
+      <i class="fa-solid fa-pen-nib"></i> রেজিস্ট্রেশন করুন
+    </a>
+    <button class="popup-skip" onclick="closePopup()">পরে করব</button>
+  </div>
+</div>
+
+<script>
+  /* ====== POPUP ====== */
+  function openPopup(){
+    document.getElementById('overlay').classList.add('show');
+  }
+  function closePopup(){
+    document.getElementById('overlay').classList.remove('show');
+  }
+  document.getElementById('overlay').addEventListener('click', (e) => {
+    if(e.target.id === 'overlay') closePopup();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closePopup();
+  });
+
+
+
+/* ====== NAV ====== */
+function toggleNav(event){
+  if(event) event.stopPropagation(); // ✅ এই লাইনটি মেনু বন্ধ হওয়া ঠেকাবে
+
+  const navList = document.getElementById('navList');
+  const menuBtn = document.getElementById('menuBtn');
+  const navOverlay = document.getElementById('navOverlay');
+  
+  navList.classList.toggle('open');
+  navOverlay.classList.toggle('show');
+  
+  // মেনু ওপেন হলে আইকন 'X' হবে, বন্ধ হলে 'হ্যামবার্গার' হবে
+  if(navList.classList.contains('open')){
+    menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+  } else {
+    menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }
+}
+
+function closeNav(){
+  document.getElementById('navList').classList.remove('open');
+  document.getElementById('navOverlay').classList.remove('show');
+  document.getElementById('menuBtn').innerHTML = '<i class="fa-solid fa-bars"></i>';
+}
+
+function goRegister(){
+  closeNav();
+  window.location.href = 'register.html';
+}
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if(window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+/* ✅ Slider বাইরে যেকোনো জায়গায় ক্লিক করলে বন্ধ হয়ে যাবে */
+document.addEventListener('click', (e) => {
+  const navList = document.getElementById('navList');
+  const menuBtn = document.getElementById('menuBtn');
+  
+  // যদি মেনু ওপেন না থাকে, তবে কিছু করবো না
+  if(!navList.classList.contains('open')) return;
+  
+  // যদি মেনুর ভেতরে বা মেনু বাটনে ক্লিক করা হয়, তবে বন্ধ করবো না
+  if(navList.contains(e.target) || menuBtn.contains(e.target)) return;
+  
+  // অন্যথায় মেনু বন্ধ করে দেবো
+  closeNav(); 
+});
+
+  // ESC চাপলেও slider বন্ধ
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeNav();
+  });
+
+// 🎯 ডিফল্ট ইভেন্ট ডেট: ১১ অক্টোবর ২০২৬, সন্ধ্যা ৬টা (Firebase না পেলে এটাই চলবে)
+let EVENT_DATE = new Date('2026-10-11T18:00:00').getTime();
+
+// 🔄 অ্যাডমিন প্যানেল থেকে নতুন তারিখ সেট করার ফাংশন
+window.setEventDate = function(dateString){
+  try {
+    const ts = new Date(dateString).getTime();
+    if (!isNaN(ts)) {
+      EVENT_DATE = ts;
+      tick(); // সাথে সাথে UI আপডেট
+    }
+  } catch(e){ console.error('Invalid countdown date:', e); }
+};
+
+  const CIRCUMFERENCE = 2 * Math.PI * 54;
+  const els = {
+    days:    document.getElementById('days'),
+    hours:   document.getElementById('hours'),
+    minutes: document.getElementById('minutes'),
+    seconds: document.getElementById('seconds'),
+    rDays:    document.getElementById('ringDays'),
+    rHours:   document.getElementById('ringHours'),
+    rMinutes: document.getElementById('ringMinutes'),
+    rSeconds: document.getElementById('ringSeconds')
+  };
+
+  function setRing(el, value, max){
+    const ratio = Math.max(0, Math.min(1, value / max));
+    el.style.strokeDashoffset = CIRCUMFERENCE * (1 - ratio);
+  }
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const now = Date.now();
+    let diff = EVENT_DATE - now;
+
+    if(diff <= 0){
+      els.days.textContent = '00';
+      els.hours.textContent = '00';
+      els.minutes.textContent = '00';
+      els.seconds.textContent = '00';
+      setRing(els.rDays,0,100); setRing(els.rHours,0,24);
+      setRing(els.rMinutes,0,60); setRing(els.rSeconds,0,60);
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    els.days.textContent    = pad(d);
+    els.hours.textContent   = pad(h);
+    els.minutes.textContent = pad(m);
+    els.seconds.textContent = pad(s);
+
+    setRing(els.rDays,    d % 100, 100);
+    setRing(els.rHours,   h, 24);
+    setRing(els.rMinutes, m, 60);
+    setRing(els.rSeconds, s, 60);
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+<!-- ====== FIREBASE AUTH CHECK FOR INDEX ====== -->
+<script type="module">
+  import { auth } from './firebase.js';
+  import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  const overlay = document.getElementById('overlay');
+  const navAuthBtn = document.getElementById('navAuthBtn');
+
+  // শুরুতে পপআপ হাইড রাখছি, ফায়ারবেস চেক করার পর দেখাবো
+  overlay.classList.remove('show');
+
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.emailVerified) {
+      // === ইউজার লগইন আছে এবং ভেরিফাইড ===
+      
+      // ১. পপআপ বন্ধ রাখা
+      overlay.classList.remove('show');
+      sessionStorage.setItem('popupShown', 'true'); // যাতে পপআপ না আসে
+
+      // ২. বাটনকে 'লগআউট' বানিয়ে দেওয়া
+      navAuthBtn.innerHTML = 'লগআউট <i class="fa-solid fa-arrow-right-from-bracket"></i>';
+      navAuthBtn.style.background = 'linear-gradient(135deg, #ef4444, #b91c1c)'; // লাল রঙ
+      navAuthBtn.style.color = '#ffffff';
+      navAuthBtn.style.boxShadow = '0 8px 22px rgba(239, 68, 68, 0.3)';
+      
+      // ৩. বাটনে ক্লিক করলে লগআউট হবে
+      navAuthBtn.onclick = () => {
+        signOut(auth).then(() => {
+          sessionStorage.removeItem('popupShown'); // লগআউট হলে সেশন ক্লিয়ার
+          window.location.reload(); // পেজ রিলোড হবে
+        }).catch((error) => {
+          console.error("Logout Error:", error);
+        });
+      };
+
+    } else {
+      // === ইউজার লগইন নেই ===
+
+      // ১. বাটন আগের মতো 'রেজিস্ট্রেশন' রাখা
+      navAuthBtn.innerHTML = 'রেজিস্ট্রেশন';
+      navAuthBtn.style.background = 'linear-gradient(135deg, var(--gold-light), var(--gold))';
+      navAuthBtn.style.color = 'var(--navy-deep)';
+      navAuthBtn.style.boxShadow = '0 8px 22px rgba(212,175,55,0.3)';
+      
+      navAuthBtn.onclick = () => {
+        window.location.href = 'register.html';
+      };
+
+      // ২. পপআপ দেখানো (যদি আগে না দেখা হয়ে থাকে)
+      if (!sessionStorage.getItem('popupShown')) {
+        setTimeout(() => {
+          overlay.classList.add('show');
+          sessionStorage.setItem('popupShown', 'true');
+        }, 1600);
+      }
+    }
+  });
+</script>
+<!-- ===== FIREBASE DYNAMIC SCHEDULE ===== -->
+<script type="module">
+  // আপনার ফোল্ডারে থাকা firebase.js থেকে db ইমপোর্ট করা হচ্ছে
+  import { db } from './firebase.js';
+  import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  async function fetchSchedule() {
+    const container = document.getElementById('dynamicScheduleContainer');
+    try {
+      const q = query(collection(db, "schedule"), orderBy("order", "asc"));
+      const snap = await getDocs(q);
+      
+      if (snap.empty) {
+  container.innerHTML = `<div style="text-align:center; padding:20px 0; color:var(--muted);">কোনো সময়সূচি এখনো যুক্ত করা হয়নি।</div>`;
+  return;
+}
+
+      let html = '';
+      snap.forEach(doc => {
+        const data = doc.data();
+        html += `
+          <div class="schedule-card">
+            <div class="s-time">${data.time || ''}</div>
+            <h3 class="s-title">${data.title || ''}</h3>
+            <p class="s-desc">${data.description || ''}</p>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--danger);">শিডিউল লোড করতে সমস্যা হচ্ছে।</div>`;
+    }
+  }
+
+  fetchSchedule();
+
+async function fetchGuests() {
+  const container = document.getElementById('dynamicGuestsGrid');
+  try {
+    const q = query(collection(db, "guests"), orderBy("order", "asc"));
+    const snap = await getDocs(q);
+    
+    if (snap.empty) {
+      container.innerHTML = `<div style="text-align:center; grid-column:1/-1; padding:20px; color:var(--muted);">কোনো অতিথির তথ্য এখনো যুক্ত করা হয়নি।</div>`;
+      return;
+    }
+
+    let html = '';
+    snap.forEach(doc => {
+      const data = doc.data();
+      // যদি ছবি না থাকে তবে একটি ডিফল্ট প্লেসহোল্ডার দেখাবে
+      const imgUrl = data.imageUrl ? data.imageUrl : 'https://via.placeholder.com/300x300?text=No+Image';
+      
+      html += `
+        <div class="guest-card">
+          <div class="guest-img-wrap">
+            <img src="${imgUrl}" alt="${data.name}">
+          </div>
+          <div class="guest-info">
+            <span class="guest-tag">${data.tag || 'বিশেষ অতিথি'}</span>
+            <div class="guest-name">${data.name}</div>
+            <div class="guest-role">${data.designation || ''}</div>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = `<div style="text-align:center; grid-column:1/-1; padding:20px; color:var(--danger);">অতিথিদের তালিকা লোড করতে সমস্যা হচ্ছে।</div>`;
+  }
+}
+
+fetchGuests();
+</script>
+
+<!-- ===== DYNAMIC YEAR FETCHING ===== -->
+<script type="module">
+  import { db } from './firebase.js';
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  function convertToBengali(num) {
+    const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    return String(num).replace(/\d/g, d => bnDigits[d]);
+  }
+
+  // সাল আপডেট ও শো করার ফাংশন
+// সাল আপডেট ও শো করার ফাংশন
+function updateYearOnSite(year) {
+  const bnYear = convertToBengali(year);
+  
+  const heroYear = document.getElementById('heroYear');
+  if (heroYear) {
+    heroYear.innerText = bnYear;
+    heroYear.classList.remove('year-hide');
+    heroYear.classList.add('year-show');
+  }
+
+  const footerYear = document.getElementById('footerYear');
+  if (footerYear) {
+    footerYear.innerText = bnYear;
+    footerYear.classList.remove('year-hide');
+    footerYear.classList.add('year-show');
+  }
+
+  const pageTitle = document.getElementById('pageTitle');
+  if (pageTitle) pageTitle.innerText = `স্মৃতির মিলনমেলা ${bnYear}`;
+
+  // 👇 নতুন যোগ করা অংশ (পপআপের জন্য) 👇
+  const popupYear = document.getElementById('popupYear');
+  if (popupYear) popupYear.innerText = bnYear;
+  // 👆 নতুন অংশ শেষ 👆
+}
+
+  async function loadDynamicYear() {
+    const defaultYear = '2026';
+
+    // ১. প্রথমে LocalStorage (ক্যাশ) চেক করবো
+    const cachedYear = localStorage.getItem('sm2026_siteYear');
+    if (cachedYear) {
+      updateYearOnSite(cachedYear);
+    }
+
+    // ২. এরপর ফায়ারবেস থেকে নতুন ডাটা আনবো
+    try {
+      const docRef = doc(db, 'settings', 'general');
+      const docSnap = await getDoc(docRef);
+      
+      let firebaseYear = defaultYear; 
+      if (docSnap.exists() && docSnap.data().year) {
+        firebaseYear = docSnap.data().year;
+      }
+
+      // যদি ক্যাশের সাথে ফায়ারবেসের সাল না মেলে, তবে নতুনটা সেভ করবো
+      if (cachedYear !== firebaseYear) {
+        localStorage.setItem('sm2026_siteYear', firebaseYear);
+        updateYearOnSite(firebaseYear);
+      } else if (!cachedYear) {
+        updateYearOnSite(firebaseYear);
+      }
+
+    } catch (e) {
+      console.error("Year load error: ", e);
+      if (!cachedYear) {
+        updateYearOnSite(defaultYear);
+      }
+    }
+  }
+
+  loadDynamicYear();
+</script>
+<!-- ===== COUNTDOWN SCRIPT (Main) ===== -->
+<script>
+  // 🎯 ডিফল্ট ইভেন্ট ডেট (ভবিষ্যতের তারিখ দেওয়া হলো)
+  let EVENT_DATE = new Date('2027-12-31T18:00:00').getTime();
+
+  // 🔄 অ্যাডমিন প্যানেল থেকে নতুন তারিখ সেট করার ফাংশন
+  window.setEventDate = function(dateString){
+    try {
+      const ts = new Date(dateString).getTime();
+      if (!isNaN(ts)) {
+        EVENT_DATE = ts;
+        if (typeof tick === 'function') tick(); // সাথে সাথে UI আপডেট
+      }
+    } catch(e){ console.error('Invalid countdown date:', e); }
+  };
+
+  const CIRCUMFERENCE = 2 * Math.PI * 54;
+  const els = {
+    days:    document.getElementById('days'),
+    hours:   document.getElementById('hours'),
+    minutes: document.getElementById('minutes'),
+    seconds: document.getElementById('seconds'),
+    rDays:    document.getElementById('ringDays'),
+    rHours:   document.getElementById('ringHours'),
+    rMinutes: document.getElementById('ringMinutes'),
+    rSeconds: document.getElementById('ringSeconds')
+  };
+
+  function setRing(el, value, max){
+    if(!el) return;
+    const ratio = Math.max(0, Math.min(1, value / max));
+    el.style.strokeDashoffset = CIRCUMFERENCE * (1 - ratio);
+  }
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const now = Date.now();
+    let diff = EVENT_DATE - now;
+
+    if(diff <= 0){
+      if(els.days) els.days.textContent = '00';
+      if(els.hours) els.hours.textContent = '00';
+      if(els.minutes) els.minutes.textContent = '00';
+      if(els.seconds) els.seconds.textContent = '00';
+      setRing(els.rDays,0,100); setRing(els.rHours,0,24);
+      setRing(els.rMinutes,0,60); setRing(els.rSeconds,0,60);
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    if(els.days) els.days.textContent    = pad(d);
+    if(els.hours) els.hours.textContent   = pad(h);
+    if(els.minutes) els.minutes.textContent = pad(m);
+    if(els.seconds) els.seconds.textContent = pad(s);
+
+    setRing(els.rDays,    d % 100, 100);
+    setRing(els.rHours,   h, 24);
+    setRing(els.rMinutes, m, 60);
+    setRing(els.rSeconds, s, 60);
+  }
+  
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+<!-- ===== FIREBASE DYNAMIC COUNTDOWN DATE ===== -->
+<script type="module">
+  import { db } from './firebase.js';
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  async function loadCountdownFromFirebase() {
+    // 🛑 ব্রাউজারের পুরনো ক্যাশ মুছে ফেলার জন্য (আগের ভুল তারিখটি থাকলে)
+    // localStorage.removeItem('sm2026_countdownDate'); // এটি শুধু একবার চালালেই হবে
+
+    const cached = localStorage.getItem('sm2026_countdownDate');
+    if (cached) {
+      if(window.setEventDate) window.setEventDate(cached);
+    }
+
+    try {
+      const docRef = doc(db, 'settings', 'general');
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists() && docSnap.data().countdownDate) {
+        const newDate = docSnap.data().countdownDate;
+        // যদি ফায়ারবেসের ডেটা ক্যাশের থেকে আলাদা হয়, তবে আপডেট করবে
+        if (cached !== newDate) {
+          localStorage.setItem('sm2026_countdownDate', newDate);
+          if(window.setEventDate) window.setEventDate(newDate);
+        }
+      }
+    } catch (e) {
+      console.error("Countdown date load error: ", e);
+    }
+  }
+
+  loadCountdownFromFirebase();
+</script>
+
+<!-- ===== DYNAMIC SITE SETTINGS (logo, contact, social) - v2 ===== -->
+<script type="module">
+  import { db } from './firebase.js';
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* ---------- 1️⃣ LOGO APPLY (uses inline helper, no flicker) ---------- */
+function applyLogo(url) {
+  if (!url) return;
+  if (window.__smApplyLogo) {
+    window.__smApplyLogo(url);
+  } else {
+    // Fallback if inline script failed to load
+    document.querySelectorAll('.logo-img, .footer-logo').forEach(img => {
+      img.src = url;
+    });
+  }
+}
+
+/* ---------- 2️⃣ SOCIAL LINKS (Hide if empty) ---------- */
+function applySocial(data) {
+  const map = {
+    'fa-facebook':   data.socialFacebook,
+    'fa-facebook-f': data.socialFacebook,
+    'fa-youtube':    data.socialYoutube,
+    'fa-instagram':  data.socialInstagram,
+    'fa-whatsapp':   data.socialWhatsapp
+  };
+  document.querySelectorAll('.social').forEach(link => {
+    const icon = link.querySelector('i');
+    if (!icon) return;
+
+    let matchedUrl = null;
+    for (const [cls, url] of Object.entries(map)) {
+      if (icon.classList.contains(cls)) {
+        matchedUrl = url;
+        break;
+      }
+    }
+
+    // ✅ যদি লিংক থাকে তবে দেখাবে, আর খালি থাকলে হাইড (display:none) করে দেবে
+    if (matchedUrl && matchedUrl.trim() !== '') {
+      link.href = matchedUrl.trim();
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.style.display = 'grid'; // আগের ডিজাইন ঠিক রাখতে
+    } else {
+      link.style.display = 'none'; // খালি থাকলে লুকিয়ে যাবে
+    }
+  });
+}
+
+/* ---------- 3️⃣ CONTACT INFO (Hide lines if empty) ---------- */
+function applyContact(data) {
+  const phoneEl   = document.getElementById('footerPhone');
+  const emailEl   = document.getElementById('footerEmail');
+  const addressEl = document.getElementById('footerAddress');
+  const block     = document.getElementById('footerInfoBlock');
+  
+  let hasData = false; // চেক করার জন্য কোনো ডেটা আছে কিনা
+
+  // ১. ফোন নম্বর
+  if (phoneEl && phoneEl.parentElement) {
+    if (data.contactPhone && data.contactPhone.trim() !== '') {
+      phoneEl.textContent = data.contactPhone.trim();
+      phoneEl.parentElement.style.display = 'block';
+      hasData = true;
+    } else {
+      phoneEl.parentElement.style.display = 'none'; // ফাঁকা থাকলে পুরো <p> লুকাবে
+    }
+  }
+
+  // ২. ইমেইল
+  if (emailEl && emailEl.parentElement) {
+    if (data.contactEmail && data.contactEmail.trim() !== '') {
+      emailEl.textContent = data.contactEmail.trim();
+      emailEl.parentElement.style.display = 'block';
+      hasData = true;
+    } else {
+      emailEl.parentElement.style.display = 'none'; // ফাঁকা থাকলে লুকাবে
+    }
+  }
+
+  // ৩. ঠিকানা
+  if (addressEl && addressEl.parentElement) {
+    if (data.contactAddress && data.contactAddress.trim() !== '') {
+      addressEl.textContent = data.contactAddress.trim();
+      addressEl.parentElement.style.display = 'block';
+      hasData = true;
+    } else {
+      addressEl.parentElement.style.display = 'none'; // ফাঁকা থাকলে লুকাবে
+    }
+  }
+
+  // ✅ যদি তিনটির মধ্যে একটিও ডেটা থাকে, তবেই ব্লকটি দেখাবে
+  if (block) {
+    if (hasData) {
+      block.style.display = 'block';
+      setTimeout(() => { block.style.opacity = '1'; }, 50); // স্মুথ ফেড-ইন
+    } else {
+      block.style.display = 'none'; // সব খালি থাকলে পুরো ব্লক হাইড
+    }
+  }
+}
+
+  /* ---------- 4️⃣ MAIN LOADER ---------- */
+  async function loadSiteSettings() {
+    // ⚡ Step A: localStorage cache — সাথে সাথে দেখাও (flicker এড়াতে)
+    try {
+      const cachedLogo = localStorage.getItem('sm2026_branding_logo');
+      if (cachedLogo) applyLogo(cachedLogo);
+
+      const cachedContact = localStorage.getItem('sm2026_branding_contact');
+      if (cachedContact) {
+        const c = JSON.parse(cachedContact);
+        applyContact({
+          contactPhone:   c.phone,
+          contactEmail:   c.email,
+          contactAddress: c.address
+        });
+      }
+
+      const cachedSocial = localStorage.getItem('sm2026_branding_social');
+      if (cachedSocial) {
+        const s = JSON.parse(cachedSocial);
+        applySocial({
+          socialFacebook:  s.facebook,
+          socialYoutube:   s.youtube,
+          socialInstagram: s.instagram,
+          socialWhatsapp:  s.whatsapp
+        });
+      }
+    } catch(e) { /* cache ভাঙা থাকলে চুপচাপ এড়িয়ে যাও */ }
+
+    // ⚡ Step B: Firestore থেকে fresh data
+    try {
+      const docRef = doc(db, 'settings', 'general');
+      const docSnap = await getDoc(docRef);
+
+      if (!docSnap.exists()) {
+        // ডকুমেন্টই নেই — তবু footer দেখাও
+        const block = document.getElementById('footerInfoBlock');
+        if (block) block.style.opacity = '1';
+        return;
+      }
+
+      const data = docSnap.data();
+
+      // Logo
+      if (data.logoUrl) {
+        applyLogo(data.logoUrl);
+        try { localStorage.setItem('sm2026_branding_logo', data.logoUrl); } catch(e){}
+      }
+
+      // Social
+      applySocial(data);
+      try {
+        localStorage.setItem('sm2026_branding_social', JSON.stringify({
+          facebook: data.socialFacebook || '',
+          youtube:  data.socialYoutube  || '',
+          instagram: data.socialInstagram || '',
+          whatsapp: data.socialWhatsapp || ''
+        }));
+      } catch(e){}
+
+      // Contact + reveal
+      applyContact(data);
+      try {
+        localStorage.setItem('sm2026_branding_contact', JSON.stringify({
+          phone:   data.contactPhone   || '',
+          email:   data.contactEmail   || '',
+          address: data.contactAddress || ''
+        }));
+      } catch(e){}
+
+    } catch (err) {
+      console.warn('[SiteSettings] Load failed:', err.code || err.message);
+      // Firestore read ব্যর্থ হলেও footer দৃশ্যমান করো
+      const block = document.getElementById('footerInfoBlock');
+      if (block) block.style.opacity = '1';
+    }
+  }
+
+  loadSiteSettings();
+</script>
+<!-- ===== LOGO CACHE APPLY (instant, no flicker) ===== -->
+<script>
+(function() {
+  var CACHE_KEY = 'sm2026_branding_logo';
+  var cached = null;
+  try { cached = localStorage.getItem(CACHE_KEY); } catch(e) {}
+
+  function reveal() {
+    document.body.classList.add('sm-logos-ready');
+  }
+
+  function applyAndReveal(url) {
+    var imgs = document.querySelectorAll('.logo-img, .footer-logo');
+    if (!imgs.length) { reveal(); return; }
+
+    var pending = imgs.length;
+    var done = function() {
+      pending--;
+      if (pending <= 0) reveal();
+    };
+
+    imgs.forEach(function(img) {
+      if (img.dataset.logoSrc === url) { done(); return; }
+      img.dataset.logoSrc = url;
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', function() {
+        img.src = 'logo.png';
+        done();
+      }, { once: true });
+      img.src = url;
+    });
+
+    setTimeout(reveal, 2000); // Safety net
+  }
+
+  if (cached) {
+    // ✅ Cache আছে → সাথে সাথে admin logo বসাও, লোড হলে reveal
+    applyAndReveal(cached);
+  } else {
+    // ❌ Cache নেই (প্রথম ভিজিট) → ডিফল্ট logo দেখাও
+    reveal();
+  }
+
+  // Module script থেকে call করার জন্য helper
+  window.__smApplyLogo = function(url) {
+    if (!url) return;
+    try { localStorage.setItem(CACHE_KEY, url); } catch(e) {}
+    var imgs = document.querySelectorAll('.logo-img, .footer-logo');
+    imgs.forEach(function(img) {
+      if (img.dataset.logoSrc === url) return;
+      img.dataset.logoSrc = url;
+      img.src = url;
+    });
+    reveal();
+  };
+})();
+</script>
+</body>
+</html>
