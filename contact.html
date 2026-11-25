@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>যোগাযোগ - স্মৃতির মিলনমেলা</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  /* === INDEX THEME VARIABLES === */
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --navy:#0c2d6b;
+    --navy-deep:#061a42;
+    --navy-light:#1e3a8a;
+    --gold:#d4af37;
+    --gold-light:#f4d47a;
+    --gold-deep:#b8860b;
+    --text:#f5f7ff;
+    --muted:#9ca3c4;
+    --border:rgba(212,175,55,0.22);
+  }
+  body{
+    font-family:'Hind Siliguri','Poppins',sans-serif;
+    background:var(--navy-deep);
+    color:var(--text);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+
+  /* Background Effects */
+  body::before{
+    content:''; position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(30,58,138,0.45), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(212,175,55,0.10), transparent 55%),
+      radial-gradient(ellipse at center, rgba(12,45,107,0.4), transparent 60%);
+    z-index:-1; pointer-events:none;
+  }
+  body::after{
+    content:''; position:fixed; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(244,212,122,0.25), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(244,212,122,0.15), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(244,212,122,0.2), transparent),
+      radial-gradient(1px 1px at 40% 90%, rgba(244,212,122,0.12), transparent);
+    background-size:600px 600px; z-index:-1; pointer-events:none; opacity:0.7;
+  }
+
+  /* === NAVIGATION === */
+  nav{
+    position:fixed; top:0; left:0; right:0;
+    z-index:1000; padding:14px 6%;
+    display:flex; justify-content:space-between; align-items:center;
+    transition:all 0.4s;
+  }
+  nav.scrolled{
+    background:rgba(6,26,66,0.9);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    padding:10px 6%;
+    border-bottom:1px solid var(--border);
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  }
+
+  .logo{ display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit; }
+  .logo-img{ height:64px; width:auto; border-radius:14px; opacity:0; transition:opacity 0.3s; filter:drop-shadow(0 4px 14px rgba(212,175,55,0.35)); }
+  .logo-text{ display:flex; flex-direction:column; line-height:1.15; }
+  .logo-main{ font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--gold-light); }
+  .logo-sub{ font-size:0.65rem; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; font-family:'Poppins',sans-serif; }
+  
+  .nav-overlay { position: fixed; inset: 0; background: rgba(3,10,26,0.75); backdrop-filter: blur(5px); z-index: 999; opacity: 0; visibility: hidden; transition: all 0.4s; }
+  .nav-overlay.show { opacity: 1; visibility: visible; }
+  .nav-list{
+    position:fixed; top:0; right:-100%; width:300px; height:100vh; background:rgba(6,26,66,0.98);
+    backdrop-filter:blur(20px); display: flex; flex-direction:column; justify-content:flex-start; 
+    padding:100px 35px 40px; gap:20px; transition:right 0.45s cubic-bezier(0.4,0,0.2,1);
+    border-left:1px solid var(--border); align-items:flex-start; z-index:1001; overflow-y: auto; list-style: none;
+  }
+  .nav-list.open{ right:0; }
+  .nav-list li { width: 100%; }
+  .nav-list a{ color:#d1d5db; text-decoration:none; font-size:1.1rem; font-weight:500; display: block; padding: 5px 0; transition:color 0.3s; }
+  .nav-list a:hover, .nav-list a.active{ color:var(--gold-light); }
+  
+  .menu-btn{ display:block; color:var(--gold); font-size:1.6rem; cursor:pointer; background:none; border:none; z-index:1002; }
+  body.sm-logos-ready .logo-img { opacity: 1; }
+
+  /* === PAGE HEADER === */
+  .page-header {
+    padding: 130px 5% 40px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .page-header .eyebrow {
+    font-family:'Poppins',sans-serif; font-size:0.75rem; letter-spacing:4px; 
+    text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block;
+  }
+  .page-header h1 {
+    font-family:'Playfair Display','Hind Siliguri',serif; font-size:clamp(2rem,5vw,3rem); 
+    font-weight:700; color:var(--text); margin-bottom: 15px; line-height: 1.2;
+  }
+  .page-header h1 em { font-style:italic; color:var(--gold-light); }
+  .page-header p {
+    color: var(--muted); font-size: 1rem; line-height: 1.7;
+  }
+
+  /* === MAIN LAYOUT === */
+  .contact-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 5% 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  @media (min-width: 900px) {
+    .contact-container {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+    }
+  }
+
+  /* === FORM SECTION === */
+  .form-card {
+    background: linear-gradient(180deg, rgba(30,58,138,0.15), rgba(255,255,255,0.01));
+    border: 1px solid rgba(212,175,55,0.12);
+    border-radius: 24px;
+    padding: 35px 30px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block; color: var(--text); font-size: 0.95rem; font-weight: 500; margin-bottom: 8px;
+  }
+  .form-group label span { color: #ef4444; }
+  
+  .form-control {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 12px;
+    padding: 15px 18px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+  .form-control::placeholder { color: #6b7390; }
+  .form-control:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(212,175,55,0.06);
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+  }
+  
+  .form-control[readonly] {
+    background: rgba(255,255,255,0.02);
+    color: #9ca3c4;
+    cursor: not-allowed;
+    border-color: rgba(255,255,255,0.05);
+  }
+
+  textarea.form-control {
+    min-height: 140px;
+    resize: vertical;
+  }
+  
+  .btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: var(--navy-deep);
+    border: none;
+    padding: 16px;
+    border-radius: 50px;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.35s;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 25px rgba(212,175,55,0.3);
+  }
+  .btn-submit:hover:not(:disabled) { 
+    transform: translateY(-3px); 
+    box-shadow: 0 15px 35px rgba(212,175,55,0.5); 
+  }
+  .btn-submit:disabled { 
+    opacity: 0.6; 
+    cursor: not-allowed; 
+    transform: none; 
+    background: #6b7390;
+    box-shadow: none;
+  }
+
+  /* === INFO CARDS SECTION === */
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  .info-card {
+    background: linear-gradient(180deg, rgba(30,58,138,0.15), rgba(255,255,255,0.01));
+    border: 1px solid rgba(212,175,55,0.12);
+    border-radius: 24px;
+    padding: 30px;
+    transition: all 0.4s ease;
+  }
+  .info-card:hover {
+    border-color: rgba(212,175,55,0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  }
+  .info-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    color: var(--gold-light);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    border-bottom: 1px dashed rgba(212,175,55,0.3);
+    padding-bottom: 15px;
+  }
+  .info-card-title i {
+    color: var(--gold);
+    font-size: 1.3rem;
+  }
+  
+  .contact-person {
+    margin-bottom: 20px;
+  }
+  .contact-person:last-child { margin-bottom: 0; }
+  .contact-person .name {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    font-family: 'Poppins', sans-serif;
+  }
+  .contact-person .phone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .contact-person .phone i {
+    color: var(--gold);
+    font-size: 1rem;
+    background: rgba(212,175,55,0.1);
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.2);
+  }
+  .contact-person .phone:hover { color: var(--gold-light); }
+
+  /* === MY MESSAGES SECTION (User Inbox) === */
+  .my-messages-section {
+    max-width: 1100px;
+    margin: 0 auto 80px;
+    padding: 0 5%;
+    animation: fadeIn 0.5s ease;
+  }
+  .messages-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(30,58,138,0.2), transparent);
+    border-left: 4px solid var(--gold);
+    padding: 15px 20px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .messages-header h2 {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1.2rem;
+    color: var(--text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .messages-header h2 i { color: var(--gold); }
+  
+  .reply-badge {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(239,68,68,0.3);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* --- ACCORDION CHAT THREAD STYLES --- */
+  .msg-thread-card {
+    background: linear-gradient(180deg, rgba(30,58,138,0.15), rgba(255,255,255,0.01));
+    border: 1px solid rgba(212,175,55,0.12);
+    border-radius: 16px;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+  .msg-thread-card:hover { 
+    border-color: rgba(212,175,55,0.3); 
+  }
+  
+  /* Clickable Header */
+  .msg-thread-header {
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.02);
+    transition: background 0.3s;
+  }
+  .msg-thread-header:hover {
+    background: rgba(255,255,255,0.05);
+  }
+  .msg-header-info {
+    flex: 1;
+    pointer-events: none; /* Prevent text selection interfering with click */
+  }
+  .msg-header-info h4 {
+    color: var(--gold-light);
+    font-size: 1.05rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .msg-header-info p {
+    color: var(--text);
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    opacity: 0.8;
+  }
+  .msg-header-info .date {
+    font-size: 0.75rem; 
+    color: var(--muted);
+  }
+  
+  .msg-toggle-icon {
+    color: var(--gold);
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    background: rgba(212,175,55,0.1);
+    border-radius: 50%;
+    transition: transform 0.4s ease;
+  }
+  .msg-thread-card.expanded .msg-toggle-icon {
+    transform: rotate(180deg);
+    background: var(--gold);
+    color: var(--navy-deep);
+  }
+  
+  /* Hidden Chat Body */
+  .msg-thread-body {
+    display: none; 
+    padding: 20px;
+    border-top: 1px dashed rgba(212,175,55,0.2);
+    background: rgba(0,0,0,0.1);
+  }
+  .msg-thread-card.expanded .msg-thread-body {
+    display: block;
+    animation: slideDown 0.4s ease forwards;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Chat Bubbles */
+  .chat-area-scroll {
+    display: flex; 
+    flex-direction: column; 
+    max-height: 350px; 
+    overflow-y: auto; 
+    padding-right: 5px;
+    margin-bottom: 15px;
+  }
+  /* Custom Scrollbar for chat */
+  .chat-area-scroll::-webkit-scrollbar { width: 5px; }
+  .chat-area-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
+  .chat-area-scroll::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 10px; }
+
+  .msg-bubble {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .msg-bubble .time {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 6px;
+    display: block;
+    text-align: right;
+  }
+  .bubble-user {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text);
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+  }
+  .bubble-admin {
+    background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
+    border: 1px solid rgba(212,175,55,0.3);
+    color: #fff;
+    margin-left: auto;
+    border-bottom-right-radius: 2px;
+  }
+  .bubble-admin small {
+    color: var(--gold-light);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* CHAT INPUT BOX STYLES */
+  .chat-input-area {
+    display: flex;
+    gap: 10px;
+    border-top: 1px dashed rgba(212,175,55,0.2);
+    padding-top: 15px;
+  }
+  .chat-input {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 20px;
+    padding: 10px 18px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+  }
+  .chat-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(212,175,55,0.06);
+  }
+  .chat-input::placeholder { color: #6b7390; }
+  
+  .chat-send-btn {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: var(--navy-deep);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(212,175,55,0.3);
+    flex-shrink: 0;
+  }
+  .chat-send-btn:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(212,175,55,0.5);
+  }
+  .chat-send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #6b7390;
+  }
+
+  /* === TOAST NOTIFICATION === */
+  .toast-container {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    z-index: 9999; display: flex; flex-direction: column; gap: 10px;
+    width: 100%; max-width: 380px; padding: 0 16px; pointer-events: none;
+  }
+  .toast {
+    background: #fff; color: #0f172a; padding: 14px 18px; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-family: inherit; font-size: 0.9rem; font-weight: 500;
+    display: flex; align-items: center; gap: 12px; pointer-events: auto;
+    border-left: 5px solid transparent; animation: toastIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  .toast.success { border-left-color: #10b981; }
+  .toast.error { border-left-color: #ef4444; }
+  .toast-icon { font-size: 1.2rem; }
+  .toast.success .toast-icon { color: #10b981; }
+  .toast.error .toast-icon { color: #ef4444; }
+  @keyframes toastIn { from{ opacity:0; transform:translateY(-20px) scale(0.95); } to{ opacity:1; transform:translateY(0) scale(1); } }
+
+  @keyframes fadeIn { from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* Responsive */
+  @media (max-width: 900px){
+    .logo-img{ height:52px; }
+  }
+  @media (max-width: 480px){
+    nav{ padding:12px 5%; }
+    nav.scrolled{ padding:8px 5%; }
+    .nav-list { width: 260px; padding:90px 25px 40px;}
+    .logo-img{ height:44px; }
+    .logo-main{ font-size:0.85rem; }
+    .logo-sub{ font-size:0.55rem; }
+    .form-card, .info-card { padding: 25px 20px; border-radius: 20px; }
+    .messages-header { padding: 12px 15px; }
+    .msg-bubble { max-width: 95%; }
+    .chat-input-area { flex-direction: column; }
+    .chat-send-btn { width: 100%; border-radius: 20px; height: 40px;}
+    .msg-thread-header { padding: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- === NAVBAR === -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="Logo" class="logo-img">
+    <div class="logo-text">
+      <span class="logo-main">স্মৃতির মিলনমেলা</span>
+      <span class="logo-sub">_</span>
+    </div>
+  </a>
+
+  <ul class="nav-list" id="navList">
+    <li><a href="index.html">হোম</a></li>
+    <li><a href="sponsor.html">স্পনসর</a></li>
+    <li><a href="#">ভলান্টিয়ার</a></li>
+    <li><a href="#">ফটোকার্ড</a></li>
+
+    <li><a href="gallery.html">গ্যালারি</a></li>
+    <li><a href="contact.html" class="active" style="color:var(--gold-light);">যোগাযোগ</a></li>
+    <li>
+      <!-- Auth Button -->
+      <button class="btn-register" id="navAuthBtn" style="padding:12px 24px; border:none; border-radius:50px; font-weight:600; width:100%; margin-top:10px; cursor:pointer; transition: all 0.3s;">রেজিস্ট্রেশন</button>
+    </li>
+  </ul>
+
+  <button class="menu-btn" id="menuBtn" onclick="toggleNav(event)">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</nav>
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+<!-- === HEADER === -->
+<header class="page-header">
+  <span class="eyebrow">যোগাযোগ</span>
+  <h1>আমাদের সাথে <em>যোগাযোগ</em> করুন</h1>
+  <p>প্রশ্ন, পরামর্শ বা সহায়তার প্রয়োজন হলে নিচের ফর্মটি পূরণ করুন। বার্তা পাঠাতে আপনাকে অবশ্যই রেজিস্টার্ড বা লগইন থাকতে হবে।</p>
+</header>
+
+<!-- === MAIN CONTENT === -->
+<main class="contact-container">
+  
+  <!-- Form Section -->
+  <section class="form-card">
+    <form id="contactForm">
+      <div class="form-group">
+        <label>নাম <span>*</span></label>
+        <input type="text" id="cName" class="form-control" placeholder="লগইন করলে নাম অটো বসবে" required>
+      </div>
+      
+      <div class="form-group">
+        <label>মোবাইল নম্বর <span>*</span></label>
+        <input type="tel" id="cPhone" class="form-control" placeholder="01XXXXXXXXX" required>
+      </div>
+      
+      <div class="form-group">
+        <label>ইমেইল</label>
+        <input type="email" id="cEmail" class="form-control" placeholder="লগইন করলে ইমেইল অটো বসবে" readonly>
+      </div>
+      
+      <div class="form-group">
+        <label>বিষয় (ঐচ্ছিক)</label>
+        <input type="text" id="cSubject" class="form-control" placeholder="যেমন: রেজিস্ট্রেশন সংক্রান্ত">
+      </div>
+      
+      <div class="form-group">
+        <label>বার্তা <span>*</span></label>
+        <textarea id="cMessage" class="form-control" placeholder="আপনার প্রশ্ন বা বার্তা লিখুন..." required></textarea>
+      </div>
+      
+      <button type="submit" id="btnSubmit" class="btn-submit" disabled>
+        <i class="fa-solid fa-lock"></i> লগইন করে বার্তা পাঠান
+      </button>
+    </form>
+  </section>
+
+  <!-- Info Cards Section (Dynamic) -->
+  <aside class="info-cards">
+    
+    <!-- Payment Card -->
+    <div class="info-card">
+      <div class="info-card-title">
+        <i class="fa-solid fa-money-check-dollar"></i> Payment
+      </div>
+      <div id="dynamicPaymentList">
+        <p style="color:var(--muted); font-size:0.9rem;"><i class="fa-solid fa-spinner fa-spin"></i> লোড হচ্ছে...</p>
+      </div>
+    </div>
+
+    <!-- Registration Card -->
+    <div class="info-card">
+      <div class="info-card-title">
+        <i class="fa-solid fa-id-card"></i> Registration
+      </div>
+      <div id="dynamicRegistrationList">
+        <p style="color:var(--muted); font-size:0.9rem;"><i class="fa-solid fa-spinner fa-spin"></i> লোড হচ্ছে...</p>
+      </div>
+    </div>
+
+  </aside>
+</main>
+
+<!-- ================= MY MESSAGES SECTION ================= -->
+<section class="my-messages-section" id="myMessagesSection" style="display:none;">
+  <div class="messages-header">
+    <h2><i class="fa-solid fa-envelope-open-text"></i> আমার পাঠানো বার্তা</h2>
+    <div class="reply-badge" id="totalRepliesBadge" style="display:none;">০ টি রিপ্লাই</div>
+  </div>
+  
+  <div id="myMessagesList">
+    <!-- Messages will be loaded here -->
+  </div>
+</section>
+
+
+<!-- === SCRIPTS === -->
+<script>
+  // Navbar Logic
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if(window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  function toggleNav(event){
+    if(event) event.stopPropagation();
+    const navList = document.getElementById('navList');
+    const menuBtn = document.getElementById('menuBtn');
+    const navOverlay = document.getElementById('navOverlay');
+    navList.classList.toggle('open');
+    navOverlay.classList.toggle('show');
+    menuBtn.innerHTML = navList.classList.contains('open') ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+  }
+
+  function closeNav(){
+    document.getElementById('navList').classList.remove('open');
+    document.getElementById('navOverlay').classList.remove('show');
+    document.getElementById('menuBtn').innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }
+
+  document.addEventListener('click', (e) => {
+    const navList = document.getElementById('navList');
+    const menuBtn = document.getElementById('menuBtn');
+    if(!navList.classList.contains('open')) return;
+    if(navList.contains(e.target) || menuBtn.contains(e.target)) return;
+    closeNav(); 
+  });
+
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeNav(); });
+
+  // Toast Function
+  function showToast(msg, type='success') {
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = `toast ${type}`;
+    const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-xmark';
+    t.innerHTML = `<div class="toast-icon"><i class="fa-solid ${icon}"></i></div><div class="toast-msg">${msg}</div>`;
+    c.appendChild(t);
+    setTimeout(() => t.remove(), 4000);
+  }
+
+  // HTML Escape Function
+  function escapeHtml(s){
+    return String(s ?? '').replace(/[&<>"']/g, m => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[m]));
+  }
+
+  // বাংলা নাম্বার কনভার্টার
+  function convertToBengali(num) {
+    const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    return String(num).replace(/\d/g, d => bnDigits[d]);
+  }
+
+  // Accordion Toggle Function
+  window.toggleThread = function(msgId) {
+    const card = document.getElementById(`thread_${msgId}`);
+    if (card) {
+      card.classList.toggle('expanded');
+    }
+  };
+</script>
+
+<!-- Dynamic Year and Logo from Firebase -->
+<script type="module">
+  import { db } from './firebase.js';
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  async function loadSiteSettings() {
+    try {
+      const cachedLogo = localStorage.getItem('sm2026_branding_logo');
+      if (cachedLogo) {
+        document.querySelectorAll('.logo-img').forEach(img => { img.src = cachedLogo; });
+        document.body.classList.add('sm-logos-ready');
+      } else { document.body.classList.add('sm-logos-ready'); }
+
+      const cachedYear = localStorage.getItem('sm2026_siteYear');
+      if (cachedYear) {
+        document.getElementById('navYear').innerText = convertToBengali(cachedYear);
+        document.title = `যোগাযোগ - স্মৃতির মিলনমেলা ${convertToBengali(cachedYear)}`;
+      }
+    } catch(e) { document.body.classList.add('sm-logos-ready'); }
+
+    try {
+      const docRef = doc(db, 'settings', 'general');
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.logoUrl) {
+          document.querySelectorAll('.logo-img').forEach(img => { img.src = data.logoUrl; });
+          try { localStorage.setItem('sm2026_branding_logo', data.logoUrl); } catch(e){}
+          document.body.classList.add('sm-logos-ready');
+        }
+        if (data.year) {
+          const bnYear = convertToBengali(data.year);
+          document.getElementById('navYear').innerText = bnYear;
+          document.title = `যোগাযোগ - স্মৃতির মিলনমেলা ${bnYear}`;
+          try { localStorage.setItem('sm2026_siteYear', data.year); } catch(e){}
+        }
+      }
+    } catch (err) {
+      console.error("Settings load error:", err);
+    }
+  }
+  loadSiteSettings();
+</script>
+
+<!-- Dynamic Contact Numbers Loader -->
+<script type="module">
+  import { db } from './firebase.js';
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  async function loadContactNumbers() {
+    const payWrap = document.getElementById('dynamicPaymentList');
+    const regWrap = document.getElementById('dynamicRegistrationList');
+    
+    try {
+      const docRef = doc(db, 'settings', 'contact_numbers');
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        
+        if (data.payment && data.payment.length > 0) {
+          payWrap.innerHTML = data.payment.map(p => `
+            <div class="contact-person">
+              <div class="name">${escapeHtml(p.name)}</div>
+              <a href="tel:${p.phone}" class="phone"><i class="fa-solid fa-phone"></i> ${escapeHtml(p.phone)}</a>
+            </div>
+          `).join('');
+        } else {
+          payWrap.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">কোনো নম্বর যুক্ত করা নেই।</p>';
+        }
+
+        if (data.registration && data.registration.length > 0) {
+          regWrap.innerHTML = data.registration.map(r => `
+            <div class="contact-person">
+              <div class="name">${escapeHtml(r.name)}</div>
+              <a href="tel:${r.phone}" class="phone"><i class="fa-solid fa-phone"></i> ${escapeHtml(r.phone)}</a>
+            </div>
+          `).join('');
+        } else {
+          regWrap.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">কোনো নম্বর যুক্ত করা নেই।</p>';
+        }
+      } else {
+        payWrap.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">অ্যাডমিন থেকে নম্বর যোগ করুন।</p>';
+        regWrap.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">অ্যাডমিন থেকে নম্বর যোগ করুন।</p>';
+      }
+    } catch (err) {
+      console.error(err);
+      payWrap.innerHTML = '<p style="color:#ef4444; font-size:0.9rem;">লোড করতে সমস্যা হয়েছে।</p>';
+      regWrap.innerHTML = '<p style="color:#ef4444; font-size:0.9rem;">লোড করতে সমস্যা হয়েছে।</p>';
+    }
+  }
+  loadContactNumbers();
+</script>
+
+<!-- Combined Auth, Form Prefill & Message Logic -->
+<script type="module">
+  import { auth, db } from './firebase.js';
+  import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { collection, addDoc, serverTimestamp, doc, getDoc, query, where, getDocs, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const navAuthBtn = document.getElementById('navAuthBtn');
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('btnSubmit');
+  const myMessagesSection = document.getElementById('myMessagesSection');
+  const myMessagesList = document.getElementById('myMessagesList');
+  const totalRepliesBadge = document.getElementById('totalRepliesBadge');
+
+  const cName = document.getElementById('cName');
+  const cPhone = document.getElementById('cPhone');
+  const cEmail = document.getElementById('cEmail');
+  const cSubject = document.getElementById('cSubject');
+  const cMessage = document.getElementById('cMessage');
+
+  // ২৪ ঘন্টায় সর্বোচ্চ ২টি মেসেজ পাঠানোর লিমিট চেকার (শুধুমাত্র নতুন মেসেজের জন্য)
+  async function canUserSendMessage(email) {
+    try {
+      const q = query(collection(db, "messages"), where("userEmail", "==", email));
+      const snap = await getDocs(q);
+      const now = Date.now();
+      let recentCount = 0;
+      
+      snap.forEach(doc => {
+        const data = doc.data();
+        if (data.createdAt) {
+          const msgTime = data.createdAt.toMillis();
+          if (now - msgTime < 24 * 60 * 60 * 1000) {
+            recentCount++;
+          }
+        }
+      });
+      
+      return recentCount < 2; 
+    } catch(e) {
+      console.error("Limit check error:", e);
+      return true; 
+    }
+  }
+
+  // 🔴 ১. Auth Check & Form Setup
+  onAuthStateChanged(auth, async (user) => {
+    if (user && user.emailVerified) {
+      
+      navAuthBtn.innerHTML = 'লগআউট <i class="fa-solid fa-arrow-right-from-bracket"></i>';
+      navAuthBtn.style.background = 'linear-gradient(135deg, #ef4444, #b91c1c)';
+      navAuthBtn.style.color = '#ffffff';
+      navAuthBtn.style.boxShadow = '0 8px 22px rgba(239, 68, 68, 0.3)';
+      
+      navAuthBtn.onclick = () => {
+        signOut(auth).then(() => {
+          window.location.reload();
+        });
+      };
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> বার্তা পাঠান';
+      
+      cName.setAttribute('readonly', true);
+      cEmail.setAttribute('readonly', true);
+
+      cEmail.value = user.email || '';
+      
+      try {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          cName.value = data.name || '';
+          cPhone.value = data.phone || data.mobile || '';
+        }
+      } catch (e) {
+        console.error("Error fetching user data:", e);
+      }
+
+      loadMyMessages();
+
+    } else {
+      
+      navAuthBtn.innerHTML = 'রেজিস্ট্রেশন';
+      navAuthBtn.style.background = 'linear-gradient(135deg, var(--gold-light), var(--gold))';
+      navAuthBtn.style.color = 'var(--navy-deep)';
+      navAuthBtn.style.boxShadow = '0 8px 22px rgba(212,175,55,0.3)';
+      
+      navAuthBtn.onclick = () => {
+        window.location.href = 'register.html';
+      };
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-lock"></i> লগইন করে বার্তা পাঠান';
+      
+      cName.removeAttribute('readonly');
+      cEmail.removeAttribute('readonly');
+      
+      cName.value = '';
+      cPhone.value = '';
+      cEmail.value = '';
+      cSubject.value = '';
+      cMessage.value = '';
+
+      myMessagesSection.style.display = 'none';
+      myMessagesList.innerHTML = '';
+    }
+  });
+
+  // 🔴 ২. নতুন মেসেজ পাঠানোর লজিক
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const user = auth.currentUser;
+    if (!user) {
+      showToast('বার্তা পাঠাতে আপনাকে লগইন করতে হবে!', 'error');
+      return;
+    }
+
+    const name = cName.value.trim();
+    const phone = cPhone.value.trim();
+    const email = cEmail.value.trim();
+    const subject = cSubject.value.trim();
+    const message = cMessage.value.trim();
+
+    if (phone.length < 11) {
+      showToast('সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন!', 'error');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> চেক করা হচ্ছে...';
+
+    const isAllowed = await canUserSendMessage(user.email);
+    if (!isAllowed) {
+      showToast('আপনি ২৪ ঘন্টায় সর্বোচ্চ ২টি নতুন বার্তা পাঠাতে পারবেন। অনুগ্রহ করে ২৪ ঘন্টা পর আবার চেষ্টা করুন।', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> বার্তা পাঠান';
+      return;
+    }
+
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
+
+    try {
+      await addDoc(collection(db, "messages"), {
+        name, phone, email, subject, message,
+        createdAt: serverTimestamp(),
+        status: 'unread',
+        replies: [],
+        userId: user.uid,
+        userEmail: user.email
+      });
+
+      showToast('আপনার বার্তা সফলভাবে পাঠানো হয়েছে!', 'success');
+      
+      cSubject.value = '';
+      cMessage.value = '';
+      
+      loadMyMessages();
+
+    } catch (error) {
+      console.error("Error sending message:", error);
+      showToast('বার্তা পাঠাতে সমস্যা হয়েছে! আবার চেষ্টা করুন।', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> বার্তা পাঠান';
+    }
+  });
+
+  // 🔴 ৩. চ্যাট বক্স থেকে রিপ্লাই পাঠানোর ফাংশন
+  window.sendChatReply = async function(msgId) {
+    const input = document.getElementById(`replyInput_${msgId}`);
+    const btn = document.getElementById(`replyBtn_${msgId}`);
+    const text = input.value.trim();
+    
+    if(!text) return;
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+    try {
+      const docRef = doc(db, "messages", msgId);
+      await updateDoc(docRef, {
+        replies: arrayUnion({
+          text: text,
+          timestamp: new Date().toISOString(),
+          sender: 'user' 
+        })
+      });
+      
+      input.value = '';
+      // রিলোড করার সময় কার্ডটি যাতে বন্ধ হয়ে না যায়, তার জন্য একটু দেরি করে লোড করব
+      await loadMyMessages(); 
+      
+      // মেসেজ পাঠানোর পর কার্ডটি ওপেন রাখা
+      const card = document.getElementById(`thread_${msgId}`);
+      if(card && !card.classList.contains('expanded')) {
+          card.classList.add('expanded');
+      }
+      
+    } catch(e) {
+      console.error("Chat reply error:", e);
+      showToast("মেসেজ পাঠাতে সমস্যা হয়েছে!", "error");
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
+    }
+  };
+
+  // 🔴 ৪. ইউজারের চ্যাট হিস্ট্রি লোড করার নতুন লজিক (Accordion স্টাইল)
+  async function loadMyMessages() {
+    const user = auth.currentUser;
+    if (!user || !user.email) {
+      myMessagesSection.style.display = 'none';
+      return;
+    }
+
+    myMessagesSection.style.display = 'block';
+    
+    // চ্যাট হিস্ট্রি রিলোড হওয়ার সময় ওপেন থাকা কার্ডগুলো ট্র্যাক করার জন্য
+    const expandedCards = Array.from(document.querySelectorAll('.msg-thread-card.expanded')).map(c => c.id.replace('thread_', ''));
+
+    myMessagesList.innerHTML = `<div style="text-align:center; padding:20px; color:var(--muted);"><i class="fa-solid fa-spinner fa-spin"></i> আপনার বার্তাগুলো লোড হচ্ছে...</div>`;
+
+    let html = '';
+    let totalRepliesCount = 0;
+
+    try {
+      const q = query(collection(db, "messages"), where("userEmail", "==", user.email));
+      const querySnapshot = await getDocs(q);
+
+      const messagesArray = [];
+      querySnapshot.forEach(doc => {
+        messagesArray.push({ id: doc.id, ...doc.data() });
+      });
+      
+      // তারিখ অনুযায়ী সাজানো (নতুনটা আগে)
+      messagesArray.sort((a, b) => {
+        const timeA = a.createdAt ? a.createdAt.toMillis() : 0;
+        const timeB = b.createdAt ? b.createdAt.toMillis() : 0;
+        return timeB - timeA;
+      });
+
+      messagesArray.forEach(data => {
+        const replies = data.replies || [];
+        
+        // অ্যাডমিনের রিপ্লাইগুলো গোনা হচ্ছে
+        const adminReplies = replies.filter(r => r.sender !== 'user');
+        totalRepliesCount += adminReplies.length;
+
+        const dateStr = data.createdAt ? new Date(data.createdAt.toDate()).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+        
+        // কার্ডের হেডারে দেখানোর জন্য শেষ মেসেজ বা রিপ্লাই বের করা
+        let lastSnippet = data.message;
+        let lastDate = dateStr;
+        
+        if (replies.length > 0) {
+          const lastReply = replies[replies.length - 1];
+          lastSnippet = lastReply.sender === 'user' ? `আপনি: ${lastReply.text}` : `অ্যাডমিন: ${lastReply.text}`;
+          lastDate = new Date(lastReply.timestamp).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+        }
+
+        // ইউজারের প্রথম মেসেজ
+        let chatBubblesHtml = `
+          <div class="msg-bubble bubble-user">
+            ${escapeHtml(data.message)}
+            <span class="time">${dateStr}</span>
+          </div>
+        `;
+
+        // চ্যাট হিস্ট্রি (রিপ্লাইগুলো)
+        if (replies.length > 0) {
+          replies.forEach(reply => {
+            const replyDate = new Date(reply.timestamp).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+            
+            if (reply.sender === 'user') {
+              chatBubblesHtml += `
+                <div class="msg-bubble bubble-user" style="background: rgba(255,255,255,0.08);">
+                  ${escapeHtml(reply.text)}
+                  <span class="time">${replyDate}</span>
+                </div>
+              `;
+            } else {
+              chatBubblesHtml += `
+                <div class="msg-bubble bubble-admin">
+                  <small><i class="fa-solid fa-shield-halved"></i> অ্যাডমিন</small>
+                  ${escapeHtml(reply.text)}
+                  <span class="time">${replyDate}</span>
+                </div>
+              `;
+            }
+          });
+        } else {
+          chatBubblesHtml += `<div style="text-align:right; font-size:0.8rem; color:var(--muted); margin-top:10px;"><i class="fa-solid fa-clock"></i> এখনো কোনো রিপ্লাই দেওয়া হয়নি।</div>`;
+        }
+
+        // Accordion Card HTML
+        html += `
+          <div class="msg-thread-card" id="thread_${data.id}">
+            
+            <!-- ক্লিকেবল হেডার -->
+            <div class="msg-thread-header" onclick="toggleThread('${data.id}')">
+              <div class="msg-header-info">
+                <h4><i class="fa-solid fa-tag"></i> ${escapeHtml(data.subject || 'কোনো বিষয় নেই')}</h4>
+                <p><i class="fa-solid fa-comment-dots"></i> ${escapeHtml(lastSnippet.substring(0, 45))}${lastSnippet.length > 45 ? '...' : ''}</p>
+                <span class="date"><i class="fa-regular fa-clock"></i> ${lastDate}</span>
+              </div>
+              <div class="msg-toggle-icon">
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+            
+            <!-- সম্পূর্ণ চ্যাট বডি (ক্লিক করলে খুলবে) -->
+            <div class="msg-thread-body">
+              <div class="chat-area-scroll">
+                ${chatBubblesHtml}
+              </div>
+              
+              <!-- নতুন চ্যাট ইনপুট বক্স -->
+              <div class="chat-input-area">
+                <input type="text" id="replyInput_${data.id}" class="chat-input" placeholder="এখানে আপনার উত্তর লিখুন..." onkeypress="if(event.key === 'Enter') sendChatReply('${data.id}')">
+                <button id="replyBtn_${data.id}" class="chat-send-btn" onclick="sendChatReply('${data.id}')">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        `;
+      });
+
+    } catch(e) {
+      console.error("Firebase message fetch error:", e);
+      html = `<div style="text-align:center; color:#ef4444; padding:20px;">মেসেজ লোড করতে সমস্যা হয়েছে।</div>`;
+    }
+
+    if (html === '') {
+      myMessagesList.innerHTML = `<div style="text-align:center; color:var(--muted); padding:20px;">আপনি এখনো কোনো বার্তা পাঠাননি।</div>`;
+      totalRepliesBadge.style.display = 'none';
+    } else {
+      myMessagesList.innerHTML = html;
+      
+      // রিলোড হওয়ার পর আগের ওপেন করা কার্ডগুলো আবার ওপেন করা
+      expandedCards.forEach(id => {
+        const card = document.getElementById(`thread_${id}`);
+        if(card) card.classList.add('expanded');
+      });
+
+      if (totalRepliesCount > 0) {
+        totalRepliesBadge.innerText = `${convertToBengali(totalRepliesCount)} টি রিপ্লাই`;
+        totalRepliesBadge.style.display = 'block';
+      } else {
+        totalRepliesBadge.style.display = 'none';
+      }
+    }
+  }
+
+</script>
+
+</body>
+</html>

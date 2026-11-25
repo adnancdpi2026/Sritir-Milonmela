@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ছবির গ্যালারি - স্মৃতির মিলনমেলা</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  /* === INDEX THEME VARIABLES === */
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --navy:#0c2d6b;
+    --navy-deep:#061a42;
+    --navy-light:#1e3a8a;
+    --gold:#d4af37;
+    --gold-light:#f4d47a;
+    --gold-deep:#b8860b;
+    --text:#f5f7ff;
+    --muted:#9ca3c4;
+    --border:rgba(212,175,55,0.22);
+  }
+  body{
+    font-family:'Hind Siliguri','Poppins',sans-serif;
+    background:var(--navy-deep);
+    color:var(--text);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  /* Background Effects */
+  body::before{
+    content:''; position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(30,58,138,0.45), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(212,175,55,0.10), transparent 55%),
+      radial-gradient(ellipse at center, rgba(12,45,107,0.4), transparent 60%);
+    z-index:-1; pointer-events:none;
+  }
+  body::after{
+    content:''; position:fixed; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(244,212,122,0.25), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(244,212,122,0.15), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(244,212,122,0.2), transparent),
+      radial-gradient(1px 1px at 40% 90%, rgba(244,212,122,0.12), transparent);
+    background-size:600px 600px; z-index:-1; pointer-events:none; opacity:0.7;
+  }
+
+  /* === NAVIGATION (Copied from index) === */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:1000; padding:14px 6%;
+    display:flex; justify-content:space-between; align-items:center; transition:all 0.4s;
+  }
+  nav.scrolled{
+    background:rgba(6,26,66,0.9); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    padding:10px 6%; border-bottom:1px solid var(--border); box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  }
+  .logo{ display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit; }
+  .logo-img{ height:64px; width:auto; border-radius:14px; filter:drop-shadow(0 4px 14px rgba(212,175,55,0.35)); transition:transform 0.4s; opacity: 0; }
+  .logo:hover .logo-img{ transform:scale(1.05); }
+  .logo-text{ display:flex; flex-direction:column; line-height:1.15; }
+  .logo-main{ font-family:'Playfair Display','Hind Siliguri',serif; font-size:1rem; font-weight:700; letter-spacing:0.3px; color:var(--gold-light); }
+  .logo-sub{ font-size:0.65rem; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; font-family:'Poppins',sans-serif; }
+
+  .nav-overlay {
+    position: fixed; inset: 0; background: rgba(3,10,26,0.75); backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); z-index: 999; opacity: 0; visibility: hidden; transition: all 0.4s;
+  }
+  .nav-overlay.show { opacity: 1; visibility: visible; }
+
+  .nav-list{
+    position:fixed; top:0; right:-100%; width:300px; height:100vh; background:rgba(6,26,66,0.98);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); display: flex; flex-direction:column;
+    justify-content:flex-start; padding:100px 35px 40px; gap:20px; transition:right 0.45s cubic-bezier(0.4,0,0.2,1);
+    border-left:1px solid var(--border); align-items:flex-start; z-index:1001; overflow-y: auto;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5); list-style: none; margin: 0;
+  }
+  .nav-list.open{ right:0; }
+  .nav-list li { width: 100%; }
+  .nav-list a{
+    color:#d1d5db; text-decoration:none; font-size:1.1rem; font-weight:500; letter-spacing:0.5px;
+    position:relative; transition:color 0.3s; display: block; padding: 5px 0;
+  }
+  .nav-list a:hover{ color:var(--gold-light); }
+  .nav-list a::after{ content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:var(--gold); transition:all 0.3s; }
+  .nav-list a:hover::after{ width:100%; }
+
+  .btn-register{
+    padding:12px 24px; background:linear-gradient(135deg,var(--gold-light),var(--gold)); border:none;
+    color:var(--navy-deep); border-radius:50px; font-family:inherit; font-size:1rem; font-weight:600;
+    letter-spacing:0.5px; cursor:pointer; transition:all 0.35s; box-shadow:0 8px 22px rgba(212,175,55,0.3);
+    width: 100%; margin-top: 10px;
+  }
+  .btn-register:hover{ transform:translateY(-2px); box-shadow:0 14px 32px rgba(212,175,55,0.5); }
+
+  .menu-btn{
+    display:block; color:var(--gold); font-size:1.6rem; cursor:pointer; background:none;
+    border:none; position:relative; z-index:1002; transition:transform 0.3s;
+  }
+  .menu-btn:hover { transform: scale(1.1); }
+
+  /* === GALLERY HEADER === */
+  .gallery-header{
+    padding:120px 5% 30px; text-align:center;
+  }
+  .gallery-header .eyebrow{
+    font-family:'Poppins',sans-serif; font-size:0.75rem; letter-spacing:4px; text-transform:uppercase;
+    color:var(--gold); margin-bottom:10px; display:block;
+  }
+  .gallery-header h1{
+    font-family:'Playfair Display','Hind Siliguri',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700;
+    color:var(--text); margin-bottom:8px;
+  }
+  .gallery-header h1 em{ font-style:italic; color:var(--gold-light); }
+  .gallery-header p{
+    color:var(--muted); font-size:1rem;
+  }
+  .gallery-header p span{ color:var(--gold); font-weight:600; }
+
+  /* === GALLERY GRID === */
+  .gallery-container{
+    padding:20px 5% 60px; max-width:1200px; margin:0 auto;
+  }
+  .gallery-grid{
+    display:grid; 
+    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); 
+    gap:20px;
+  }
+  @media (max-width: 600px){
+    .gallery-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
+  }
+
+  .gallery-item{
+    position:relative; border-radius:16px; overflow:hidden; 
+    aspect-ratio:4/3; cursor:pointer; background:#0a1128;
+    border:1px solid rgba(212,175,55,0.15); box-shadow:0 8px 20px rgba(0,0,0,0.4);
+    transition:all 0.4s ease;
+  }
+  .gallery-item:hover{
+    transform:translateY(-5px); border-color:rgba(212,175,55,0.5); box-shadow:0 12px 25px rgba(212,175,55,0.2);
+  }
+  .gallery-item img{
+    width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease;
+  }
+  .gallery-item:hover img{ transform:scale(1.08); }
+  
+  /* Overlay for gallery items */
+  .gallery-item::after{
+    content:'\f00e'; font-family:'Font Awesome 6 Free'; font-weight:900;
+    position:absolute; inset:0; background:rgba(6,26,66,0.6); color:var(--gold-light);
+    display:grid; place-items:center; font-size:1.5rem; opacity:0; transition:opacity 0.3s;
+  }
+  .gallery-item:hover::after{ opacity:1; }
+
+  /* Loading State */
+  .loading-state{
+    text-align:center; padding:50px 20px; grid-column:1/-1; color:var(--muted);
+  }
+  .loading-state i{ font-size:2.5rem; color:var(--gold); margin-bottom:15px; animation:spin 1s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* === LIGHTBOX (ImageViewer) === */
+  .lightbox{
+    position:fixed; inset:0; z-index:9999; background:rgba(3,10,26,0.95);
+    backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden; transition:all 0.3s ease; padding:20px;
+  }
+  .lightbox.show{ opacity:1; visibility:visible; }
+  
+  .lightbox img{
+    max-width:100%; max-height:80vh; border-radius:12px; box-shadow:0 20px 50px rgba(0,0,0,0.8);
+    border:1px solid rgba(212,175,55,0.3); transform:scale(0.95); transition:transform 0.3s ease;
+  }
+  .lightbox.show img{ transform:scale(1); }
+
+  .lightbox-actions{
+    margin-top:20px; display:flex; gap:15px;
+  }
+  .btn-action{
+    padding:12px 24px; border-radius:50px; font-family:inherit; font-size:0.95rem; font-weight:600;
+    cursor:pointer; display:flex; align-items:center; gap:8px; transition:all 0.3s; text-decoration:none;
+    border:none;
+  }
+  .btn-download{
+    background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:var(--navy-deep);
+    box-shadow:0 10px 25px rgba(212,175,55,0.3);
+  }
+  .btn-download:hover{ transform:translateY(-3px); box-shadow:0 15px 35px rgba(212,175,55,0.5); }
+  
+  .btn-close-lb{
+    background:rgba(239,68,68,0.15); color:#ef4444; border:1px solid rgba(239,68,68,0.3);
+  }
+  .btn-close-lb:hover{ background:rgba(239,68,68,0.3); }
+
+  .lb-close-icon{
+    position:absolute; top:20px; right:20px; font-size:1.5rem; color:var(--muted);
+    cursor:pointer; width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
+    background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); transition:all 0.3s;
+  }
+  .lb-close-icon:hover{ color:var(--gold); border-color:var(--gold); transform:rotate(90deg); }
+
+  /* Responsive Logo */
+  @media (max-width:900px){ .logo-img{ height:52px; } }
+  @media (max-width:480px){ nav{ padding:12px 5%; } nav.scrolled{ padding:8px 5%; } .nav-list { width: 260px; padding: 90px 25px 40px; } .logo-img{ height:44px; } .logo-main{ font-size:0.85rem; } .logo-sub{ font-size:0.55rem; } }
+
+  /* ✅ লোগো লোড হওয়ার আগে লুকিয়ে রাখা */
+  .logo-img { opacity: 0; transition: opacity 0.3s ease; }
+  body.sm-logos-ready .logo-img { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- Navigation (Index Style) -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="স্মৃতির মিলনমেলা" class="logo-img">
+    <div class="logo-text">
+      <span class="logo-main">স্মৃতির মিলনমেলা</span>
+      <span class="logo-sub">_</span>
+    </div>
+  </a>
+
+  <ul class="nav-list" id="navList">
+    <li><a href="index.html">হোম</a></li>
+    <li><a href="sponsor.html">স্পনসর</a></li>
+    <li><a href="#">ভলান্টিয়ার</a></li>
+    <li><a href="#">ফটোকার্ড</a></li>
+
+    <li><a href="gallery.html" style="color:var(--gold-light);">গ্যালারি</a></li>
+    <li><a href="contact.html">যোগাযোগ</a></li>
+    <li><button class="btn-register" onclick="window.location.href='register.html'">রেজিস্ট্রেশন</button></li>
+  </ul>
+
+  <button class="menu-btn" id="menuBtn" onclick="toggleNav(event)">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</nav>
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+<!-- Header -->
+<header class="gallery-header">
+  <span class="eyebrow">Memory Lane</span>
+  <h1>ছবির <em>গ্যালারি</em></h1>
+  <p>মোট <span id="totalImagesCount">০</span> টি ছবি</p>
+</header>
+
+<!-- Gallery Grid -->
+<main class="gallery-container">
+  <div class="gallery-grid" id="dynamicGalleryGrid">
+    <div class="loading-state">
+      <i class="fa-solid fa-spinner"></i>
+      <p>ছবিগুলো লোড হচ্ছে...</p>
+    </div>
+  </div>
+</main>
+
+<!-- Lightbox / Image Viewer -->
+<div class="lightbox" id="imageLightbox">
+  <div class="lb-close-icon" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></div>
+  <img src="" id="lightboxImg" alt="Gallery Image">
+  <div class="lightbox-actions">
+    <a href="#" id="downloadBtn" class="btn-action btn-download" download="milnmela_photo.jpg">
+      <i class="fa-solid fa-download"></i> ডাউনলোড করুন
+    </a>
+    <button class="btn-action btn-close-lb" onclick="closeLightbox()">বন্ধ করুন</button>
+  </div>
+</div>
+
+<!-- ===== NAVBAR TOGGLE & SCROLL SCRIPT ===== -->
+<script>
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if(window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  function toggleNav(event){
+    if(event) event.stopPropagation();
+    const navList = document.getElementById('navList');
+    const menuBtn = document.getElementById('menuBtn');
+    const navOverlay = document.getElementById('navOverlay');
+    
+    navList.classList.toggle('open');
+    navOverlay.classList.toggle('show');
+    
+    if(navList.classList.contains('open')){
+      menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    } else {
+      menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }
+  }
+
+  function closeNav(){
+    document.getElementById('navList').classList.remove('open');
+    document.getElementById('navOverlay').classList.remove('show');
+    document.getElementById('menuBtn').innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }
+
+  document.addEventListener('click', (e) => {
+    const navList = document.getElementById('navList');
+    const menuBtn = document.getElementById('menuBtn');
+    if(!navList.classList.contains('open')) return;
+    if(navList.contains(e.target) || menuBtn.contains(e.target)) return;
+    closeNav(); 
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeNav();
+  });
+</script>
+
+<!-- ===== DYNAMIC LOGO FROM FIREBASE (NO FLICKER) ===== -->
+<script type="module">
+  import { db } from './firebase.js';
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  function applyLogo(url) {
+    if (!url) return;
+    if (window.__smApplyLogo) {
+      window.__smApplyLogo(url);
+    } else {
+      document.querySelectorAll('.logo-img').forEach(img => { img.src = url; });
+    }
+  }
+
+  async function loadLogo() {
+    // 1. LocalStorage Cache
+    try {
+      const cachedLogo = localStorage.getItem('sm2026_branding_logo');
+      if (cachedLogo) applyLogo(cachedLogo);
+    } catch(e) {}
+
+    // 2. Firestore Fresh Data
+    try {
+      const docRef = doc(db, 'settings', 'general');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists() && docSnap.data().logoUrl) {
+        applyLogo(docSnap.data().logoUrl);
+        try { localStorage.setItem('sm2026_branding_logo', docSnap.data().logoUrl); } catch(e){}
+      }
+    } catch(e) { console.error("Logo load error: ", e); }
+  }
+  loadLogo();
+</script>
+
+<!-- ===== LOGO CACHE APPLY (Instant, no flicker) ===== -->
+<script>
+(function() {
+  var CACHE_KEY = 'sm2026_branding_logo';
+  var cached = null;
+  try { cached = localStorage.getItem(CACHE_KEY); } catch(e) {}
+
+  function reveal() { document.body.classList.add('sm-logos-ready'); }
+
+  function applyAndReveal(url) {
+    var imgs = document.querySelectorAll('.logo-img');
+    if (!imgs.length) { reveal(); return; }
+
+    var pending = imgs.length;
+    var done = function() { pending--; if (pending <= 0) reveal(); };
+
+    imgs.forEach(function(img) {
+      if (img.dataset.logoSrc === url) { done(); return; }
+      img.dataset.logoSrc = url;
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', function() { img.src = 'logo.png'; done(); }, { once: true });
+      img.src = url;
+    });
+    setTimeout(reveal, 2000);
+  }
+
+  if (cached) { applyAndReveal(cached); } else { reveal(); }
+
+  window.__smApplyLogo = function(url) {
+    if (!url) return;
+    try { localStorage.setItem(CACHE_KEY, url); } catch(e) {}
+    var imgs = document.querySelectorAll('.logo-img');
+    imgs.forEach(function(img) {
+      if (img.dataset.logoSrc === url) return;
+      img.dataset.logoSrc = url;
+      img.src = url;
+    });
+    reveal();
+  };
+})();
+</script>
+
+<!-- ===== GALLERY FIREBASE SCRIPT ===== -->
+<script type="module">
+  import { db } from './firebase.js';
+  import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const grid = document.getElementById('dynamicGalleryGrid');
+  const countEl = document.getElementById('totalImagesCount');
+  
+  function toBn(num) {
+    const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    return String(num).replace(/\d/g, d => bnDigits[d]);
+  }
+
+  async function loadGallery() {
+    try {
+      const q = query(collection(db, "gallery"), orderBy("timestamp", "desc"));
+      const snap = await getDocs(q);
+      
+      if (snap.empty) {
+        grid.innerHTML = `<div class="loading-state" style="animation:none;"><i class="fa-regular fa-images" style="animation:none;"></i><p>এখনো কোনো ছবি যুক্ত করা হয়নি।</p></div>`;
+        countEl.innerText = toBn(0);
+        return;
+      }
+
+      countEl.innerText = toBn(snap.size);
+
+      let html = '';
+      snap.forEach(doc => {
+        const data = doc.data();
+        if(data.imageUrl) {
+          html += `
+            <div class="gallery-item" onclick="openLightbox('${data.imageUrl}')">
+              <img src="${data.imageUrl}" alt="Gallery Photo" loading="lazy">
+            </div>
+          `;
+        }
+      });
+      grid.innerHTML = html;
+      
+    } catch (err) {
+      console.error("Gallery load error:", err);
+      grid.innerHTML = `<div class="loading-state" style="animation:none; color:var(--danger);"><p>ছবিগুলো লোড করতে সমস্যা হচ্ছে।</p></div>`;
+    }
+  }
+
+  loadGallery();
+
+  window.openLightbox = function(url) {
+    const lb = document.getElementById('imageLightbox');
+    const img = document.getElementById('lightboxImg');
+    const dlBtn = document.getElementById('downloadBtn');
+    
+    img.src = url;
+    dlBtn.href = url;
+    
+    const ext = url.split('.').pop().split('?')[0] || 'jpg';
+    dlBtn.setAttribute('download', `milnmela_photo_${Date.now()}.${ext}`);
+
+    lb.classList.add('show');
+    document.body.style.overflow = 'hidden'; 
+  }
+
+  window.closeLightbox = function() {
+    const lb = document.getElementById('imageLightbox');
+    lb.classList.remove('show');
+    document.body.style.overflow = 'auto'; 
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeLightbox();
+  });
+</script>
+<!-- ===== DYNAMIC TITLE (YEAR) FETCHING ===== -->
+<script type="module">
+  import { db } from './firebase.js';
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // বাংলা সংখ্যা কনভার্টার
+  function convertToBengali(num) {
+    const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    return String(num).replace(/\d/g, d => bnDigits[d]);
+  }
+
+  // টাইটেল আপডেট করার ফাংশন
+  function updateTitle(year) {
+    const bnYear = convertToBengali(year);
+    document.title = `ছবির গ্যালারি - স্মৃতির মিলনমেলা ${bnYear}`;
+  }
+
+  async function loadDynamicYear() {
+    const defaultYear = '2026';
+
+    // ১. প্রথমে LocalStorage (ক্যাশ) চেক করবো (দ্রুত লোড হওয়ার জন্য)
+    const cachedYear = localStorage.getItem('sm2026_siteYear');
+    if (cachedYear) {
+      updateTitle(cachedYear);
+    }
+
+    // ২. এরপর ফায়ারবেস থেকে নতুন ডাটা আনবো
+    try {
+      const docRef = doc(db, 'settings', 'general');
+      const docSnap = await getDoc(docRef);
+      
+      let firebaseYear = defaultYear; 
+      if (docSnap.exists() && docSnap.data().year) {
+        firebaseYear = docSnap.data().year;
+      }
+
+      // যদি ক্যাশের সাথে ফায়ারবেসের সাল না মেলে, তবে নতুনটা সেভ করে টাইটেল আপডেট করবো
+      if (cachedYear !== firebaseYear) {
+        localStorage.setItem('sm2026_siteYear', firebaseYear);
+        updateTitle(firebaseYear);
+      } else if (!cachedYear) {
+        updateTitle(firebaseYear);
+      }
+
+    } catch (e) {
+      console.error("Year load error: ", e);
+      if (!cachedYear) {
+        updateTitle(defaultYear);
+      }
+    }
+  }
+
+  loadDynamicYear();
+</script>
+</body>
+</html>
