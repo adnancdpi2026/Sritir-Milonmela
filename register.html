@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>রেজিস্ট্রেশন ও লগইন - স্মৃতির মিলনমেলা ২০২৬</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --navy:#0c2d6b;
+    --navy-deep:#061a42;
+    --gold:#d4af37;
+    --gold-light:#f4d47a;
+    --dark-text:#0f172a;
+  }
+  
+  body{
+    font-family:'Hind Siliguri','Poppins',sans-serif;
+    background:var(--navy-deep);
+    color:var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(30,58,138,0.45), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(212,175,55,0.10), transparent 55%),
+      radial-gradient(ellipse at center, rgba(12,45,107,0.4), transparent 60%);
+    z-index:-1; pointer-events:none;
+  }
+
+  .auth-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 24px;
+    padding: 40px 30px;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.1);
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+  }
+
+  .auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--navy));
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    z-index: 10;
+  }
+  .close-btn:hover { 
+    color: #ef4444; 
+    background: #fee2e2;
+    transform: rotate(90deg);
+  }
+
+  /* ====== LOADING SPINNER STYLE ====== */
+  .loader-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 100%;
+  }
+  .loader-wrap i {
+    color: var(--navy);
+    font-size: 2.5rem;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+  }
+  .loader-wrap p {
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .auth-tabs {
+    display: flex;
+    background: #f3f4f6;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .auth-tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+  }
+  .auth-tab.active {
+    color: var(--navy);
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  }
+
+  .form-container {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .form-container.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .form-header h2 {
+    color: var(--dark-text);
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .form-header p {
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .input-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 15px 18px 15px 48px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 0.95rem;
+    color: var(--dark-text);
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s;
+  }
+  .form-group input::placeholder {
+    color: #9ca3af;
+  }
+  .form-group input:focus {
+    background: #ffffff;
+    border-color: var(--navy);
+    box-shadow: 0 0 0 4px rgba(12, 45, 107, 0.08);
+  }
+  .form-group input:focus + .input-icon {
+    color: var(--navy);
+  }
+
+  .forgot-pass {
+    text-align: right;
+    margin-bottom: 20px;
+    margin-top: -5px;
+  }
+  .forgot-pass a {
+    color: #6b7280;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  .forgot-pass a:hover {
+    color: var(--navy);
+    text-decoration: underline;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 15px;
+    background: #0c1524; 
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s;
+    box-shadow: 0 8px 20px rgba(12, 21, 36, 0.3);
+    margin-top: 5px;
+  }
+  .btn-submit:hover {
+    background: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(12, 21, 36, 0.4);
+  }
+  .btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .switch-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #4b5563;
+  }
+  .switch-text a {
+    color: #10b981;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 4px;
+    cursor: pointer;
+  }
+  .switch-text a:hover {
+    text-decoration: underline;
+  }
+
+  /* ================= TOAST NOTIFICATION STYLES ================= */
+  .toast-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+    pointer-events: none;
+  }
+  .toast {
+    background: #ffffff;
+    color: var(--dark-text);
+    padding: 16px 20px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    pointer-events: auto;
+    border-left: 5px solid transparent;
+  }
+  .toast.warning { border-left-color: #f59e0b; }
+  .toast.success { border-left-color: #10b981; }
+  .toast.error { border-left-color: #ef4444; }
+  
+  .toast-icon {
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .toast.warning .toast-icon { color: #f59e0b; }
+  .toast.success .toast-icon { color: #10b981; }
+  .toast.error .toast-icon { color: #ef4444; }
+  
+  .toast-msg { flex: 1; line-height: 1.5; }
+  
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes toastOut {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  }
+
+  /* ================= DASHBOARD STYLES ================= */
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--navy), #1e3a8a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 2.2rem;
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(12, 45, 107, 0.3);
+    position: relative;
+  }
+  .user-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px dashed var(--gold);
+    animation: spin 15s linear infinite;
+  }
+  .user-info-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 0.95rem;
+    color: var(--dark-text);
+    line-height: 1.8;
+  }
+  .user-info-box strong {
+    color: var(--navy);
+  }
+
+  @media (max-width: 480px) {
+    .auth-card { padding: 35px 20px; }
+    .form-header h2 { font-size: 1.4rem; }
+    .form-group input { padding: 13px 16px 13px 42px; font-size: 0.9rem; }
+    .input-icon { left: 15px; font-size: 1rem; }
+    .auth-tab { font-size: 0.95rem; padding: 10px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="auth-card">
+    <a href="index.html" class="close-btn" title="বন্ধ করুন">
+      <i class="fa-solid fa-xmark"></i>
+    </a>
+
+    <!-- ================= LOADING SECTION (Initially Visible) ================= -->
+    <div id="loadingSection" class="loader-wrap">
+      <i class="fa-solid fa-spinner"></i>
+      <p>অনুগ্রহ করে অপেক্ষা করুন...</p>
+    </div>
+
+    <!-- Tabs (Hidden Initially) -->
+    <div class="auth-tabs" id="authTabs" style="display: none;">
+      <button type="button" class="auth-tab active" id="tabRegister" onclick="switchForm('register')">রেজিস্ট্রেশন</button>
+      <button type="button" class="auth-tab" id="tabLogin" onclick="switchForm('login')">লগইন</button>
+    </div>
+
+    <!-- ================= WELCOME DASHBOARD (Hidden Initially) ================= -->
+    <div class="form-container" id="dashboardSection" style="display: none;">
+      <div class="form-header" style="margin-bottom: 20px;">
+        <div class="user-avatar">
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+        <h2>স্বাগতম!</h2>
+        <p style="color: #10b981; font-weight: 600;">আপনার অ্যাকাউন্ট তৈরি করা হয়েছে</p>
+      </div>
+
+      <div class="user-info-box">
+        <p><strong>নাম:</strong> <span id="dashUserName">লোড হচ্ছে...</span></p>
+        <p><strong>ইমেইল:</strong> <span id="dashUserEmail">লোড হচ্ছে...</span></p>
+      </div>
+
+      <button class="btn-submit" onclick="handleLogout()" style="background: #ef4444; margin-top: 10px; box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> লগআউট করুন
+      </button>
+      
+      <div class="switch-text" style="margin-top: 15px;">
+        <a href="index.html" style="color: var(--navy);">← হোম পেজে ফিরে যান</a>
+      </div>
+    </div>
+
+    <!-- ================= REGISTER FORM (Hidden Initially) ================= -->
+    <div class="form-container" id="registerSection">
+      <div class="form-header">
+        <h2>অ্যাকাউন্ট তৈরি করুন</h2>
+        <p>মিলনমেলায় অংশ নিতে আজই যুক্ত হোন</p>
+      </div>
+
+      <form id="registerForm">
+        <div class="form-group">
+          <input type="text" id="regName" placeholder="পূর্ণ নাম" required>
+          <i class="fa-regular fa-user input-icon"></i>
+        </div>
+        <div class="form-group">
+          <input type="email" id="regEmail" placeholder="ইমেইল" required>
+          <i class="fa-regular fa-envelope input-icon"></i>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="regPhone" placeholder="ফোন (ঐচ্ছিক)">
+          <i class="fa-solid fa-phone input-icon"></i>
+        </div>
+        <div class="form-group">
+          <input type="password" id="regPassword" placeholder="পাসওয়ার্ড" required minlength="6">
+          <i class="fa-solid fa-lock input-icon"></i>
+        </div>
+        <div class="form-group">
+          <input type="password" id="regConfirmPassword" placeholder="কনফার্ম পাসওয়ার্ড" required minlength="6">
+          <i class="fa-solid fa-lock input-icon"></i>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnRegister">
+          <i class="fa-solid fa-user-plus"></i> সাইন আপ
+        </button>
+      </form>
+
+      <div class="switch-text">
+        আগে থেকেই অ্যাকাউন্ট আছে? <a onclick="switchForm('login')">লগইন করুন</a>
+      </div>
+    </div>
+
+    <!-- ================= LOGIN FORM (Hidden Initially) ================= -->
+    <div class="form-container" id="loginSection">
+      <div class="form-header">
+        <h2>লগইন করুন</h2>
+        <p>আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <input type="email" id="loginEmail" placeholder="ইমেইল" required>
+          <i class="fa-regular fa-envelope input-icon"></i>
+        </div>
+        <div class="form-group">
+          <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড" required>
+          <i class="fa-solid fa-lock input-icon"></i>
+        </div>
+        <div class="forgot-pass">
+          <a onclick="switchForm('forgot')">পাসওয়ার্ড ভুলে গেছেন?</a>
+        </div>
+        <button type="submit" class="btn-submit" id="btnLogin">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> লগইন
+        </button>
+      </form>
+
+      <div class="switch-text">
+        আগে থেকেই অ্যাকাউন্ট নেই? <a onclick="switchForm('register')">রেজিস্টার করুন</a>
+      </div>
+    </div>
+
+    <!-- ================= FORGOT PASSWORD FORM (Hidden Initially) ================= -->
+    <div class="form-container" id="forgotSection">
+      <div class="form-header">
+        <h2>পাসওয়ার্ড রিসেট</h2>
+        <p>আপনার ইমেইল দিন, আমরা রিসেট লিংক পাঠাবো</p>
+      </div>
+
+      <form id="forgotForm">
+        <div class="form-group">
+          <input type="email" id="forgotEmail" placeholder="ইমেইল" required>
+          <i class="fa-regular fa-envelope input-icon"></i>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnForgot">
+          <i class="fa-solid fa-paper-plane"></i> রিসেট লিংক পাঠান
+        </button>
+      </form>
+
+      <div class="switch-text">
+        মনে পড়েছে? <a onclick="switchForm('login')">লগইন করুন</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ====== FIREBASE IMPORTS ====== -->
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { 
+      createUserWithEmailAndPassword, 
+      sendEmailVerification, 
+      signInWithEmailAndPassword,
+      signOut,
+      updateProfile,
+      sendPasswordResetEmail,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { 
+      doc, 
+      setDoc 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    /* ================= TOAST FUNCTION ================= */
+    window.showToast = function(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      let icon = 'fa-circle-check';
+      if (type === 'warning') icon = 'fa-triangle-exclamation';
+      if (type === 'error') icon = 'fa-circle-xmark';
+
+      toast.innerHTML = `
+        <div class="toast-icon"><i class="fa-solid ${icon}"></i></div>
+        <div class="toast-msg">${message}</div>
+      `;
+      
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'toastOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        setTimeout(() => toast.remove(), 400);
+      }, 4000);
+    };
+
+    /* ====== TAB & FORM SWITCHING ====== */
+    window.switchForm = function(type) {
+      const tabRegister = document.getElementById('tabRegister');
+      const tabLogin = document.getElementById('tabLogin');
+      const tabsContainer = document.getElementById('authTabs');
+      const registerSection = document.getElementById('registerSection');
+      const loginSection = document.getElementById('loginSection');
+      const forgotSection = document.getElementById('forgotSection');
+      const dashboardSection = document.getElementById('dashboardSection');
+
+      // Hide all sections first
+      registerSection.classList.remove('active');
+      loginSection.classList.remove('active');
+      forgotSection.classList.remove('active');
+      if(dashboardSection) dashboardSection.classList.remove('active');
+      
+      // Reset tabs
+      tabRegister.classList.remove('active');
+      tabLogin.classList.remove('active');
+
+      if (type === 'register') {
+        tabsContainer.style.display = 'flex';
+        tabRegister.classList.add('active');
+        registerSection.classList.add('active');
+      } else if (type === 'login') {
+        tabsContainer.style.display = 'flex';
+        tabLogin.classList.add('active');
+        loginSection.classList.add('active');
+      } else if (type === 'forgot') {
+        tabsContainer.style.display = 'none';
+        forgotSection.classList.add('active');
+      }
+    };
+
+    /* ====== CHECK LOGIN STATE ON PAGE LOAD ====== */
+    window.handleLogout = async function() {
+      try {
+        await signOut(auth);
+        showToast("সফলভাবে লগআউট হয়েছেন!", "success");
+        setTimeout(() => window.location.reload(), 1000);
+      } catch (error) {
+        showToast("লগআউট করতে সমস্যা হয়েছে!", "error");
+      }
+    };
+
+onAuthStateChanged(auth, async (user) => { // async যোগ করুন
+  document.getElementById('loadingSection').style.display = 'none';
+
+  const authTabs = document.getElementById('authTabs');
+  const registerSection = document.getElementById('registerSection');
+  const loginSection = document.getElementById('loginSection');
+  const forgotSection = document.getElementById('forgotSection');
+  const dashboardSection = document.getElementById('dashboardSection');
+
+  if (user && user.emailVerified) {
+    // === ইউজার লগইন আছে এবং ভেরিফাইড ===
+    
+    // ✅ নতুন যোগ করা অংশ: Firestore-এ emailVerified আপডেট করুন
+    try {
+      await setDoc(doc(db, "users", user.uid), {
+        emailVerified: true
+      }, { merge: true });
+      console.log("Firestore-এ emailVerified আপডেট হয়েছে");
+    } catch (error) {
+      console.error("Firestore আপডেট এরর:", error);
+    }
+    // ✅ নতুন অংশ শেষ
+
+    authTabs.style.display = 'none';
+    registerSection.classList.remove('active');
+    loginSection.classList.remove('active');
+    forgotSection.classList.remove('active');
+    
+    dashboardSection.style.display = 'block';
+    dashboardSection.classList.add('active');
+
+    document.getElementById('dashUserName').textContent = user.displayName || 'User';
+    document.getElementById('dashUserEmail').textContent = user.email;
+
+  } else {
+    // === ইউজার লগইন নেই ===
+    dashboardSection.style.display = 'none';
+    dashboardSection.classList.remove('active');
+    switchForm('register');
+  }
+});
+
+    /* ====== REGISTER HANDLER ====== */
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+      if (password !== confirmPassword) {
+        showToast("পাসওয়ার্ড এবং কনফার্ম পাসওয়ার্ড মিলছে না!", "error");
+        return;
+      }
+
+      const submitBtn = document.getElementById('btnRegister');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> প্রসেসিং...';
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await updateProfile(user, { displayName: name });
+
+        await setDoc(doc(db, "users", user.uid), {
+          name: name,
+          email: email,
+          phone: phone || null,
+          createdAt: new Date().toISOString()
+        });
+
+        await sendEmailVerification(user);
+
+        showToast("রেজিস্ট্রেশন সফল! ইমেইলে ভেরিফিকেশন লিংক পাঠানো হয়েছে।", "success");
+        
+        document.getElementById('registerForm').reset();
+        switchForm('login');
+        document.getElementById('loginEmail').value = email; 
+
+      } catch (error) {
+        console.error("রেজিস্ট্রেশন এরর:", error);
+        let errorMsg = "রেজিস্ট্রেশন ব্যর্থ হয়েছে। ";
+        if (error.code === 'auth/email-already-in-use') {
+          errorMsg = "এই ইমেইল দিয়ে ইতিমধ্যে একটি অ্যাকাউন্ট খোলা আছে।";
+        } else if (error.code === 'auth/weak-password') {
+          errorMsg = "পাসওয়ার্ডটি খুব দুর্বল। কমপক্ষে ৬ অক্ষর ব্যবহার করুন।";
+        } else if (error.code === 'auth/invalid-email') {
+          errorMsg = "ইমেইলটি সঠিক নয়।";
+        } else {
+          errorMsg += error.message;
+        }
+        showToast(errorMsg, "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-user-plus"></i> সাইন আপ';
+      }
+    });
+
+    /* ====== LOGIN HANDLER ====== */
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      const submitBtn = document.getElementById('btnLogin');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> লগইন হচ্ছে...';
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        if (!user.emailVerified) {
+          await signOut(auth);
+          showToast("আপনার ইমেইল এখনো ভেরিফাই করা হয়নি! ইমেইলে পাঠানো লিংকে ক্লিক করুন।", "warning");
+          
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> লগইন';
+          return; 
+        }
+
+        showToast("সফলভাবে লগইন হয়েছে! স্বাগতম।", "success");
+        // onAuthStateChanged অটোমেটিক্যালি ড্যাশবোর্ডটি দেখিয়ে দেবে।
+        
+      } catch (error) {
+        console.error("লগইন এরর:", error);
+        let errorMsg = "লগইন ব্যর্থ হয়েছে। ";
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+          errorMsg = "ইমেইল অথবা পাসওয়ার্ড ভুল।";
+        } else if (error.code === 'auth/invalid-email') {
+          errorMsg = "ইমেইলটি সঠিক নয়।";
+        } else if (error.code === 'auth/too-many-requests') {
+          errorMsg = "অনেকবার ভুল চেষ্টা করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।";
+        } else {
+          errorMsg += error.message;
+        }
+        showToast(errorMsg, "error");
+        
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> লগইন';
+      }
+    });
+
+    /* ====== FORGOT PASSWORD HANDLER ====== */
+    document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('forgotEmail').value.trim();
+      const submitBtn = document.getElementById('btnForgot');
+      
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+        
+        showToast("পাসওয়ার্ড রিসেট লিংক আপনার ইমেইলে পাঠানো হয়েছে! ইনবক্স চেক করুন।", "success");
+        
+        document.getElementById('forgotForm').reset();
+        switchForm('login');
+
+      } catch (error) {
+        console.error("ফরগেট পাসওয়ার্ড এরর:", error);
+        let errorMsg = "লিংক পাঠানো ব্যর্থ হয়েছে। ";
+        
+        if (error.code === 'auth/user-not-found') {
+          errorMsg = "এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট খুঁজে পাওয়া যায়নি।";
+        } else if (error.code === 'auth/invalid-email') {
+          errorMsg = "ইমেইলটি সঠিক নয়।";
+        } else if (error.code === 'auth/too-many-requests') {
+          errorMsg = "অনেকবার চেষ্টা করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।";
+        } else {
+          errorMsg += error.message;
+        }
+        
+        showToast(errorMsg, "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> রিসেট লিংক পাঠান';
+      }
+    });
+  </script>
+
+</body>
+</html>
