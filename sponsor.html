@@ -674,7 +674,9 @@
     0 10px 30px rgba(0,0,0,0.3);
 }
 .pkg.selected::after{
-  content:'✓';
+  content: '\f00c'; /* FontAwesome checkmark icon */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
   position:absolute;
   top:14px; right:14px;
   width:24px; height:24px;
@@ -682,10 +684,11 @@
   background:linear-gradient(135deg,var(--gold-light),var(--gold));
   color:var(--navy-deep);
   font-size:0.8rem;
-  font-weight:800;
-  display:grid;
-  place-items:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   box-shadow:0 4px 12px rgba(212,175,55,0.5);
+  z-index: 10; /* নিশ্চিত করা যে এটি ওপরে থাকবে */
 }
 
 .pkg-header{
@@ -1097,6 +1100,26 @@
     box-shadow:0 24px 60px rgba(212,175,55,0.55);
   }
 
+/* Back Button Style */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--gold-light);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 15px;
+}
+.btn-back:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--gold);
+}
   /* Step 2 Payment UI */
   #step2{ display:none; animation:fadeUp 0.6s ease; }
   .payment-box{
@@ -1365,7 +1388,7 @@ body.sm-logos-ready .footer-logo {
     <span class="dot"></span>
   </div>
 
-  <p>একটি স্পনসর প্যাকেজ বেছে নিন — <strong>১ম ও পেমেন্ট ধাপ কম্পলিট করে সম্পন্ন করুন</strong>। এডমিন আপনার দেওয়া তথ্য যাচাই করে এপ্রুভ করবে</p>
+  <p>আপনি চাইলে স্পনসর প্যাকেজ বেছে নিতে পারেন <span style="color:var(--gold-light);">(ঐচ্ছিক)</span>। প্যাকেজ ছাড়াও রেজিস্ট্রেশন করতে পারবেন। এডমিন যাচাই করে এপ্রুভ করবে।</p>
 
   <div class="hero-stats">
     <div class="hero-stat">
@@ -1441,11 +1464,15 @@ body.sm-logos-ready .footer-logo {
           <!-- 02 Package -->
           <div class="sec-title">
             <span class="dot"></span>
-            <h3>স্পনসর প্যাকেজ</h3>
+            <h3>স্পনসর প্যাকেজ <span style="font-size:0.68em; color:var(--muted); font-weight:400; font-family:'Poppins',sans-serif; letter-spacing:1px;">(ঐচ্ছিক)</span></h3>
             <span class="num">02</span>
           </div>
 
           <div class="field">
+<p style="font-size:0.78rem; color:var(--muted); margin-bottom:12px; padding:0 4px;">
+  <i class="fa-solid fa-circle-info" style="color:var(--gold); margin-right:6px;"></i>
+  প্যাকেজ না নিলে শুধুমাত্র <strong style="color:var(--gold-light);">৳ ১৮০০</strong> বেস রেজিস্ট্রেশন ফি প্রযোজ্য হবে। শিক্ষকদের জন্য সম্পূর্ণ ফ্রি।
+</p>
 <div class="pkg-list">
 
   <!-- Title Sponsor -->
@@ -1499,88 +1526,109 @@ body.sm-logos-ready .footer-logo {
             <span class="num">03</span>
           </div>
 
-          <div class="identity-group">
-            <button type="button" class="id-btn" id="btn-student" onclick="selectIdentity('student')">
-              <i class="fa-solid fa-user-graduate"></i> শিক্ষার্থী
-            </button>
-            <button type="button" class="id-btn" id="btn-teacher" onclick="selectIdentity('teacher')">
-              <i class="fa-solid fa-chalkboard-user"></i> শিক্ষক
-            </button>
-            <button type="button" class="id-btn" id="btn-other" onclick="selectIdentity('other')">
-              <i class="fa-solid fa-user-tie"></i> অন্যান্য
-            </button>
-          </div>
+<div class="identity-group">
+  <button type="button" class="id-btn" id="btn-student" onclick="selectIdentity('student')">
+    <i class="fa-solid fa-user-graduate"></i> শিক্ষার্থী
+  </button>
+  <button type="button" class="id-btn" id="btn-teacher" onclick="selectIdentity('teacher')">
+    <i class="fa-solid fa-chalkboard-user"></i> শিক্ষক
+  </button>
+  <!-- এই ভলান্টিয়ার বাটনটি যোগ করুন -->
+  <button type="button" class="id-btn" id="btn-volunteer" onclick="selectIdentity('volunteer')">
+    <i class="fa-solid fa-hands-helping"></i> ভলান্টিয়ার
+  </button>
+  <button type="button" class="id-btn" id="btn-other" onclick="selectIdentity('other')">
+    <i class="fa-solid fa-user-tie"></i> অন্যান্য
+  </button>
+</div>
 
-          <!-- Dynamic Fields -->
-          <div id="studentFields" style="display:none;">
-            <div class="form-row">
-              <div class="field">
-                <label for="department">ডিপার্টমেন্ট</label>
-                <div class="input-wrap select">
-                  <i class="fa-solid fa-graduation-cap"></i>
-                  <select id="department">
-                    <option value="">ডিপার্টমেন্ট নির্বাচন করুন</option>
-                    <option>কম্পিউটার সায়েন্স অ্যান্ড টেকনোলজি</option>
-                    <option>কনস্ট্রাকশন টেকনোলজি</option>
-                    <option>ইলেকট্রনিক্স টেকনোলজি</option>
-                    <option>আরএসি</option>
-                    <option>সিভিল টেকনোলজি</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field">
-                <label for="session">সেশন</label>
-                <div class="input-wrap select">
-                  <i class="fa-regular fa-calendar"></i>
-                  <select id="session">
-                    <option value="">সেশন নির্বাচন করুন</option>
-                    <option>2015-16</option><option>2016-17</option><option>2017-18</option>
-                    <option>2018-19</option><option>2019-20</option><option>2020-21</option>
-                    <option>2021-22</option><option>2022-23</option><option>2023-24</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
+<!-- Dynamic Fields -->
+<div id="studentFields" style="display:none;">
+  <div class="field">
+    <label for="schoolBatch">স্কুল ও ব্যাচ <span style="color:red">*</span></label>
+    <div class="input-wrap select">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <select id="schoolBatch">
+        <option value="">স্কুল ও ব্যাচ নির্বাচন করুন</option>
+        <option value="bottoli-2015">বটতলী সরকারি প্রাথমিক বিদ্যালয় — ব্যাচ ২০১৫</option>
+        <option value="kulgaw-2021">কুলগাঁও সিটি কর্পোরেশন উচ্চ বিদ্যালয় — ব্যাচ ২০২১</option>
+      </select>
+    </div>
+  </div>
+</div>
 
-          <div id="otherFields" style="display:none;">
-            <div class="field">
-              <label for="profession">পেশা <span class="optional">(ঐচ্ছিক)</span></label>
-              <div class="input-wrap">
-                <i class="fa-solid fa-briefcase"></i>
-                <input type="text" id="profession" placeholder="যেমন: ডাক্তার, ইঞ্জিনিয়ার, ব্যবসায়ী">
-              </div>
-            </div>
-          </div>
+<!-- শিক্ষক ফিল্ড -->
+<div id="teacherFields" style="display:none;">
+  <div class="field">
+    <label for="teacherSchool">আপনি কোন স্কুলে শিক্ষকতা করেন? <span style="color:red">*</span></label>
+    <div class="input-wrap select">
+      <i class="fa-solid fa-school"></i>
+      <select id="teacherSchool" onchange="toggleTeacherSchoolInput()">
+        <option value="">স্কুল নির্বাচন করুন</option>
+        <option value="bottoli">বটতলী সরকারি প্রাথমিক বিদ্যালয়</option>
+        <option value="kulgaw">কুলগাঁও সিটি কর্পোরেশন উচ্চ বিদ্যালয়</option>
+        <option value="other">অন্যান্য (নিজে লিখুন)</option>
+      </select>
+    </div>
+  </div>
 
-          <!-- Common Status & Blood Group -->
-          <div class="form-row">
-            <div class="field">
-              <label for="status">বর্তমানে কী করছেন <span class="optional">(ঐচ্ছিক)</span></label>
-              <div class="input-wrap select">
-                <i class="fa-solid fa-briefcase"></i>
-                <select id="status">
-                  <option value="">নির্বাচন করুন</option>
-                  <option>চাকরি</option>
-                  <option>শিক্ষার্থী</option>
-                  <option>ব্যবসা</option>
-                </select>
-              </div>
-            </div>
-            <div class="field">
-              <label for="bloodGroup">রক্তের গ্রুপ <span class="optional">(ঐচ্ছিক)</span></label>
-              <div class="input-wrap select">
-                <i class="fa-solid fa-droplet"></i>
-                <select id="bloodGroup">
-                  <option value="">নির্বাচন করুন</option>
-                  <option>A+</option><option>A-</option>
-                  <option>B+</option><option>B-</option>
-                  <option>AB+</option><option>AB-</option>
-                  <option>O+</option><option>O-</option>
-                </select>
-              </div>
-            </div>
-          </div>
+  <!-- অন্যান্য স্কুলের জন্য টেক্সট বক্স (লুকানো থাকবে) -->
+  <div class="field" id="otherTeacherSchoolField" style="display:none;">
+    <label for="otherTeacherSchool">অধ্যয়নরত স্কুলের নাম দিন <span style="color:red">*</span></label>
+    <div class="input-wrap">
+      <i class="fa-solid fa-pen"></i>
+      <input type="text" id="otherTeacherSchool" placeholder="অধ্যয়নরত স্কুলের নাম এখানে লিখুন">
+    </div>
+  </div>
+</div>
+
+<!-- ভলান্টিয়ার ফিল্ড -->
+<div id="volunteerFields" style="display:none;">
+  <div class="field">
+    <label for="volunteerArea">কাজের ক্ষেত্র</label>
+    <div class="input-wrap select">
+      <i class="fa-solid fa-hand-holding-heart"></i>
+      <select id="volunteerArea">
+        <option value="">কাজের ক্ষেত্র নির্বাচন করুন</option>
+        <option>রেজিস্ট্রেশন ও অভ্যর্থনা</option>
+        <option>মঞ্চ ও অনুষ্ঠান পরিচালনা</option>
+        <option>খাবার ও আপ্যায়ন</option>
+        <option>সাজসজ্জা ও ভেন্যু ব্যবস্থাপনা</option>
+        <option>অতিথি ব্যবস্থাপনা</option>
+        <option>শিক্ষক অভ্যর্থনা ও আপ্যায়ন</option>
+        <option>শৃঙ্খলা ও নিরাপত্তা</option>
+        <option>স্বেচ্ছাসেবক সমন্বয় ও তদারকি</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div id="otherFields" style="display:none;">
+  <div class="field">
+    <label for="profession">পেশা <span class="optional">(ঐচ্ছিক)</span></label>
+    <div class="input-wrap">
+      <i class="fa-solid fa-briefcase"></i>
+      <input type="text" id="profession" placeholder="যেমন: ডাক্তার, ইঞ্জিনিয়ার, ব্যবসায়ী">
+    </div>
+  </div>
+</div>
+
+<!-- Common Blood Group (Status Removed) -->
+<div class="form-row">
+  <div class="field">
+    <label for="bloodGroup">রক্তের গ্রুপ <span class="optional">(ঐচ্ছিক)</span></label>
+    <div class="input-wrap select">
+      <i class="fa-solid fa-droplet"></i>
+      <select id="bloodGroup">
+        <option value="">নির্বাচন করুন</option>
+        <option>A+</option><option>A-</option>
+        <option>B+</option><option>B-</option>
+        <option>AB+</option><option>AB-</option>
+        <option>O+</option><option>O-</option>
+      </select>
+    </div>
+  </div>
+</div>
 
           <!-- 04 Extras -->
           <div class="sec-title">
@@ -1661,16 +1709,24 @@ body.sm-logos-ready .footer-logo {
       </div>
 
 
-      <!-- ================= STEP 2: PAYMENT ================= -->
-      <div id="step2">
-        <div class="payment-box">
-          <h3 style="color:var(--muted); font-size:1rem;">মোট পরিশোধযোগ্য</h3>
-          <div class="pay-amount" id="displayAmount">৳ ০</div>
-          <p style="color:#b8c2d9; font-size:0.85rem;">অনুগ্রহ করে নিচের যেকোনো একটি মাধ্যমে পেমেন্ট সম্পন্ন করুন।</p>
-        </div>
+<!-- ================= STEP 2: PAYMENT ================= -->
+<div id="step2">
+  
+  <!-- ✅ ফিরে যাওয়ার বাটন -->
+  <div style="text-align: left;">
+    <button type="button" class="btn-back" onclick="goToPreviousStep()">
+      <i class="fa-solid fa-arrow-left"></i> পূর্ববর্তী ধাপে ফিরে যান
+    </button>
+  </div>
 
-        <!-- Payment Methods -->
-        <div class="pay-methods" id="paymentOptions">
+  <div class="payment-box">
+    <h3 style="color:var(--muted); font-size:1rem;">মোট পরিশোধযোগ্য</h3>
+    <div class="pay-amount" id="displayAmount">৳ ০</div>
+    <p style="color:#b8c2d9; font-size:0.85rem;">অনুগ্রহ করে নিচের যেকোনো একটি মাধ্যমে পেমেন্ট সম্পন্ন করুন।</p>
+  </div>
+
+  <!-- Payment Methods -->
+  <div class="pay-methods" id="paymentOptions">
           <button class="pay-btn" onclick="showPaymentForm('bKash')">
             <i class="fa-solid fa-mobile-screen" style="color:#e2136e;"></i> bKash
           </button>
@@ -1681,6 +1737,7 @@ body.sm-logos-ready .footer-logo {
             <i class="fa-solid fa-mobile-screen" style="color:#8a1e82;"></i> Rocket
           </button>
         </div>
+
 
         <!-- Payment Form (Hidden by default) -->
         <div id="paymentDetailsForm">
@@ -1812,7 +1869,8 @@ body.sm-logos-ready .footer-logo {
   });
 
   /* ====== PACKAGE & IDENTITY LOGIC ====== */
-  let selectedPrice = 0;
+let selectedPrice = 0;
+const BASE_FEE = 1800;   // ✅ নতুন: প্যাকেজ না নিলে বেস রেজিস্ট্রেশন ফি
   let isTeacher = false;
   let currentMethod = '';
 
@@ -1930,15 +1988,17 @@ function openBenefitModal(event, packageId) {
     });
     bodyHTML += `</ul></div>`;
   });
-  document.getElementById('bmBody').innerHTML = bodyHTML;
-
-  // বাটন সেট করা
-  document.getElementById('bmSelectBtn').onclick = function() {
-    // মডাল থেকে সিলেক্ট করলে মেইন কার্ডটি সিলেক্ট হবে
-    const pkgCard = document.querySelector(`.pkg[data-package="${currentModalPackageId}"]`);
-    if(pkgCard) selectPackage(pkgCard);
-    closeBenefitModal();
-  };
+document.getElementById('bmSelectBtn').onclick = function() {
+  const pkgCard = document.querySelector(`.pkg[data-package="${currentModalPackageId}"]`);
+  if(pkgCard) {
+    // সব কার্ড থেকে সিলেক্ট রিমুভ করে নতুন কার্ড ফোর্স সিলেক্ট করা
+    document.querySelectorAll('.pkg').forEach(item => item.classList.remove('selected'));
+    pkgCard.classList.add('selected');
+    selectedPrice = parseInt(pkgCard.getAttribute('data-price'));
+    updatePriceDisplay();
+  }
+  closeBenefitModal();
+};
 
   // মডাল দেখানো
   document.getElementById('benefitModal').classList.add('show');
@@ -1949,13 +2009,19 @@ function closeBenefitModal() {
   document.getElementById('benefitModal').classList.remove('show');
 }
 
-  function selectPackage(el){
+function selectPackage(el){
+  // যদি আগে থেকেই সিলেক্ট করা থাকে, তবে আন-সিলেক্ট (Un-tick) হবে
+  if(el.classList.contains('selected')){
+    el.classList.remove('selected');
+    selectedPrice = 0;
+  } else {
+    // অন্যথায় সব কার্ড থেকে সিলেক্ট সরিয়ে নতুন কার্ড সিলেক্ট হবে
     document.querySelectorAll('.pkg').forEach(item => item.classList.remove('selected'));
     el.classList.add('selected');
     selectedPrice = parseInt(el.getAttribute('data-price'));
-    updatePriceDisplay();
   }
-
+  updatePriceDisplay();
+}
 function toggleBenefits(event, btn) {
   // Prevent the package from being selected when clicking the button
   event.stopPropagation(); 
@@ -1968,26 +2034,47 @@ function toggleBenefits(event, btn) {
   wrapper.classList.toggle('show');
 }
 
-  function selectIdentity(type){
-    document.querySelectorAll('.id-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('btn-' + type).classList.add('active');
-    
-    document.getElementById('studentFields').style.display = 'none';
-    document.getElementById('otherFields').style.display = 'none';
+function selectIdentity(type){
+  document.querySelectorAll('.id-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('btn-' + type).classList.add('active');
+  
+  // সব ডাইনামিক ফিল্ড আগে লুকিয়ে ফেলা
+  document.getElementById('studentFields').style.display = 'none';
+  document.getElementById('teacherFields').style.display = 'none'; // 👈 এই লাইনটি নতুন যোগ করুন
+  document.getElementById('volunteerFields').style.display = 'none';
+  document.getElementById('otherFields').style.display = 'none';
 
-    if(type === 'student') {
-      document.getElementById('studentFields').style.display = 'block';
-      isTeacher = false;
-    } 
-    else if(type === 'teacher') {
-      isTeacher = true;
-    } 
-    else if(type === 'other') {
-      document.getElementById('otherFields').style.display = 'block';
-      isTeacher = false;
-    }
-    updatePriceDisplay();
+  if(type === 'student') {
+    document.getElementById('studentFields').style.display = 'block';
+    isTeacher = false;
+  } 
+  else if(type === 'teacher') {
+    document.getElementById('teacherFields').style.display = 'block'; // 👈 এই লাইনটি নতুন যোগ করুন
+    isTeacher = true;
+  } 
+  else if(type === 'volunteer') {
+    document.getElementById('volunteerFields').style.display = 'block';
+    isTeacher = false;
   }
+  else if(type === 'other') {
+    document.getElementById('otherFields').style.display = 'block';
+    isTeacher = false;
+  }
+  updatePriceDisplay();
+}
+
+// শিক্ষক "অন্যান্য" স্কুল সিলেক্ট করলে টেক্সট বক্স দেখানোর ফাংশন
+function toggleTeacherSchoolInput() {
+  const schoolValue = document.getElementById('teacherSchool').value;
+  const otherField = document.getElementById('otherTeacherSchoolField');
+  
+  if (schoolValue === 'other') {
+    otherField.style.display = 'block';
+  } else {
+    otherField.style.display = 'none';
+    document.getElementById('otherTeacherSchool').value = ''; // ভ্যালু ক্লিয়ার
+  }
+}
 
 function updatePriceDisplay() {
   document.querySelectorAll('.pkg').forEach(pkg => {
@@ -2052,60 +2139,110 @@ function previewPaymentScreenshot(event){
   reader.readAsDataURL(file);
 }
   /* ====== VALIDATION & NEXT STEP ====== */
-  function validateAndGoNext() {
-    const name = document.getElementById('fullName').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const agree = document.getElementById('agree').checked;
-    const selectedPkg = document.querySelector('.pkg.selected');
-    const activeIdentity = document.querySelector('.id-btn.active');
+function validateAndGoNext() {
+  const name = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const agree = document.getElementById('agree').checked;
+  const activeIdentity = document.querySelector('.id-btn.active');
 
-    if(!name || !email || !phone) {
-      alert('অনুগ্রহ করে পূর্ণ নাম, ইমেইল এবং ফোন নম্বর সঠিকভাবে পূরণ করুন।');
-      return;
-    }
-    if(!selectedPkg) {
-      alert('অনুগ্রহ করে একটি স্পনসর প্যাকেজ নির্বাচন করুন।');
-      return;
-    }
-    if(!activeIdentity) {
-      alert('অনুগ্রহ করে আপনার পরিচয় (শিক্ষার্থী/শিক্ষক/অন্যান্য) নির্বাচন করুন।');
-      return;
-    }
-    if(!agree) {
-      alert('অনুগ্রহ করে শর্তাবলীতে সম্মতি দিন।');
-      return;
-    }
+  if(!name || !email || !phone) {
+    alert('অনুগ্রহ করে পূর্ণ নাম, ইমেইল এবং ফোন নম্বর সঠিকভাবে পূরণ করুন।');
+    return;
+  }
+  if(!activeIdentity) {
+    alert('অনুগ্রহ করে আপনার পরিচয় (শিক্ষার্থী/শিক্ষক/অন্যান্য) নির্বাচন করুন।');
+    return;
+  }
 
-    // Switch to Step 2
-    document.getElementById('stepIndicator1').classList.remove('active');
-    document.getElementById('stepIndicator2').classList.add('active');
-    document.getElementById('step1').style.display = 'none';
-    document.getElementById('step2').style.display = 'block';
+  // শিক্ষার্থী হলে স্কুল ও ব্যাচ সিলেক্ট করা বাধ্যতামূলক
+  if (document.getElementById('btn-student').classList.contains('active')) {
+    const schoolBatch = document.getElementById('schoolBatch').value;
+    if (!schoolBatch) {
+      alert('অনুগ্রহ করে আপনার স্কুল ও ব্যাচ নির্বাচন করুন।');
+      return;
+    }
+  }
 
-    // Set Amount
-    let finalAmount = selectedPrice;
-    if(isTeacher) finalAmount = 0;
+  // শিক্ষক হলে স্কুল সিলেক্ট করা বাধ্যতামূলক
+  if (document.getElementById('btn-teacher').classList.contains('active')) {
+    const teacherSchool = document.getElementById('teacherSchool').value;
+    if (!teacherSchool) {
+      alert('অনুগ্রহ করে আপনার স্কুল নির্বাচন করুন।');
+      return;
+    }
+    if (teacherSchool === 'other' && !document.getElementById('otherTeacherSchool').value.trim()) {
+      alert('অনুগ্রহ করে আপনার স্কুলের নাম লিখুন।');
+      return;
+    }
+  }
+
+  if(!agree) {
+    alert('অনুগ্রহ করে শর্তাবলীতে সম্মতি দিন।');
+    return;
+  }
+
+  // Switch to Step 2
+  document.getElementById('stepIndicator1').classList.remove('active');
+  document.getElementById('stepIndicator2').classList.add('active');
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
+
+  // ✅ নতুন লজিক: শিক্ষক = ০ | প্যাকেজ থাকলে প্যাকেজের দাম | না থাকলে ১৮০০ বেস ফি
+  let finalAmount;
+  if(isTeacher) {
+    finalAmount = 0;
+  } else if(selectedPrice > 0) {
+    finalAmount = selectedPrice;
+  } else {
+    finalAmount = BASE_FEE;
+  }
+
+  const displayAmount = document.getElementById('displayAmount');
+  if(isTeacher) {
+    displayAmount.textContent = 'ফ্রি (শিক্ষক)';
+  } else if(selectedPrice > 0) {
+    displayAmount.textContent = `৳ ${convertToBn(finalAmount)}`;
+  } else {
+    displayAmount.innerHTML = `৳ ${convertToBn(BASE_FEE)} <span style="font-size:0.6em; color:var(--muted); font-weight:400;">(বেস ফি)</span>`;
+  }
+
+  // ✅ শুধুমাত্র শিক্ষক হলে পেমেন্ট স্কিপ হবে
+  if(isTeacher) {
+    document.getElementById('paymentOptions').style.display = 'none';
+    document.getElementById('paymentDetailsForm').style.display = 'none';
+    document.getElementById('paymentLoading').style.display = 'flex';
     
-    document.getElementById('displayAmount').textContent = finalAmount === 0 ? 'ফ্রি' : `৳ ${convertToBn(finalAmount)}`;
+    const h3 = document.querySelector('#paymentLoading h3');
+    const p  = document.querySelector('#paymentLoading p');
+    h3.textContent = 'রেজিস্ট্রেশন সম্পন্ন হয়েছে!';
+    h3.style.color = 'var(--gold-light)';
+    p.innerHTML = 'শিক্ষক হিসেবে আপনার পরিচয় যাচাই করা হচ্ছে। <strong>এডমিন আপনার ফর্মটি অ্যাপ্রুভ করলেই</strong> রেজিস্ট্রেশনটি চূড়ান্ত হবে।';
+    
+    document.querySelector('.spinner').style.display = 'none';
+  }
 
-
-// If Teacher, Skip Payment Options
-if(finalAmount === 0) {
-  document.getElementById('paymentOptions').style.display = 'none';
-  document.getElementById('paymentDetailsForm').style.display = 'none';
-  document.getElementById('paymentLoading').style.display = 'flex';
-  
-  // ✅ নতুন মেসেজ এখানে সেট করা হয়েছে
-  document.querySelector('#paymentLoading h3').textContent = 'রেজিস্ট্রেশন সম্পন্ন হয়েছে!';
-  document.querySelector('#paymentLoading h3').style.color = 'var(--gold-light)';
-  document.querySelector('#paymentLoading p').innerHTML = 'শিক্ষক হিসেবে আপনার পরিচয় যাচাই করা হচ্ছে। <strong>এডমিন আপনার ফর্মটি অ্যাপ্রুভ করলেই</strong> রেজিস্ট্রেশনটি চূড়ান্ত হবে।';
-  
-  document.querySelector('.spinner').style.display = 'none';
+  document.querySelector('.wrap').scrollIntoView({ behavior: 'smooth' });
 }
 
-    document.querySelector('.wrap').scrollIntoView({ behavior: 'smooth' });
-  }
+// ✅ পূর্ববর্তী ধাপে ফিরে যাওয়ার ফাংশন
+function goToPreviousStep() {
+  // Step 2 লুকিয়ে Step 1 দেখানো
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step1').style.display = 'block';
+
+  // স্টেপ ইন্ডিকেটর আপডেট করা
+  document.getElementById('stepIndicator2').classList.remove('active');
+  document.getElementById('stepIndicator1').classList.add('active');
+
+  // পেমেন্ট অপশন রিসেট করা (যাতে ফিরে এসে আবার পেমেন্ট মেথডগুলো ঠিকমতো দেখায়)
+  document.getElementById('paymentOptions').style.display = 'flex';
+  document.getElementById('paymentDetailsForm').style.display = 'none';
+  document.getElementById('paymentLoading').style.display = 'none';
+
+  // উপরে স্ক্রল করে ফর্মে নিয়ে যাওয়া
+  document.querySelector('.wrap').scrollIntoView({ behavior: 'smooth' });
+}
 
   /* ====== PAYMENT FLOW ====== */
   function showPaymentForm(method) {
